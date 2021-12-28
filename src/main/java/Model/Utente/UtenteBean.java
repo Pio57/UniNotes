@@ -6,6 +6,7 @@ public class UtenteBean {
     private int idUtente;
     private String nome;
     private String cognome;
+    private String cf;
     private String email;
     private LocalDate ddn;
     private String password;
@@ -13,23 +14,34 @@ public class UtenteBean {
 
     public UtenteBean(){ }
 
-    public UtenteBean(int idUtente, String nome, String cognome, String email, LocalDate ddn, String password, boolean tipo) {
-        this.idUtente = idUtente;
+
+    public UtenteBean(String nome, String cognome, String cf, String email, LocalDate ddn, String password, boolean tipo) {
         this.nome = nome;
         this.cognome = cognome;
+        this.cf = cf;
         this.email = email;
         this.ddn = ddn;
         this.password = password;
         this.tipo = tipo;
     }
 
-    public UtenteBean(String nome, String cognome, String email, LocalDate ddn, String password, boolean tipo) {
+    public UtenteBean(int idUtente, String nome, String cognome, String cf, String email, LocalDate ddn, String password, boolean tipo) {
+        this.idUtente = idUtente;
         this.nome = nome;
         this.cognome = cognome;
+        this.cf = cf;
         this.email = email;
         this.ddn = ddn;
         this.password = password;
         this.tipo = tipo;
+    }
+
+    public String getCf() {
+        return cf;
+    }
+
+    public void setCf(String cf) {
+        this.cf = cf;
     }
 
     public void setIdUtente(int idUtente) {
