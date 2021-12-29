@@ -7,14 +7,16 @@ import java.util.ArrayList;
 
 public class MaterialeDidatticoDao {
 
-    public boolean doSave(MaterialeDidatticoBean m){
+    public boolean doSave(MaterialeDidatticoBean m, int idCorso,int idUtente){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO MaterialeDidattico (nome, pathFile) VALUES(?,?)",
+                    "INSERT INTO MaterialeDidattico (nome, pathFile,idCorso,idUtente) VALUES(?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1, m.getNome());
             ps.setString(2, m.getPathFile());
+            ps.setInt(3,idCorso);
+            ps.setInt(4,idUtente);
 
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
