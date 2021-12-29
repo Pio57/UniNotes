@@ -1,12 +1,15 @@
 package Model.Libretto;
 
 import Model.Esame.EsameBean;
+import Model.Utente.UtenteBean;
 
 import java.util.ArrayList;
 
 public class LibrettoBean {
     private ArrayList<EsameBean> listaEsami;
-    private int idLista;
+    private int idLista,nunEsami,cfuCrediti;
+    private float media;
+
 
     public LibrettoBean() { }
 
@@ -35,4 +38,27 @@ public class LibrettoBean {
         this.listaEsami = esami;
     }
 
+    public int getNunEsami() {
+        return nunEsami;
+    }
+
+    public void setNunEsami(int nunEsami) {
+        this.nunEsami = nunEsami;
+    }
+
+    public int getCfuCrediti() {
+        return cfuCrediti;
+    }
+
+    public void setCfuCrediti(int cfuCrediti) {
+        this.cfuCrediti = cfuCrediti;
+    }
+
+    public float getMedia() {
+        return media;
+    }
+
+    public void setMedia(float media) {
+        this.media = media;
+    }
 }
