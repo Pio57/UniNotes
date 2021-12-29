@@ -1,20 +1,19 @@
 package Model.Libretto;
 
 import Model.Esame.EsameBean;
-import Model.Utente.UtenteBean;
 
 import java.util.ArrayList;
 
 public class LibrettoBean {
     private ArrayList<EsameBean> listaEsami;
-    private int idLista,nunEsami,cfuCrediti;
+    private int idLibretto,nunEsami,cfuCrediti;
     private float media;
 
 
     public LibrettoBean() { }
 
-    public LibrettoBean(int idLista, ArrayList<EsameBean> esami) {
-        this.idLista = idLista;
+    public LibrettoBean(int idLibretto, ArrayList<EsameBean> esami) {
+        this.idLibretto = idLibretto;
         this.listaEsami = esami;
     }
 
@@ -22,12 +21,12 @@ public class LibrettoBean {
         this.listaEsami = esame;
     }
 
-    public int getIdLista() {
-        return idLista;
+    public int getIdLibretto() {
+        return idLibretto;
     }
 
-    public void setIdLista(int idLista) {
-        this.idLista = idLista;
+    public void setIdLibretto(int idLibretto) {
+        this.idLibretto = idLibretto;
     }
 
     public ArrayList<EsameBean> getListaEsami() {
