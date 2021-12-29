@@ -17,7 +17,7 @@ import java.util.ArrayList;
 @WebServlet(name = "LibrettoServlet", value = "/Libretto/*")
 public class LibrettoServlet extends HttpServlet {
 
-    /*@Override
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -27,40 +27,37 @@ public class LibrettoServlet extends HttpServlet {
 
     }
 
-    private ArrayList<LibrettoBean> visualizzaCorsi(){
+    private ArrayList<LibrettoBean> visualizzaLibretto(){
         LibrettoDao ld = new LibrettoDao();
-        return ld.dore;
+        return ld.doRetriveAll();
     }
 
-    private CorsoBean visualizzaCorso(int id){
-        CorsoDao cd = new CorsoDao();
-        return cd.doRetriveById(id);
+    private LibrettoBean visualizzaLibretto(int id){
+        LibrettoDao lb = new LibrettoDao();
+        return lb.doRetriveById(id);
     }
 
-    private CorsoBean inserisciCorso(CorsoBean c){
-        CorsoDao cd = new CorsoDao();
-        if(cd.doSave(c))
-            return c;
+    private LibrettoBean inserisciLibretto(LibrettoBean l){
+        LibrettoDao ld = new LibrettoDao();
+        if(ld.doSave(l))
+            return l;
         return null;
     }
 
-    private CorsoBean eliminaCorso(CorsoBean c){
-        CorsoDao cd = new CorsoDao();
-        if(cd.doDelate(c.getId()))
-            return c;
+    private LibrettoBean eliminaLibretto(LibrettoBean l){
+        LibrettoDao ld = new LibrettoDao();
+        if(ld.doDelate(l.getIdLibretto()))
+            return l;
         return null;
     }
 
-    private CorsoBean modificaCorso(CorsoBean c){
-        CorsoDao cd = new CorsoDao();
-        if(cd.doUpdate(c))
-            return c;
+    private LibrettoBean modificaLibretto(LibrettoBean l){
+       LibrettoDao ld = new LibrettoDao();
+        if(ld.doUpdate(l))
+            return l;
         return null;
     }
 
-    private ArrayList<MaterialeDidatticoBean> visualizzaTuttoIlMateriale(int id){//qui ho aggiunto l'id per individuare il corso
-        CorsoDao cd = new CorsoDao();
-        return cd.doRetriveById(id).getListaMateriale();
-    }*/
+
 
 }

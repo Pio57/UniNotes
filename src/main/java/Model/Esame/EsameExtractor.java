@@ -1,7 +1,5 @@
 package Model.Esame;
 
-import Model.Libretto.LibrettoBean;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

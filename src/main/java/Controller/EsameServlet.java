@@ -42,8 +42,7 @@ public class EsameServlet extends HttpServlet {
 
     private EsameBean modificaEsame(EsameBean e){ /// da rivedere
         EsameDao ed = new EsameDao();
-        ed.doUpdate(e);
-        if( ed.doSave(e))
+        if( ed.doUpdate(e))
             return e;
         return null;
     }
