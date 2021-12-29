@@ -40,7 +40,7 @@ public class EsameDao {
             ps.setFloat(2, esameBean.getVoto());
             ps.setInt(3, esameBean.getCfu());
             ps.setObject(4, esameBean.getData());
-            ps.setString(1, esameBean.getNomeProfessore());
+            ps.setString(5, esameBean.getNomeProfessore());
 
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
