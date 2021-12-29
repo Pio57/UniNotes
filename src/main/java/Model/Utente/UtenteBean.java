@@ -1,5 +1,8 @@
 package Model.Utente;
 
+import Model.Libretto.LibrettoBean;
+import Model.ListaPreferiti.ListaPreferitiBean;
+
 import java.time.LocalDate;
 
 public class UtenteBean {
@@ -11,6 +14,8 @@ public class UtenteBean {
     private LocalDate ddn;
     private String password;
     private boolean tipo;
+    private LibrettoBean libretto;
+    private ListaPreferitiBean listaPreferiti;
 
     public UtenteBean(){ }
 
@@ -34,6 +39,40 @@ public class UtenteBean {
         this.ddn = ddn;
         this.password = password;
         this.tipo = tipo;
+    }
+
+    public UtenteBean(int idUtente, String nome, String cognome, String cf, String email, LocalDate ddn, String password, boolean tipo,LibrettoBean libretto) {
+        this.idUtente = idUtente;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.cf = cf;
+        this.email = email;
+        this.ddn = ddn;
+        this.password = password;
+        this.tipo = tipo;
+        this.libretto = libretto;
+    }
+
+    public UtenteBean(int idUtente, String nome, String cognome, String cf, String email, LocalDate ddn, String password, boolean tipo,LibrettoBean libretto,ListaPreferitiBean listaPreferiti) {
+        this.idUtente = idUtente;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.cf = cf;
+        this.email = email;
+        this.ddn = ddn;
+        this.password = password;
+        this.tipo = tipo;
+        this.libretto = libretto;
+        this.listaPreferiti = listaPreferiti;
+    }
+
+
+    public LibrettoBean getLibretto() {
+        return libretto;
+    }
+
+    public ListaPreferitiBean getListaPreferiti() {
+        return listaPreferiti;
     }
 
     public String getCf() {
@@ -98,5 +137,13 @@ public class UtenteBean {
 
     public boolean isTipo() {
         return tipo;
+    }
+
+    public void setLibretto(LibrettoBean libretto) {
+        this.libretto = libretto;
+    }
+
+    public void setListaPreferiti(ListaPreferitiBean listaPreferiti) {
+        this.listaPreferiti = listaPreferiti;
     }
 }
