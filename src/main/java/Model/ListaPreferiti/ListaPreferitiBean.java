@@ -6,13 +6,13 @@ import java.util.ArrayList;
 
 public class ListaPreferitiBean {
 
-    private int idLista;
+    private int idUtente;
     private ArrayList<CorsoBean> corsi;
 
     public ListaPreferitiBean() { }
 
-    public ListaPreferitiBean(int idLista, ArrayList<CorsoBean> corsi) {
-        this.idLista = idLista;
+    public ListaPreferitiBean(int idUtente,ArrayList<CorsoBean> corsi) {
+        this.idUtente = idUtente;
         this.corsi = corsi;
     }
 
@@ -20,16 +20,16 @@ public class ListaPreferitiBean {
         this.corsi = corsi;
     }
 
-    public int getIdLista() {
-        return idLista;
-    }
-
-    public void setIdLista(int idLista) {
-        this.idLista = idLista;
+    public int getIdUtente() {
+        return idUtente;
     }
 
     public ArrayList<CorsoBean> getCorsi() {
         return corsi;
+    }
+
+    public void setIdUtente(int idUtente) {
+        this.idUtente = idUtente;
     }
 
     public void setCorsi(ArrayList<CorsoBean> corsi) {
