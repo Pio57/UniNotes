@@ -34,10 +34,11 @@ public class CorsoDao {
         }
     }
 
-    /* metodo da rivedere
+
 
 
     public ArrayList<CorsoBean> doRetriveAll(){
+        /* metodo da rivedere
         ArrayList<CorsoBean> corsi = new ArrayList<>();
         ArrayList<MaterialeDidatticoBean> materiali;
         try (Connection con = ConPool.getConnection()) {
@@ -61,9 +62,11 @@ public class CorsoDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        */
+         return null;
     }
 
-    */
+
 
 
     public CorsoBean doRetriveById(int id){

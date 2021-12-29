@@ -3,6 +3,7 @@ package Controller;
 import Model.Corso.CorsoBean;
 import Model.MaterialeDidattico.MaterialeDidatticoBean;
 import Model.MaterialeDidattico.MaterialeDidatticoDao;
+import Model.Utente.UtenteBean;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -12,8 +13,12 @@ import java.util.ArrayList;
 
 @WebServlet(name = "MaterialeDidatticoServlet", value = "/Materiale/*")
 public class MaterialeDidatticoServlet extends HttpServlet {
+
+    UtenteBean u;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 
     }
 
@@ -22,12 +27,26 @@ public class MaterialeDidatticoServlet extends HttpServlet {
 
     }
 
-    private MaterialeDidatticoBean inserireMateriale(MaterialeDidatticoBean m, CorsoBean c,int idUtente){//qui ho aggiunto un parametro in più
+    private MaterialeDidatticoBean inserireMateriale(MaterialeDidatticoBean m, int idCorso,int idUtente){//qui ho aggiunto un parametro in più
         MaterialeDidatticoDao md = new MaterialeDidatticoDao();
-        if( md.doSave(m,c.getId(),idUtente))
+        if( md.doSave(m,idCorso,idUtente))
             return m;
         return null;
     }
+
+    private ArrayList<MaterialeDidatticoBean> eliminaMateriale(MaterialeDidatticoBean m, CorsoBean c){
+        MaterialeDidatticoDao md = new MaterialeDidatticoDao();
+        md.doDelate(m.getId());
+        return md.doRetriveAllByIdUtente(u.getIdUtente());
+    }
+
+    private MaterialeDidatticoBean eliminaMateriale(MaterialeDidatticoBean m){
+        MaterialeDidatticoDao md = new MaterialeDidatticoDao();
+         if(md.doUpdate(m))
+             return m;
+         return null;
+    }
+
 
 
 }
