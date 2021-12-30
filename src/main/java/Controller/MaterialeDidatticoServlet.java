@@ -19,7 +19,6 @@ public class MaterialeDidatticoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
     }
 
     @Override
@@ -40,7 +39,7 @@ public class MaterialeDidatticoServlet extends HttpServlet {
         return md.doRetriveAllByIdUtente(u.getIdUtente());
     }
 
-    private MaterialeDidatticoBean eliminaMateriale(MaterialeDidatticoBean m){
+    private MaterialeDidatticoBean modificaMateriale(MaterialeDidatticoBean m){
         MaterialeDidatticoDao md = new MaterialeDidatticoDao();
          if(md.doUpdate(m))
              return m;
