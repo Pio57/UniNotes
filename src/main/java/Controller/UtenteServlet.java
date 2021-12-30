@@ -16,17 +16,28 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet(name = "UtenteServlet", value = "/UtenteServlet")
+@WebServlet(name = "UtenteServlet", value = "/Utente/*")
 public class UtenteServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response){
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
-
+        switch (path){
+            case "/registrazione":{
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/registrazione.jsp").forward(request,response);
+                break;
+            }
+        }
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response){
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
+        switch (path){
+            case "/registrazione":{
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/registrazione.jsp").forward(request,response);
+                break;
+            }
+        }
     }
 
     private void registrazione(UtenteBean u) throws SQLException {

@@ -7,7 +7,6 @@ import Model.Esame.EsameBean;
 import Model.Esame.EsameExtractor;
 import Model.MaterialeDidattico.MaterialeDidatticoBean;
 import Model.MaterialeDidattico.MaterialeDidatticoExtractor;
-import sun.java2d.loops.BlitBg;
 
 import java.sql.*;
 import java.util.ArrayList;
