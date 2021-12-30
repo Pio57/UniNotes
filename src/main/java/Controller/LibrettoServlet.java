@@ -19,12 +19,25 @@ public class LibrettoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
+        switch (path){
+            case "/visualizzaLibretto":{
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaLibretto/visualizzaLibretto").forward(request,response);
+                break;
+            }
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
+        switch (path){
 
+            case "/visualizzaLibretto":{
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizza.jsp").forward(request,response);
+                break;
+            }
+        }
     }
 
     private ArrayList<LibrettoBean> visualizzaLibretto(){
@@ -37,7 +50,8 @@ public class LibrettoServlet extends HttpServlet {
         return lb.doRetriveById(id);
     }
 
-    private LibrettoBean inserisciLibretto(LibrettoBean l){
+    private LibrettoBean inserisciLibretto(int ne, int cc, float media){
+        LibrettoBean l = new LibrettoBean(ne,cc,media);
         LibrettoDao ld = new LibrettoDao();
         if(ld.doSave(l))
             return l;

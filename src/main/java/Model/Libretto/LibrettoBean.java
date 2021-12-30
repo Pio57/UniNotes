@@ -17,6 +17,14 @@ public class LibrettoBean {
         this.listaEsami = esami;
     }
 
+    public LibrettoBean(int nunEsami, int cfuCrediti, float media){
+        this.nunEsami=nunEsami;
+        this.cfuCrediti=cfuCrediti;
+        this.media=media;
+    }
+
+
+
     public LibrettoBean(ArrayList<EsameBean> esame) {
         this.listaEsami = esame;
     }
