@@ -30,10 +30,15 @@ public class CorsoServlet extends HttpServlet {
                 break;
             }
             case "/visualizza":{
+                CorsoBean c = visualizzaCorso(2);
+                request.setAttribute("Corso",c);//togliere l'id statico --> mettendone uno dinamico
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizza.jsp").forward(request,response);
                 break;
             }
             case "/visualizzaTutti":{
+                ArrayList<CorsoBean> c = visualizzaCorsi();
+                System.out.println(c.get(0).getNome());
+                request.setAttribute("corsi",visualizzaCorsi());
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizzaTutti.jsp").forward(request,response);
                 break;
             }
@@ -49,15 +54,22 @@ public class CorsoServlet extends HttpServlet {
                 String descrizione = request.getParameter("Descrizione");
                 String nomeProfessore = request.getParameter("NomeProfessore");
                 inserisciCorso(nome,descrizione,nomeProfessore);
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("/UniNotes_war_exploded/");
                 break;
             }
             case "/elimina":{
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/elimina.jsp").forward(request,response);
+                String id = request.getParameter("id");
+                eliminaCorso(Integer.parseInt(id));
+                request.getRequestDispatcher("/UniNotes_war_exploded/").forward(request,response);
                 break;
             }
             case "/modifica":{
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/modifica.jsp").forward(request,response);
+                String id = request.getParameter("idCorso");
+                String nome = request.getParameter("Nome");
+                String descrizione = request.getParameter("Descrizione");
+                String nomeProfessore = request.getParameter("NomeProfessore");
+                modificaCorso(Integer.parseInt(id),nome,descrizione,nomeProfessore);
+                response.sendRedirect("/UniNotes_war_exploded/");
                 break;
             }
             case "/visualizza":{
@@ -81,7 +93,7 @@ public class CorsoServlet extends HttpServlet {
         return cd.doRetriveById(id);
     }
 
-    private CorsoBean inserisciCorso( String nome, String descrizione,String nomeProfessore){
+    private CorsoBean inserisciCorso( String nome, String descrizione,String nomeProfessore){ //ho modificato i parametri da passare --> modifira nell' odd
         CorsoBean c = new CorsoBean(nome,descrizione,nomeProfessore);
         CorsoDao cd = new CorsoDao();
         if(cd.doSave(c))
@@ -89,21 +101,22 @@ public class CorsoServlet extends HttpServlet {
         return null;
     }
 
-    private CorsoBean eliminaCorso(CorsoBean c){
+    private boolean eliminaCorso(int idCorso){//qui ho aggiunto l'id per individuare il corso --> modificare nell'odd
         CorsoDao cd = new CorsoDao();
-        if(cd.doDelate(c.getId()))
-            return c;
-        return null;
+        if(cd.doDelate(idCorso))
+            return true;
+        return false;
     }
 
-    private CorsoBean modificaCorso(CorsoBean c){
+    private CorsoBean modificaCorso(int id,String nome, String descrizione,String nomeProfessore){
         CorsoDao cd = new CorsoDao();
+        CorsoBean c = new CorsoBean(id,nome,descrizione,nomeProfessore);
         if(cd.doUpdate(c))
             return c;
         return null;
     }
 
-    private ArrayList<MaterialeDidatticoBean> visualizzaTuttoIlMateriale(int id){//qui ho aggiunto l'id per individuare il corso
+    private ArrayList<MaterialeDidatticoBean> visualizzaTuttoIlMateriale(int id){
         CorsoDao cd = new CorsoDao();
         return cd.doRetriveById(id).getListaMateriale();
     }

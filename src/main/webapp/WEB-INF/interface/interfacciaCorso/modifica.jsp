@@ -12,5 +12,15 @@
 </head>
 <body>
 
+
+<form method="post" action="/UniNotes_war_exploded/Corso/modifica">
+    <input required id="idCorso" name="idCorso" placeholder="idCorso">
+    <input required id="Nome" name="Nome" placeholder="Nome">
+    <input required id="Descrizione" name="Descrizione" placeholder="Descrizione">
+    <input required id="NomeProfessore" name="NomeProfessore" placeholder="Nome professore">
+    <button type="submit" >Modifica</button>
+
+</form>
+
 </body>
 </html>

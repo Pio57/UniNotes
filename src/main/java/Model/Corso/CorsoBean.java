@@ -36,6 +36,13 @@ public class CorsoBean {
         this.listaMateriale = listaMateriale;
     }
 
+    public CorsoBean(int id,String nome,String descrizione,String nomeProfessore){
+        this.id = id;
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.nomeProfessore = nomeProfessore;
+    }
+
     public int getId() {
         return id;
     }

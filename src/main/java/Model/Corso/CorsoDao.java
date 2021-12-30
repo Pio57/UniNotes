@@ -2,6 +2,7 @@ package Model.Corso;
 
 import Model.ConPool;
 import Model.MaterialeDidattico.MaterialeDidatticoBean;
+import Model.MaterialeDidattico.MaterialeDidatticoDao;
 import Model.MaterialeDidattico.MaterialeDidatticoExtractor;
 
 import java.sql.*;
@@ -37,33 +38,31 @@ public class CorsoDao {
 
 
 
-    public ArrayList<CorsoBean> doRetriveAll(){
-        /* metodo da rivedere
+    public ArrayList<CorsoBean> doRetriveAll(){//l'implementazione non è una delle migliori
+
         ArrayList<CorsoBean> corsi = new ArrayList<>();
         ArrayList<MaterialeDidatticoBean> materiali;
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT * FROM Corso c, MaterialeDidattico m WHERE (c.id = m.idCorso) ");
+                    con.prepareStatement("SELECT * FROM Corso c ");
             ResultSet rs = ps.executeQuery();
 
 
             CorsoExtractor ce = new CorsoExtractor();
             MaterialeDidatticoExtractor me = new MaterialeDidatticoExtractor();
+            MaterialeDidatticoDao md = new MaterialeDidatticoDao();
 
             while (rs.next()) {
-                materiali = new ArrayList<>();
                 CorsoBean c = ce.extract(rs);
-                c.setListaMateriale(ce);
-                p.setTaglia(te.extract(rs));
-                p.setEsposizione(ee.extract(rs));
-                piante.add(p);
+                c.setListaMateriale(md.doRetriveAllByIdCorso(c.getId()));
+               corsi.add(c);
             }
-            return piante;
+            con.close();
+            return corsi;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        */
-         return null;
     }
 
 
@@ -73,7 +72,7 @@ public class CorsoDao {
         ArrayList<MaterialeDidatticoBean> materiali = new ArrayList<>();
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
-                    con.prepareStatement("SELECT * FROM Corso c, MaterialeDidattico m WHERE (c.id = m.idCorso) AND c.Codice = ?");
+                    con.prepareStatement("SELECT * FROM Corso c WHERE c.id = ?");
             ps.setInt(1, id);
 
             ResultSet rs = ps.executeQuery();
@@ -81,16 +80,14 @@ public class CorsoDao {
 
             CorsoExtractor ce = new CorsoExtractor();
             MaterialeDidatticoExtractor me = new MaterialeDidatticoExtractor();
+            MaterialeDidatticoDao md = new MaterialeDidatticoDao();
 
 
             if (rs.next()) {
                 c = ce.extract(rs);
-                materiali.add(me.extract(rs));
-                while(rs.next()){
-                    materiali.add(me.extract(rs));
-                }
             }
-            c.setListaMateriale(materiali);
+
+            c.setListaMateriale(md.doRetriveAllByIdCorso(id));
             con.close();
             return c;
         } catch (SQLException e) {
@@ -120,7 +117,7 @@ public class CorsoDao {
 
     public boolean doUpdate(CorsoBean c){
         try (Connection con = ConPool.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("UPDATE Corso SET nome = ?,descrizione = ? ,nomeProfessore = ? WHERE Codice = " + c.getId()+"");
+            PreparedStatement ps = con.prepareStatement("UPDATE Corso SET nome = ?,descrizione = ? ,nomeProfessore = ? WHERE id = " + c.getId()+"");
             ps.setString(1, c.getNome());
             ps.setString(2,c.getNome());
             ps.setString(3,c.getNomeProfessore());
