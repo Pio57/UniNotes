@@ -12,7 +12,7 @@
     </jsp:include>
 
 </head>
-<body>
+<body >
 <a href="/UniNotes_war_exploded/Utente/registazione">Registrazione</a>
 
 
@@ -22,5 +22,14 @@
 <a href="/UniNotes_war_exploded/Corso/modifica">Modifica</a>
 <a href="/UniNotes_war_exploded/Corso/visualizza">Visualizza</a>
 <a href="/UniNotes_war_exploded/Corso/visualizzaTutti">Visualizza tutti</a>
+
+
+
+<b>Corso servlet</b>
+<a href="/UniNotes_war_exploded/Materiale/inserireMateriale">Inserimento</a>
+<a href="/UniNotes_war_exploded/Materiale/elimina">Elimina</a>
+<a href="/UniNotes_war_exploded/Materiale/modifica">Modifica</a>
+<a href="/UniNotes_war_exploded/Materiale/visualizza">Visualizza</a>
+<a href="/UniNotes_war_exploded/Materiale/visualizzaTutti">Visualizza tutti</a>
 </body>
 </html>

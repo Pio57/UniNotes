@@ -74,7 +74,7 @@ public class MaterialeDidatticoDao {
         }
     }
 
-    public void doDelate(int id){
+    public boolean doDelate(int id){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
                     "DELETE FROM MaterialeDidattico  WHERE id = ?",
@@ -87,6 +87,7 @@ public class MaterialeDidatticoDao {
                 throw new RuntimeException("INSERT error.");
             }
             con.close();
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

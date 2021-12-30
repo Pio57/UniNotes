@@ -37,7 +37,6 @@ public class CorsoServlet extends HttpServlet {
             }
             case "/visualizzaTutti":{
                 ArrayList<CorsoBean> c = visualizzaCorsi();
-                System.out.println(c.get(0).getNome());
                 request.setAttribute("corsi",visualizzaCorsi());
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizzaTutti.jsp").forward(request,response);
                 break;
