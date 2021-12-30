@@ -15,12 +15,60 @@ public class CorsoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
+        switch (path){
+            case "/crea":{
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/crea.jsp").forward(request,response);
+                break;
+            }
+            case "/elimina":{
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/elimina.jsp").forward(request,response);
+                break;
+            }
+            case "/modifica":{
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/modifica.jsp").forward(request,response);
+                break;
+            }
+            case "/visualizza":{
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizza.jsp").forward(request,response);
+                break;
+            }
+            case "/visualizzaTutti":{
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizzaTutti.jsp").forward(request,response);
+                break;
+            }
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
+        switch (path){
+            case "/crea":{
+                String nome = request.getParameter("Nome");
+                String descrizione = request.getParameter("Descrizione");
+                String nomeProfessore = request.getParameter("NomeProfessore");
+                inserisciCorso(nome,descrizione,nomeProfessore);
+                response.sendRedirect("index.jsp");
+                break;
+            }
+            case "/elimina":{
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/elimina.jsp").forward(request,response);
+                break;
+            }
+            case "/modifica":{
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/modifica.jsp").forward(request,response);
+                break;
+            }
+            case "/visualizza":{
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizza.jsp").forward(request,response);
+                break;
+            }
+            case "/visualizzaTutti":{
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizzaTutti.jsp").forward(request,response);
+                break;
+            }
+        }
     }
 
     private ArrayList<CorsoBean> visualizzaCorsi(){
@@ -33,7 +81,8 @@ public class CorsoServlet extends HttpServlet {
         return cd.doRetriveById(id);
     }
 
-    private CorsoBean inserisciCorso(CorsoBean c){
+    private CorsoBean inserisciCorso( String nome, String descrizione,String nomeProfessore){
+        CorsoBean c = new CorsoBean(nome,descrizione,nomeProfessore);
         CorsoDao cd = new CorsoDao();
         if(cd.doSave(c))
             return c;

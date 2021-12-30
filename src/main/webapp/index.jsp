@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-    <jsp:include page="WEB-INF/views/partials/head.jsp">
+    <jsp:include page="WEB-INF/interface/partials/head.jsp">
         <jsp:param name="title" value="UniNotes-Home"/>
         <jsp:param name="style" value=""/>
         <jsp:param name="script" value=""/>
@@ -14,7 +14,13 @@
 </head>
 <body>
 <a href="/UniNotes_war_exploded/Utente/registazione">Registrazione</a>
-<a ></a>
 
+
+<b>Corso servlet</b>
+<a href="/UniNotes_war_exploded/Corso/crea">Inserimento</a>
+<a href="/UniNotes_war_exploded/Corso/elimina">Elimina</a>
+<a href="/UniNotes_war_exploded/Corso/modifica">Modifica</a>
+<a href="/UniNotes_war_exploded/Corso/visualizza">Visualizza</a>
+<a href="/UniNotes_war_exploded/Corso/visualizzaTutti">Visualizza tutti</a>
 </body>
 </html>
