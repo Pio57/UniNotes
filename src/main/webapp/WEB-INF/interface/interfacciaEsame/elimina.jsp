@@ -15,6 +15,7 @@
 <form method="post" action="/UniNotes_war_exploded/Esame/elimina">
     <input required id="id" name="id" placeholder="Nome">
     <button type="submit" >Elimina corso</button>
+
 </form>
 
 </body>
