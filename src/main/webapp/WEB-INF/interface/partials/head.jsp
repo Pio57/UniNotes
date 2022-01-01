@@ -24,8 +24,9 @@
     </c:forTokens>
 
 </c:if>
-
-<script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
+<!-- Con questa libreria non funziona il menù
+<script src="./webapp/js/bootstrap.bundle.min.js"></script>
+-->
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
 
@@ -43,8 +44,9 @@
 <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<!--
 <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext" rel="stylesheet">
 <link rel="stylesheet" href="css/owl.carousel.min.css">
 <link rel="stylesoeet" href="css/owl.theme.default.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+-->
