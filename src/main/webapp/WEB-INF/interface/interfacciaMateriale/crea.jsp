@@ -15,7 +15,7 @@
 
     <form name ="piantaForm" method="post" action="/UniNotes_war_exploded/Materiale/inserireMateriale" enctype="multipart/form-data">
         <fieldset class="grid-y cell product-form">
-            <legend>
+            <%--@declare id="immagine"--%><legend>
                 Crea prodotto
             </legend>
 
