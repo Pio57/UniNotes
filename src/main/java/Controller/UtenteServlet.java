@@ -30,12 +30,12 @@ public class UtenteServlet extends HttpServlet {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
             case "/registrazione":{
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/registrazione.jsp").forward(request,response);
+                request.getRequestDispatcher("/registrazione.jsp").forward(request,response);
                 break;
             }
 
             case "/login": {//login [adimn/studente]
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/singin.jsp").forward(request, response);
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
                 break;
             }
 

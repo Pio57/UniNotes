@@ -12,7 +12,7 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Corsi</a>
+                    <a class="nav-link" href="/UniNotes_war_exploded/Corso/visualizzaTutti">Corsi</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Dashboard</a>
