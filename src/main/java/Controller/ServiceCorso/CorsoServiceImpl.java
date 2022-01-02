@@ -1,4 +1,4 @@
-package Controller.ServiceCorsoServlet;
+package Controller.ServiceCorso;
 
 import Model.Corso.CorsoBean;
 import Model.Corso.CorsoDao;

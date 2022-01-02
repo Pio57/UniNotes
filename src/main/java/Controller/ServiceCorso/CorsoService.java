@@ -1,7 +1,6 @@
-package Controller.ServiceCorsoServlet;
+package Controller.ServiceCorso;
 
 import Model.Corso.CorsoBean;
-import Model.Corso.CorsoDao;
 import Model.MaterialeDidattico.MaterialeDidatticoBean;
 
 import java.util.ArrayList;

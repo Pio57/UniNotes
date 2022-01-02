@@ -1,10 +1,8 @@
-package Controller.ControllerCorsoServlet;
+package Controller.ControllerCorso;
 
-import Controller.ServiceCorsoServlet.CorsoService;
-import Controller.ServiceCorsoServlet.CorsoServiceImpl;
+import Controller.ServiceCorso.CorsoService;
+import Controller.ServiceCorso.CorsoServiceImpl;
 import Model.Corso.CorsoBean;
-import Model.Corso.CorsoDao;
-import Model.MaterialeDidattico.MaterialeDidatticoBean;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
