@@ -1,4 +1,4 @@
-package Controller.ServiceCorso;
+package Controller.Corso.ServiceCorso;
 
 import Model.Corso.CorsoBean;
 import Model.Corso.CorsoDao;
@@ -6,7 +6,7 @@ import Model.MaterialeDidattico.MaterialeDidatticoBean;
 
 import java.util.ArrayList;
 
-public class CorsoServiceImpl implements CorsoService{
+public class CorsoServiceImpl implements CorsoService {
 
 
     public ArrayList<CorsoBean> visualizzaCorsi(){

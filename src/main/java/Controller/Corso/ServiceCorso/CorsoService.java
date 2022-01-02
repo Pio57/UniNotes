@@ -1,4 +1,4 @@
-package Controller.ServiceCorso;
+package Controller.Corso.ServiceCorso;
 
 import Model.Corso.CorsoBean;
 import Model.MaterialeDidattico.MaterialeDidatticoBean;

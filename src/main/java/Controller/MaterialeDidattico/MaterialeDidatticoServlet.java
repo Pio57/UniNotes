@@ -1,5 +1,7 @@
-package Controller;
+package Controller.MaterialeDidattico;
 
+import Controller.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoService;
+import Controller.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoServiceImpl;
 import Model.Corso.CorsoBean;
 import Model.MaterialeDidattico.MaterialeDidatticoBean;
 import Model.MaterialeDidattico.MaterialeDidatticoDao;
@@ -19,7 +21,8 @@ import java.util.ArrayList;
 @MultipartConfig
 public class MaterialeDidatticoServlet extends HttpServlet {
 
-    UtenteBean u;
+    private final MaterialeDidatticoService materialeDidattico = new MaterialeDidatticoServiceImpl();
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,12 +41,12 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                 break;
             }
             case "/visualizza":{
-                request.setAttribute("materiale",visualizza(5));//togliere l'id statico --> mettendone uno dinamico
+                request.setAttribute("materiale",materialeDidattico.visualizza(5));//togliere l'id statico --> mettendone uno dinamico
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/visualizza.jsp").forward(request,response);
                 break;
             }
             case "/visualizzaTutti":{
-                ArrayList<MaterialeDidatticoBean> c = visualizzaTutti();
+                ArrayList<MaterialeDidatticoBean> c = materialeDidattico.visualizzaTutti();
                 request.setAttribute("materiali",c);//ho cambiato la path per farlo andare nella dashboard --> bisogna rivederla
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/materiale.jsp").forward(request,response);
                 break;
@@ -62,7 +65,7 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                 String nome = request.getParameter("Nome");
                 Part filePart = request.getPart("File");
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                if(inserireMateriale(nome,fileName,Integer.parseInt(idCorso),Integer.parseInt(idUtente))){
+                if(materialeDidattico.inserireMateriale(nome,fileName,Integer.parseInt(idCorso),Integer.parseInt(idUtente))){
                     String uploadRoot = "/Users/piosantosuosso/Desktop/apache-tomcat-9.0.43/uploads/";
 
                     try (InputStream fileStream = filePart.getInputStream()) {
@@ -81,7 +84,7 @@ public class MaterialeDidatticoServlet extends HttpServlet {
             }
             case "/eliminaMateriale":{
                 String id = request.getParameter("id");
-                eliminaMateriale(Integer.parseInt(id));
+                materialeDidattico.eliminaMateriale(Integer.parseInt(id));
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/elimina.jsp").forward(request,response);
                 break;
             }
@@ -90,12 +93,12 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                 break;
             }
             case "/visualizza":{
-                request.setAttribute("materiale",visualizza(2));//togliere l'id statico --> mettendone uno dinamico
+                request.setAttribute("materiale",materialeDidattico.visualizza(2));//togliere l'id statico --> mettendone uno dinamico
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/visualizza.jsp").forward(request,response);
                 break;
             }
             case "/visualizzaTutti":{
-                ArrayList<MaterialeDidatticoBean> c = visualizzaTutti();
+                ArrayList<MaterialeDidatticoBean> c = materialeDidattico.visualizzaTutti();
                 request.setAttribute("materiali",c);
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/visualizzaTutti.jsp").forward(request,response);
                 break;
@@ -104,46 +107,4 @@ public class MaterialeDidatticoServlet extends HttpServlet {
 
 
     }
-
-    private boolean inserireMateriale(String nome,String pathFile , int idCorso,int idUtente){//qui ho aggiunto un parametro in più , e ho campbiato il valore di ritorno in un booleano
-       MaterialeDidatticoBean m = new MaterialeDidatticoBean(nome,pathFile);
-        MaterialeDidatticoDao md = new MaterialeDidatticoDao();
-        if( md.doSave(m,idCorso,idUtente))
-            return true;
-        return false;
-    }
-
-    private boolean eliminaMateriale(int id){
-        MaterialeDidatticoDao md = new MaterialeDidatticoDao();
-        return md.doDelate(id);
-
-    }
-/*
-    private ArrayList<MaterialeDidatticoBean> eliminaMateriale(MaterialeDidatticoBean m, CorsoBean c){
-        MaterialeDidatticoDao md = new MaterialeDidatticoDao();
-        md.doDelate(m.getId());
-        return md.doRetriveAllByIdUtente(u.getIdUtente());
-    }
-*/
-    private MaterialeDidatticoBean modificaMateriale(MaterialeDidatticoBean m){
-        MaterialeDidatticoDao md = new MaterialeDidatticoDao();
-         if(md.doUpdate(m))
-             return m;
-         return null;
-    }
-
-    private MaterialeDidatticoBean visualizza(int id){
-        MaterialeDidatticoDao md = new MaterialeDidatticoDao();
-        return md.doRetriveById(id);
-    }
-
-    private ArrayList<MaterialeDidatticoBean> visualizzaTutti(){
-        MaterialeDidatticoDao md = new MaterialeDidatticoDao();
-        return md.doRetriveAll();
-    }
-
-
-
-
-
 }
