@@ -1,7 +1,7 @@
-package Controller;
+package Controller.Esame;
 
-import Model.Esame.EsameBean;
-import Model.Esame.EsameDao;
+import Controller.Esame.ServiceEsame.EsameService;
+import Controller.Esame.ServiceEsame.EsameServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Date;
 
 
 @WebServlet(name = "EsameServlet", value = "/Esame/*")
 public class EsameServlet extends HttpServlet {
+
+    private final EsameService esameService= new EsameServiceImpl();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
@@ -46,7 +48,7 @@ public class EsameServlet extends HttpServlet {
                 float voto= Float.parseFloat(request.getParameter("voto"));
                 //Date data = LocalDate.parse(request.getParameter("dataEsame"));
                 Date data=new Date();
-                inserisciEsame(nome,nomeProfessore,voto,cfu,data);
+                esameService.inserisciEsame(nome,nomeProfessore,voto,cfu,data);
                 response.sendRedirect("index.jsp");
                 break;
             }
@@ -69,33 +71,6 @@ public class EsameServlet extends HttpServlet {
             default:
                 throw new IllegalStateException("Unexpected value: " + path);
         }
-    }
-
-    private EsameBean inserisciEsame(String nome,String nomeProfessore,float voto,int cfu, Date data){
-        EsameDao ed = new EsameDao();
-        EsameBean e=new EsameBean();
-        e.setCfu(cfu);
-        e.setData(data);
-        e.setNome(nome);
-        e.setNomeProfessore(nomeProfessore);
-        e.setVoto(voto);
-
-        if( ed.doSave(e))
-            return e;
-        return null;
-    }
-
-    private EsameBean eliminaEsame(EsameBean e){
-        EsameDao ed = new EsameDao();
-       ed.doDelate(e.getId());
-            return e;
-    }
-
-    private EsameBean modificaEsame(EsameBean e){ /// da rivedere
-        EsameDao ed = new EsameDao();
-        if( ed.doUpdate(e))
-            return e;
-        return null;
     }
 
 }

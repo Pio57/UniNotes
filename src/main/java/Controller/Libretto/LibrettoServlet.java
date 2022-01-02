@@ -1,5 +1,9 @@
-package Controller;
+package Controller.Libretto;
 
+import Controller.Esame.ServiceEsame.EsameService;
+import Controller.Esame.ServiceEsame.EsameServiceImpl;
+import Controller.Libretto.ServiceLibretto.LibrettoService;
+import Controller.Libretto.ServiceLibretto.LibrettoServiceImpl;
 import Model.Corso.CorsoBean;
 import Model.Corso.CorsoDao;
 import Model.Libretto.LibrettoBean;
@@ -16,6 +20,8 @@ import java.util.ArrayList;
 
 @WebServlet(name = "LibrettoServlet", value = "/Libretto/*")
 public class LibrettoServlet extends HttpServlet {
+
+    private final LibrettoService librettoService= new LibrettoServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,38 +44,6 @@ public class LibrettoServlet extends HttpServlet {
                 break;
             }
         }
-    }
-
-    private ArrayList<LibrettoBean> visualizzaLibretto(){
-        LibrettoDao ld = new LibrettoDao();
-        return ld.doRetriveAll();
-    }
-
-    private LibrettoBean visualizzaLibretto(int id){
-        LibrettoDao lb = new LibrettoDao();
-        return lb.doRetriveById(id);
-    }
-
-    private LibrettoBean inserisciLibretto(int ne, int cc, float media){
-        LibrettoBean l = new LibrettoBean(ne,cc,media);
-        LibrettoDao ld = new LibrettoDao();
-        if(ld.doSave(l))
-            return l;
-        return null;
-    }
-
-    private LibrettoBean eliminaLibretto(LibrettoBean l){
-        LibrettoDao ld = new LibrettoDao();
-        if(ld.doDelate(l.getIdLibretto()))
-            return l;
-        return null;
-    }
-
-    private LibrettoBean modificaLibretto(LibrettoBean l){
-       LibrettoDao ld = new LibrettoDao();
-        if(ld.doUpdate(l))
-            return l;
-        return null;
     }
 
 
