@@ -1,68 +1,61 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: piosantosuosso
-  Date: 30/12/21
-  Time: 15:52
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>visualizzaTutti</title>
-</head>
+
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+
+    <jsp:include page="/WEB-INF/interface/partials/head.jsp">
+        <jsp:param name="title" value="UniNotes-Home"/>
+        <jsp:param name="style" value="cards"/>
+        <jsp:param name="script" value=""/>
+    </jsp:include>
+
+    <title>Visualizza tutti i corsi</title>
 <body>
 
-
-<table >
-    <caption><h1 > </h1></caption>
-
-    <thead>
-    <tr>
-
-        <th>
-            Id
-        </th>
-        <th>
-            Nome
-        </th>
-        <th>
-            Descrizione
-        </th>
-        <th>
-            Nome Professore
-        </th>
+<main>
+    <%@include file="/WEB-INF/interface/partials/header.jsp"%>
 
 
+    <div class="container embed-responsive" style="margin-top:50px;">
 
-    </tr>
-    </thead>
+        <div class="row">
+            <div class="col-md-3">
+                <c:forEach items="${corsi}" var="c">
+                <div class="card-sl">
 
-    <tbody>
-    <form method="post" action="/PlanetPlants_war_exploded/Account/update">
-        <c:forEach items="${corsi}" var="c">
 
-            <tr>
-                <td data-head="Id">
-                        ${c.getId()}
-                </td>
-                <td data-head="Nome">
-                        ${c.getNome()}
-                </td>
-                <td data-head="Descrizione">
-                        ${c.getDescrizione()}
-                </td>
-                <td data-head="Nome Professore">
-                        ${c.getNomeProfessore()}
-                </td>
-            </tr>
+                        <jsp:include page="/WEB-INF/interface/interfacciaCorso/cardCorso.jsp">
+                            <jsp:param name="id" value="${c.getId()}"/>
+                            <jsp:param name="nome" value="${c.getNome()}"/>
+                            <jsp:param name="descrizione" value="${c.getDescrizione()}"/>
+                            <jsp:param name="nomeProf" value="${c.getNomeProfessore()}"/>
+                        </jsp:include>
 
-        </c:forEach>
-    </form>
 
-    </tbody>
+                </div>
+                </c:forEach>
+            </div>
+        </div>
 
-</table>
+    </div>
+
+
+        <!-- FOOTER -->
+    <%@include file="/WEB-INF/interface/partials/footer.jsp"%>
+
+</main>
 
 </body>
 </html>

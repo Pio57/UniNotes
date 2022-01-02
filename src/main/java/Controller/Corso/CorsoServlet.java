@@ -43,6 +43,11 @@ public class CorsoServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/corsi.jsp").forward(request,response);
                 break;
             }
+            case "/visualizzaTuttiUtente":{
+                request.setAttribute("corsi",corsoService.visualizzaCorsi());
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizzaTutti.jsp").forward(request,response);
+                break;
+            }
         }
     }
 

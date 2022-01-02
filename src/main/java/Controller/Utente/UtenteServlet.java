@@ -1,30 +1,27 @@
-package Controller;
+package Controller.Utente;
 
-import Model.Corso.CorsoBean;
-import Model.Corso.CorsoDao;
-import Model.ListaPreferiti.ListaPreferitiBean;
-import Model.ListaPreferiti.ListaPreferitiDao;
+import Controller.Utente.ServiceUtente.UtenteService;
+import Controller.Utente.ServiceUtente.UtenteServiceImpl;
 import Model.Utente.UtenteBean;
 import Model.Utente.UtenteDao;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 
 //Manca lista preferiti
 
 @WebServlet(name = "UtenteServlet", value = "/Utente/*")
 public class UtenteServlet extends HttpServlet {
+
+    private final UtenteService utenteService = new UtenteServiceImpl();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
@@ -47,11 +44,11 @@ public class UtenteServlet extends HttpServlet {
             case "/visualizzaUtenti":{ //visualizza utenti registrati [adimn]
                 ArrayList<UtenteBean> utenti = new ArrayList<>();
                 try {
-                    utenti = visualizzaUtenti();
-                    request.setAttribute("utenti", utenti);
+                    utenti = utenteService.visualizzaUtenti();
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                request.setAttribute("utenti", utenti);
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/utenti.jsp").forward(request, response);
                 break;
             }
@@ -89,7 +86,7 @@ public class UtenteServlet extends HttpServlet {
 
                 if (nome.matches(nomePattern) && cognome.matches(cognomePattern) && cf.matches(cfPattern) && email.matches(emailPattern) && password.matches(passwordPattern) && confermaPassword.matches(passwordPattern) && password.equals(confermaPassword) && data.matches(dataPattern)) {
                     try {
-                        registrazione(nome, cognome, cf, email, password, data);
+                        utenteService.registrazione(nome, cognome, cf, email, password, data);
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
@@ -111,7 +108,7 @@ public class UtenteServlet extends HttpServlet {
                 if (email.matches(emailPattern) && password.matches(passwordPattern)) {
                     utente.setEmail(request.getParameter("email"));
                     utente.setPassword(request.getParameter("password"));
-                    utente = login(email, password);
+                    utente = utenteService.login(email, password);
                     response.sendRedirect("/UniNotes_war_exploded/Home/");
                 }
 
@@ -126,7 +123,7 @@ public class UtenteServlet extends HttpServlet {
 
                 if (idAccount != null) {
                     u = ud.doRetriveById(Integer.parseInt(idAccount));
-                    rendiAdmin(u);
+                    utenteService.rendiAdmin(u);
                 }
                 response.sendRedirect("/UniNotes_war_exploded/Utente/visualizzaUtenti"); //NON so se è giusto
 
@@ -135,49 +132,6 @@ public class UtenteServlet extends HttpServlet {
 
 
         }
-    }
-
-    private void registrazione(String nome, String cognome, String cf, String email, String password, String data) throws SQLException {
-        UtenteBean utente = new UtenteBean();
-        UtenteDao ud = new UtenteDao();
-
-        utente.setNome(nome);
-        utente.setCognome(cognome);
-        utente.setCognome(cf);
-        utente.setEmail(email);
-        utente.setPassword(password);
-        utente.setDdn(LocalDate.parse(data));
-
-        ud.doSave(utente);
-    }
-
-    private UtenteBean login(String email, String password) {
-        UtenteDao ud = new UtenteDao();
-        UtenteBean utente = new UtenteBean();
-        utente = ud.findAccount(email, password);
-        return utente;
-    }
-
-    private void interireInListaPreferiti(int u, int c) {
-        ListaPreferitiDao ld = new ListaPreferitiDao();
-        ld.doSave(u,c);
-    }
-
-    private void rimuoviDaListaPreferiti(int c) {
-        ListaPreferitiDao ld = new ListaPreferitiDao();
-        ld.doDelateCorso(c);
-    }
-
-    private ArrayList<UtenteBean> visualizzaUtenti() throws SQLException {
-        ArrayList<UtenteBean> utenti = new ArrayList<>();
-        UtenteDao ud = new UtenteDao();
-        utenti = ud.doRetriveAll();
-        return utenti;
-    }
-
-    private void rendiAdmin(UtenteBean u) {
-        UtenteDao ud = new UtenteDao();
-        ud.doUpdateAdmin(u);
     }
 
 }

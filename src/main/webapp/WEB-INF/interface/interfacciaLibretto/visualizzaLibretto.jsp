@@ -1,61 +1,61 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: damia
-  Date: 30/12/2021
-  Time: 16:56
-  To change this template use File | Settings | File Templates.
---%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="l" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Visualizza Libretto</title>
-</head>
+
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+
+    <jsp:include page="/WEB-INF/interface/partials/head.jsp">
+        <jsp:param name="title" value="UniNotes-Home"/>
+        <jsp:param name="style" value="cards"/>
+        <jsp:param name="script" value=""/>
+    </jsp:include>
+
+    <title>Visualizza tutti gli esami</title>
 <body>
-<table >
-    <thead>
-    <tr>
-        <th>
-            Id
-        </th>
-        <th>
-           Numero di Esami superati
-        </th>
-        <th>
-            Media ponderata
-        </th>
-        <th>
-            CFU Totali acquisiti dal superamento degli Esami
-        </th>
-        <th>
-            Lista esami svolti dallo studente
-        </th>
-    </thead>
 
-    <tbody>
-    <form method="post" action="/UniNotes_war_exploded/Esame/visualizzaTutto">
-        <l:forEach items="${esame}" var="l">
+<main>
+    <%@include file="/WEB-INF/interface/partials/header.jsp"%>
 
-            <tr>
-                <td data-head="id">
-                        ${l.getId()}
-                </td>
-                <td data-head="numEsami">
-                        ${l.getNumEsami()}
-                </td>
-                <td data-head="media">
-                        ${l.getMedia()}
-                </td>
-                <td data-head="cfuCrediti">
-                        ${l.getCfuCrediti()}
-                </td>
-            </tr>
 
-        </l:forEach>
-    </form>
+    <div class="container embed-responsive" style="margin-top:50px;">
 
-    </tbody>
+        <div class="row">
+            <div class="col-md-3">
+                <c:forEach items="${corsi}" var="c">
+                    <div class="card-sl">
 
-</table>
+
+                        <jsp:include page="/WEB-INF/interface/interfacciaCorso/cardCorso.jsp">
+                            <jsp:param name="id" value="${c.getId()}"/>
+                            <jsp:param name="nomeEsame" value="${c.getNunEsami()}"/>
+                            <jsp:param name="crediti" value="${c.getCfuCrediti()}"/>
+                            <jsp:param name="media" value="${c.getMedia()}"/>
+                        </jsp:include>
+
+
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <%@include file="/WEB-INF/interface/partials/footer.jsp"%>
+
+</main>
+
 </body>
 </html>
