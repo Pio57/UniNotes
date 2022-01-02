@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Logo</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,7 +17,7 @@
                     <a class="nav-link" href="#">Corsi</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Dashboard</a>
+                    <a class="nav-link" href="/UniNotes_war_exploded/Utente/dashboard">Dashboard</a>
                 </li>
 
                 <c:if test="${!account.isTipo()}">

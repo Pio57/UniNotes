@@ -29,6 +29,11 @@ public class UtenteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
+            case "/dashboard":{
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/dashboard.jsp").forward(request,response);
+                break;
+            }
+
             case "/registrazione":{
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/registrazione.jsp").forward(request,response);
                 break;
@@ -47,7 +52,13 @@ public class UtenteServlet extends HttpServlet {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/tuttiUtenti.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/utenti.jsp").forward(request, response);
+                break;
+            }
+
+            case "/visualizzaPaginaPersonale":{ //visualizza utenti registrati [adimn]
+                //da implementare
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/paginaPersonale.jsp").forward(request, response);
                 break;
             }
 

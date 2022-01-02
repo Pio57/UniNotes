@@ -44,8 +44,8 @@ public class MaterialeDidatticoServlet extends HttpServlet {
             }
             case "/visualizzaTutti":{
                 ArrayList<MaterialeDidatticoBean> c = visualizzaTutti();
-                request.setAttribute("materiali",c);
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/visualizzaTutti.jsp").forward(request,response);
+                request.setAttribute("materiali",c);//ho cambiato la path per farlo andare nella dashboard --> bisogna rivederla
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/materiale.jsp").forward(request,response);
                 break;
             }
         }
