@@ -1,7 +1,7 @@
 package Application.Esame.ServiceEsame;
 
-import Model.Esame.EsameBean;
-import Model.Esame.EsameDao;
+
+import Storage.Esame.EsameBean;
 
 import java.util.Date;
 

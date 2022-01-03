@@ -1,14 +1,16 @@
 package Application.Esame.ServiceEsame;
 
-import Model.Esame.EsameBean;
-import Model.Esame.EsameDao;
+
+
+import Storage.Esame.EsameBean;
+import Storage.Esame.EsameDao;
 
 import java.util.Date;
 
 public class EsameServiceImpl implements EsameService{
 
 
-    public EsameBean inserisciEsame(String nome,String nomeProfessore,float voto,int cfu, Date data){
+    public EsameBean inserisciEsame(String nome, String nomeProfessore, float voto, int cfu, Date data){
         EsameDao ed = new EsameDao();
         EsameBean e=new EsameBean();
         e.setCfu(cfu);

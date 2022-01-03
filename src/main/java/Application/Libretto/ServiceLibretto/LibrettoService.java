@@ -1,8 +1,7 @@
 package Application.Libretto.ServiceLibretto;
 
-import Model.Esame.EsameBean;
-import Model.Libretto.LibrettoBean;
-import Model.Libretto.LibrettoDao;
+
+import Storage.Libretto.LibrettoBean;
 
 import java.util.ArrayList;
 
