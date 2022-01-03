@@ -29,8 +29,26 @@
     <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
     <meta name="theme-color" content="#7952b3">
 
+    <!--stat card -->
+
+
+    <link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap-extended.min.css">
+    <link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/fonts/simple-line-icons/style.min.css">
+    <link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/colors.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
+
 
     <style>
+
+        .text-right {
+            text-align: right!important;
+        }
+
+        .media-body {
+            flex: 1;
+        }
+
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -80,86 +98,96 @@
 
 
             <h2>Section title</h2>
-            <div class="grey-bg container-fluid">
-                <section id="minimal-statistics">
-                    <div class="row">
-                        <div class="col-12 mt-3 mb-1">
-                            <h4 class="text-uppercase">Minimal Statistics Cards</h4>
-                            <p>Statistics on minimal cards.</p>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-xl-3 col-sm-6 col-12">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div class="media d-flex">
-                                            <div class="media-body text-left">
-                                                <h3 class="danger">278</h3>
-                                                <span>Corsi</span>
-                                            </div>
-                                            <div class="align-self-center">
-                                                <i class="icon-rocket danger font-large-2 float-right"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-sm-6 col-12">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div class="media d-flex">
-                                            <div class="media-body text-left">
-                                                <h3 class="success">156</h3>
-                                                <span>New Clients</span>
-                                            </div>
-                                            <div class="align-self-center">
-                                                <i class="icon-user success font-large-2 float-right"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-xl-3 col-sm-6 col-12">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div class="media d-flex">
-                                            <div class="media-body text-left">
-                                                <h3 class="warning">64.89 %</h3>
-                                                <span>Conversion Rate</span>
-                                            </div>
-                                            <div class="align-self-center">
-                                                <i class="icon-pie-chart warning font-large-2 float-right"></i>
+                    <div class="grey-bg container-fluid">
+                        <section id="minimal-statistics">
+                            <div class="row">
+                                <div class="col-12 mt-3 mb-1">
+                                    <h4 class="text-uppercase">Minimal Statistics Cards</h4>
+                                    <p>Statistics on minimal cards.</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-3 col-sm-6 col-12">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="card-body">
+                                                <a href="/UniNotes_war_exploded/Corso/visualizzaTutti" style="text-decoration: none; color:inherit;" >
+                                                    <div class="media d-flex">
+                                                        <div class="align-self-center">
+                                                            <i class="icon-book-open primary font-large-2 float-left"></i>
+                                                        </div>
+                                                        <div class="media-body text-right">
+                                                            <h3>278</h3>
+                                                            <span>Corsi</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-sm-6 col-12">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <div class="media d-flex">
-                                            <div class="media-body text-left">
-                                                <h3 class="primary">423</h3>
-                                                <span>Support Tickets</span>
-                                            </div>
-                                            <div class="align-self-center">
-                                                <i class="icon-support primary font-large-2 float-right"></i>
+                                <div class="col-xl-3 col-sm-6 col-12">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="card-body">
+                                                <a href="/UniNotes_war_exploded/Utente/visualizzaUtenti" style="text-decoration: none; color:inherit;" >
+                                                    <div class="media d-flex">
+                                                        <div class="align-self-center">
+                                                            <i class="icon-users warning font-large-2 float-left"></i>
+                                                        </div>
+                                                        <div class="media-body text-right">
+                                                            <h3>156</h3>
+                                                            <span>Utenti</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-xl-3 col-sm-6 col-12">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="card-body">
+                                                <a href="/UniNotes_war_exploded/Materiale/visualizzaTutti" style="text-decoration: none; color:inherit;" >
+                                                    <div class="media d-flex">
+                                                        <div class="align-self-center">
+                                                            <i class="icon-doc success font-large-2 float-left"></i>
+                                                        </div>
+                                                        <div class="media-body text-right">
+                                                            <h3>64.89 %</h3>
+                                                            <span>Materiale</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-sm-6 col-12">
+
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="card-body">
+                                                <a href="/UniNotes_war_exploded/Utente/visualizzaPaginaPersonale" style="text-decoration: none; color:inherit;" >
+                                                    <div class="media d-flex">
+                                                        <div class="align-self-center">
+                                                            <i class="icon-user danger font-large-2 float-left"></i>
+                                                        </div>
+                                                        <div class="media-body text-right">
+                                                            <h3>Pagina personale</h3>
+                                                            <span>La tua pagina personale</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
-                        </div>
-                    </div>
                 </section>
             </div>
         </main>
