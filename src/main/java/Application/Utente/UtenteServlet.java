@@ -2,8 +2,9 @@ package Application.Utente;
 
 import Application.Utente.ServiceUtente.UtenteService;
 import Application.Utente.ServiceUtente.UtenteServiceImpl;
-import Model.Utente.UtenteBean;
-import Model.Utente.UtenteDao;
+import Storage.Utente.UtenteBean;
+import Storage.Utente.UtenteDao;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

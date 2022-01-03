@@ -1,6 +1,7 @@
 package Application.Utente.ServiceUtente;
 
-import Model.Utente.UtenteBean;
+
+import Storage.Utente.UtenteBean;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -2,11 +2,6 @@ package Application.Libretto;
 
 import Application.Libretto.ServiceLibretto.LibrettoService;
 import Application.Libretto.ServiceLibretto.LibrettoServiceImpl;
-import Model.Corso.CorsoBean;
-import Model.Corso.CorsoDao;
-import Model.Libretto.LibrettoBean;
-import Model.Libretto.LibrettoDao;
-import Model.MaterialeDidattico.MaterialeDidatticoBean;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

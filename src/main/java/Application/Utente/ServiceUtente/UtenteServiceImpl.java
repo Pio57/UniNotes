@@ -1,9 +1,11 @@
 package Application.Utente.ServiceUtente;
 
 
-import Model.ListaPreferiti.ListaPreferitiDao;
-import Model.Utente.UtenteBean;
-import Model.Utente.UtenteDao;
+
+
+import Storage.ListaPreferiti.ListaPreferitiDao;
+import Storage.Utente.UtenteBean;
+import Storage.Utente.UtenteDao;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
