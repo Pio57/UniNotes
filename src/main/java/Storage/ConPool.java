@@ -29,7 +29,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package Model;
+package Storage;
 
 
 import org.apache.tomcat.jdbc.pool.DataSource;
@@ -48,7 +48,7 @@ public class ConPool {
 			p.setUrl("jdbc:mysql://localhost:3306/UniNotesDB?serverTimezone=" + TimeZone.getDefault().getID());
 			p.setDriverClassName("com.mysql.cj.jdbc.Driver");
 			p.setUsername("root");
-			p.setPassword("0512108069");
+			p.setPassword("0512107364");
 			p.setMaxActive(100);
 			p.setInitialSize(10);
 			p.setMinIdle(10);
