@@ -35,7 +35,6 @@
                 <c:forEach items="${corsi}" var="c">
                     <div class="card-sl">
 
-
                         <jsp:include page="/WEB-INF/interface/interfacciaCorso/cardCorso.jsp">
                             <jsp:param name="id" value="${c.getId()}"/>
                             <jsp:param name="nomeEsame" value="${c.getNunEsami()}"/>
@@ -43,8 +42,7 @@
                             <jsp:param name="media" value="${c.getMedia()}"/>
                         </jsp:include>
 
-
-                    </div>
+                   </div>
                 </c:forEach>
             </div>
         </div>
@@ -59,3 +57,6 @@
 
 </body>
 </html>
+
+
+
