@@ -32,6 +32,62 @@
 
 
     <style>
+
+
+        .row{
+            justify-content: space-around;
+        }
+
+
+        .rounded {
+            box-shadow: 0 4px 6px -1px, 0 2px 4px -1px;
+            border-radius: 0.25rem!important;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #6b6b6b
+        }
+
+        .profile-button {
+            background: rgb(105, 105, 105);
+            box-shadow: none;
+            border: none
+        }
+
+        .profile-button:hover {
+            background: #6B6B6B
+        }
+
+        .profile-button:focus {
+            background: #6B6B6B;
+            box-shadow: none
+        }
+
+        .profile-button:active {
+            background: #6B6B6B;
+            box-shadow: none
+        }
+
+        .back:hover {
+            color: #6B6B6B;
+            cursor: pointer
+        }
+
+        .labels {
+            font-size: 11px
+        }
+
+        .add-experience:hover {
+            background: #6b6b6b;
+            color: #fff;
+            cursor: pointer;
+            border: solid 1px #6B6B6B
+        }
+
+
+
+
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -81,50 +137,47 @@
                 <h1 class="h2">Pagina personale</h1>
             </div>
 
-
-            <h2>Informazioni personali</h2>
-            <!--
-            <div class="table-responsive">
-                <table class="table table-striped table-sm">
-                    <thead>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Cognome</th>
-                        <th scope="col">Cf</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Data di nascita</th>
-                        <th scope="col">Ruolo</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <c:forEach items="${utenti}" var="u">
-                        <tr>
-                            <td>${u.getIdUtente()}</td>
-                            <td>${u.getNome()}</td>
-                            <td>${u.getCognome()}</td>
-                            <td>${u.getCf()}</td>
-                            <td>${u.getEmail()}</td>
-                            <td>${u.getDdn()}</td>
-                            <c:if test="${u.isTipo()}">
-                                <td>Amministratore</td>
-                            </c:if>
-                            <c:if test="${!u.isTipo()}">
-                                <td>Studente</td>
-                            </c:if>
-                        </tr>
-
-                    </c:forEach>
-
-                    <tr>
-
-                    </tr>
-                    </tbody>
-                </table>
-
+            <div class="container rounded bg-white mt-5 mb-5">
+                <div class="row">
+                    <div class="col-md-3 border-right" >
+                        <div class="d-flex flex-column align-items-center border-right text-center p-3 py-5" >
+                            <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                            <span class="font-weight-bold">Edogaru</span>
+                            <span class="text-black-50">edogaru@mail.com.my</span>
+                            <span> </span>
+                        </div>
+                    </div>
+                    <div class="col-md-5 border-right">
+                        <div class="p-3 py-5">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="text-right">Profile Settings</h4>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value=""></div>
+                                <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname"></div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
+                                <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" value=""></div>
+                                <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
+                                <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
+                                <div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
+                                <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
+                                <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value=""></div>
+                                <div class="col-md-12"><label class="labels">Education</label><input type="text" class="form-control" placeholder="education" value=""></div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value=""></div>
+                                <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"></div>
+                            </div>
+                            <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-             -->
+        </main>
+</div>
+
         </main>
     </div>
 </div>

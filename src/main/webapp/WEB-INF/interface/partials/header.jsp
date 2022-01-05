@@ -22,7 +22,7 @@
 
                 <c:if test="${!account.isTipo()}">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Libretto</a>
+                        <a class="nav-link" href="/UniNotes_war_exploded/Libretto/visualizzaLibretto">Libretto</a>
                     </li>
                 </c:if>
                 <c:if test="${!account.isTipo()}">
