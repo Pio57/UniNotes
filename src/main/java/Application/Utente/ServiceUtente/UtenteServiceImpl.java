@@ -7,24 +7,27 @@ import Storage.ListaPreferiti.ListaPreferitiDao;
 import Storage.Utente.UtenteBean;
 import Storage.Utente.UtenteDao;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class UtenteServiceImpl implements UtenteService {
 
-    public void registrazione(String nome, String cognome, String cf, String email, String password, String data) throws SQLException {
+    public UtenteBean registrazione(String nome, String cognome, String cf, String email, String password, String data) throws SQLException, NoSuchAlgorithmException {
         UtenteBean utente = new UtenteBean();
         UtenteDao ud = new UtenteDao();
 
         utente.setNome(nome);
         utente.setCognome(cognome);
-        utente.setCognome(cf);
+        utente.setCf(cf);
         utente.setEmail(email);
         utente.setPassword(password);
         utente.setDdn(LocalDate.parse(data));
 
         ud.doSave(utente);
+
+        return utente;
     }
 
     public UtenteBean login(String email, String password) {

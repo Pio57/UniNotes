@@ -49,7 +49,7 @@ public class EsameServlet extends HttpServlet {
                 //Date data = LocalDate.parse(request.getParameter("dataEsame"));
                 Date data=new Date();
                 esameService.inserisciEsame(nome,nomeProfessore,voto,cfu,data);
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("home.jsp");
                 break;
             }
             case "/elimina":{

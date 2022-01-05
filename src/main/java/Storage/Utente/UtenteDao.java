@@ -10,7 +10,7 @@ public class UtenteDao {
    public boolean doSave(UtenteBean utente) throws SQLException {
        try(Connection con = ConPool.getConnection()) {
            PreparedStatement ps = con.prepareStatement(
-                   "INSERT INTO Utente(nome, cognome, cf, mail, dataDiNascita, password, tipo) VALUES(?,?,?,?,?,?,?)",
+                   "INSERT INTO Utente(nome, cognome, cf, email, dataDiNascita, password, tipo) VALUES(?,?,?,?,?,?,?)",
                    Statement.RETURN_GENERATED_KEYS);
 
            ps.setString(1, utente.getNome());
@@ -18,7 +18,8 @@ public class UtenteDao {
            ps.setString(3, utente.getCf());
            ps.setString(4, utente.getEmail());
            ps.setObject(5, utente.getDdn());
-           ps.setBoolean(6, utente.isTipo());
+           ps.setString(6, utente.getPassword());
+           ps.setBoolean(7, utente.isTipo());
 
            if (ps.executeUpdate() != 1) {
                throw new RuntimeException("INSERT error.");

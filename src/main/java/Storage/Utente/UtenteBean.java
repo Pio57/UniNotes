@@ -3,6 +3,9 @@ package Storage.Utente;
 import Storage.Libretto.LibrettoBean;
 import Storage.ListaPreferiti.ListaPreferitiBean;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 
 public class UtenteBean {
@@ -103,8 +106,14 @@ public class UtenteBean {
         this.ddn = ddn;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest digest = MessageDigest.getInstance("SHA-512");
+        byte[] hashedPad = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+        StringBuilder builder = new StringBuilder();
+        for(byte bit : hashedPad){
+            builder.append(String.format("%02x", bit)); //inseriemo in ogni bit del bit formattata "%02x" caratteri miniuscoli
+        }
+        this.password = builder.toString();
     }
 
     public void setTipo(boolean tipo) {
