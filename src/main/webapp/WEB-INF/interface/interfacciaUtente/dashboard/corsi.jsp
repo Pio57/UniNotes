@@ -200,7 +200,8 @@
                 <h1 class="h2">Corsi</h1>
             </div>
 
-            <h2>Lista corsi</h2>
+        <form action="/UniNotes_war_exploded/Corso/crea" method="post">
+
 
 
             <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
@@ -216,35 +217,43 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <!-- <label for="name">Name</label> --> <input class="form-control" type="text" placeholder="Name"> </div>
+                                         <input name="Nome" class="form-control" type="text" placeholder="Name"> </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <div class="input-group"> <input class="form-control" type="text" placeholder="Nome docente"> </div>
+                                        <div class="input-group"> <input name="NomeProfessore" class="form-control" type="text" placeholder="Nome docente"> </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <div class="input-group"> <input class="form-control" type="text" placeholder="Descrizione corso"> </div>
+                                        <div class="input-group"> <input name="Descrizione" class="form-control" type="text" placeholder="Descrizione corso"> </div>
                                     </div>
                                 </div>
                             </div>
+
+
 
 
 
                         </div>
                         <div class="modal-footer justify-content-center">
-                            <button class="btn btn-primary" data-bs-toggle="modal">Crea</button>
+                            <button type="submit" class="btn btn-primary" data-bs-toggle="modal">Crea</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <a id="buttonRotondo" class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">+</a>
+            <a id="buttonRotondo" class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle"  role="button">+</a>
 
+
+
+
+
+            <!-- FORM TABELLA -->
+        </form>
 
 
             <!--  TABELLA CORSI  -->
@@ -253,7 +262,7 @@
                     <div class="card my-4">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                <h6 class="text-white text-capitalize ps-3">Corsi table</h6>
+                                <h6 class="text-white text-capitalize ps-3">Lista corsi</h6>
                             </div>
                         </div>
                         <div class="card-body px-0 pb-2">
@@ -261,70 +270,104 @@
                                 <table class="table align-items-center mb-0">
                                     <thead>
                                     <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Corso</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Descrizione</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nome professore</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantità materiale</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#Materiale</th>
                                         <th class="text-secondary opacity-7"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <c:forEach items="${corsi}" var="c">
                                     <tr>
                                         <td>
                                             <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="Foto USER">
-                                                </div>
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Nome corso</h6>
-                                                    <p class="text-xs text-secondary mb-0">bho</p>
+                                                    <h6 class="mb-0 text-sm">${c.getId()}</h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="text-xs font-weight-bold mb-0">Descrione</p>
-                                            <p class="text-xs text-secondary mb-0">bho</p>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-success">Nome professore</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">Num documenti</span>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
                                             <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="Foto USER">
-                                                </div>
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Nome corso</h6>
-                                                    <p class="text-xs text-secondary mb-0">bho</p>
+                                                    <h6 class="mb-0 text-sm">${c.getNome()}</h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="text-xs font-weight-bold mb-0">Descrione</p>
-                                            <p class="text-xs text-secondary mb-0">bho</p>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-success">Nome professore</span>
+                                            <p class="text-xs font-weight-bold mb-0">${c.getDescrizione()}</p>
+
                                         </td>
                                         <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">Num documenti</span>
+                                            <span class="text-secondary text-xs font-weight-bold">${c.getNomeProfessore()}</span>
                                         </td>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold">${c.getListaMateriale().size()}</span>
+                                        </td>
+
+
+
+
+
                                         <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
+
+                                            <form action="/UniNotes_war_exploded/Corso/modifica" method="post">
+
+
+                                            <div class="modal fade" id="editModal${c.getId()}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="editModalLabel">Edit corso</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+
+                                                            <input type="hidden" name="id" value="${c.getId()}">
+
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <!-- <label for="name">Name</label> --> <input name="Nome" class="form-control" type="text" placeholder="Name" value="${c.getNome()}"> </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group"> <input name="NomeProfessore" class="form-control" type="text" placeholder="Nome docente" value="${c.getNomeProfessore()}" > </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group"> <input name="Descrizione" class="form-control" type="text" placeholder="Descrizione corso" value="${c.getDescrizione()}"> </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
+                                                        </div>
+                                                        <div class="modal-footer justify-content-center">
+                                                            <button type="submit" class="btn btn-primary" data-bs-toggle="modal">Modifica</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+                                            <a style="color: gray" href="#editModal${c.getId()}" data-bs-toggle="modal"  role="button">Edit
                                             </a>
+                                            </form>
                                         </td>
                                     </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -332,6 +375,7 @@
                     </div>
                 </div>
             </div>
+
 
 
 

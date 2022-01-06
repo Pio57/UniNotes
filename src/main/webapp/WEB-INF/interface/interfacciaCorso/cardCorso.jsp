@@ -16,12 +16,15 @@
 <link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
 <meta name="theme-color" content="#7952b3">
 
+
 <a class="postcard__img_link">
     <img class="postcard__img" src="../img/card.png"  alt="Image Title" />
 </a>
+<form action="/UniNotes_war_exploded/Corso/visualizza" method="get" >
 
 
 <div class="postcard__text t-dark">
+    <input type="hidden" name="idCorso" value="${param.id}">
     <h1 class="postcard__title red">${param.nome}</h1>
     <div class="postcard__subtitle small">
         <time datetime="2020-05-25 12:00:00">
@@ -47,13 +50,13 @@
 
 
         <li class="tag__item play red">
-            <a href="/UniNotes_war_exploded/Materiale/visualizza">
-                <span data-feather="folder"></span>
-                Visualizza materiale</a>
+            <a><button type="submit"></button>
+                <span data-feather="folder-plus"></span>
+                Inserisci materiale</a>
         </li>
     </ul>
 </div>
-
+</form>
 </body>
 </html>
 

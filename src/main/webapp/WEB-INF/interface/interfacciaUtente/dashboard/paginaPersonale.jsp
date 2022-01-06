@@ -17,7 +17,7 @@
         <jsp:param name="script" value="dashboard"/>
     </jsp:include>
 
-
+33
     <!-- Bootstrap core CSS
     <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 -->
@@ -137,44 +137,41 @@
                 <h1 class="h2">Pagina personale</h1>
             </div>
 
-            <div class="container rounded bg-white mt-5 mb-5">
-                <div class="row">
-                    <div class="col-md-3 border-right" >
-                        <div class="d-flex flex-column align-items-center border-right text-center p-3 py-5" >
-                            <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                            <span class="font-weight-bold">Edogaru</span>
-                            <span class="text-black-50">edogaru@mail.com.my</span>
-                            <span> </span>
+            <form action="/UniNotes_war_exploded/Utente/modifica" method="post">
+
+                <div class="container rounded bg-white mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-3 border-right" >
+                            <div class="d-flex flex-column align-items-center border-right text-center p-3 py-5" >
+                                <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                                <span class="font-weight-bold">${utente.getNome()} ${utente.getCognome()}</span>
+                                <span class="text-black-50">${utente.getEmail()}</span>
+                                <span> </span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-5 border-right">
-                        <div class="p-3 py-5">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4 class="text-right">Profile Settings</h4>
+                        <div class="col-md-5 border-right">
+                            <div class="p-3 py-5">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4 class="text-right">Impostazioni del profilo</h4>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-6"><label class="labels">Nome</label><input name="Nome"  type="text" class="form-control" placeholder="first name" value="${utente.getNome()}"></div>
+                                    <div class="col-md-6"><label class="labels">Cognome</label><input name="Cognome" type="text" class="form-control" value="${utente.getCognome()}" placeholder="surname"></div>
+                                </div>
+                                <div class="row mt-3">
+                                        <div class="col-md-12"><label class="labels">Codice Fiscale</label><input  name="CF" type="text" class="form-control" placeholder="Codice Fiscale" value="${utente.getCf()}"></div>
+                                    <div class="col-md-12"><label class="labels">Email</label><input name="Email" type="text" class="form-control" placeholder="Email" value="${utente.getEmail()}"></div>
+                                    <div class="col-md-12"><label class="labels">Data di nascita</label><input  name="DataDiNascita" type="text" class="form-control" placeholder="enter address line 2" value="${utente.getDdn()}"></div>
+                                </div>
+
+                                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
                             </div>
-                            <div class="row mt-2">
-                                <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value=""></div>
-                                <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname"></div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-                                <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" value=""></div>
-                                <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                                <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                                <div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                                <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                                <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value=""></div>
-                                <div class="col-md-12"><label class="labels">Education</label><input type="text" class="form-control" placeholder="education" value=""></div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value=""></div>
-                                <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"></div>
-                            </div>
-                            <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
                         </div>
                     </div>
                 </div>
-            </div>
+
+
+            </form>
         </main>
 </div>
 

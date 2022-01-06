@@ -119,7 +119,7 @@ public class CorsoDao {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement("UPDATE Corso SET nome = ?,descrizione = ? ,nomeProfessore = ? WHERE id = " + c.getId()+"");
             ps.setString(1, c.getNome());
-            ps.setString(2,c.getNome());
+            ps.setString(2,c.getDescrizione());
             ps.setString(3,c.getNomeProfessore());
 
             if (ps.executeUpdate() != 1) {

@@ -33,8 +33,15 @@ public class UtenteServiceImpl implements UtenteService {
     public UtenteBean login(String email, String password) {
         UtenteDao ud = new UtenteDao();
         UtenteBean utente = new UtenteBean();
-        utente = ud.findAccount(email, password);
-        return utente;
+        return ud.findAccount(email, password);
+    }
+
+    @Override
+    public UtenteBean aggiorna(UtenteBean u) {
+        UtenteDao ud = new UtenteDao();
+        if(ud.doUpdate(u))
+            return u;
+        return null;
     }
 
     public void interireInListaPreferiti(int u, int c) {
@@ -47,7 +54,7 @@ public class UtenteServiceImpl implements UtenteService {
         ld.doDelateCorso(c);
     }
 
-    public ArrayList<UtenteBean> visualizzaUtenti() throws SQLException {
+    public ArrayList<UtenteBean> visualizzaUtenti(){
         ArrayList<UtenteBean> utenti = new ArrayList<>();
         UtenteDao ud = new UtenteDao();
         utenti = ud.doRetriveAll();

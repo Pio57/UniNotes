@@ -44,4 +44,16 @@ public class MaterialeDidatticoServiceImpl implements MaterialeDidatticoService 
         return md.doRetriveAll();
     }
 
+    @Override
+    public ArrayList<MaterialeDidatticoBean> visualizzaMaterialeDiUnUtente(int idUtente) {
+        MaterialeDidatticoDao md = new MaterialeDidatticoDao();
+        return md.doRetriveAllByIdUtente(idUtente);
+    }
+
+    @Override
+    public ArrayList<MaterialeDidatticoBean> visualizzaMaterialeDiUnCorso(int idCorso) {
+        MaterialeDidatticoDao md = new MaterialeDidatticoDao();
+        return md.doRetriveAllByIdCorso(idCorso);
+    }
+
 }

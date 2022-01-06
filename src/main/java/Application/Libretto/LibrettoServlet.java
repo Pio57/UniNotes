@@ -19,9 +19,14 @@ public class LibrettoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
-            case "/visualizzaLibretto":{
+            case "/visualizzaLibretto":{//ho modificato questa classe per fare una prova
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/prova.jsp").forward(request,response);
+                break;
+                /*
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaLibretto/visualizzaLibretto").forward(request,response);
                 break;
+
+                 */
             }
         }
     }

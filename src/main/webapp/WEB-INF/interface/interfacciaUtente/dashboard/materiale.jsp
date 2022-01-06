@@ -141,7 +141,7 @@
                     <div class="card my-4">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                <h6 class="text-white text-capitalize ps-3">Materiale table</h6>
+                                <h6 class="text-white text-capitalize ps-3">Lista materiale</h6>
                             </div>
                         </div>
                         <div class="card-body px-0 pb-2">
@@ -149,6 +149,7 @@
                                 <table class="table align-items-center mb-0">
                                     <thead>
                                     <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Materiale</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Corso</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Publicato </th>
@@ -157,15 +158,20 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <c:forEach items="${materiale}" var="m">
                                     <tr>
                                         <td>
                                             <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="Foto USER">
-                                                </div>
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Nome materiale</h6>
-                                                    <p class="text-xs text-secondary mb-0">bho</p>
+                                                    <h6 class="mb-0 text-sm">${m.getId()}</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <span data-feather="file"></span>
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">${m.getNome()}</h6>
                                                 </div>
                                             </div>
                                         </td>
@@ -173,46 +179,19 @@
                                             <p class="text-xs font-weight-bold mb-0">Nome corso</p>
                                             <p class="text-xs text-secondary mb-0">bho</p>
                                         </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-success">Nome persona</span>
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold">Nome Persona</span>
                                         </td>
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold">NON so</span>
                                         </td>
                                         <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
+                                            <a href="/UniNotes_war_exploded/covers/${m.getPathFile()}" download="${m.getNome()}" style="color: gray">
+                                                <span data-feather="download"></span>
                                             </a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="Foto USER">
-                                                </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Nome materiale</h6>
-                                                    <p class="text-xs text-secondary mb-0">bho</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-xs font-weight-bold mb-0">Nome corso</p>
-                                            <p class="text-xs text-secondary mb-0">bho</p>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-success">Nome persona</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">NON so</span>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
-                                            </a>
-                                        </td>
-                                    </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

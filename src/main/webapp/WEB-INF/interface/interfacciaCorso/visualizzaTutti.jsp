@@ -45,8 +45,6 @@
 
         </article>
         </c:forEach>
-
-
         </div>
     </section>
 

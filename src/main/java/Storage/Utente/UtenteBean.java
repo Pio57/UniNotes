@@ -2,11 +2,13 @@ package Storage.Utente;
 
 import Storage.Libretto.LibrettoBean;
 import Storage.ListaPreferiti.ListaPreferitiBean;
+import Storage.MaterialeDidattico.MaterialeDidatticoBean;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class UtenteBean {
     private int idUtente;
@@ -19,6 +21,9 @@ public class UtenteBean {
     private boolean tipo;
     private LibrettoBean libretto;
     private ListaPreferitiBean listaPreferiti;
+    private ArrayList<MaterialeDidatticoBean> materiale;
+
+
 
     public UtenteBean(){ }
 
@@ -78,6 +83,14 @@ public class UtenteBean {
         return listaPreferiti;
     }
 
+    public ArrayList<MaterialeDidatticoBean> getMateriale() {
+        return materiale;
+    }
+
+    public void setMateriale(ArrayList<MaterialeDidatticoBean> materiale) {
+        this.materiale = materiale;
+    }
+
     public String getCf() {
         return cf;
     }
@@ -114,6 +127,10 @@ public class UtenteBean {
             builder.append(String.format("%02x", bit)); //inseriemo in ogni bit del bit formattata "%02x" caratteri miniuscoli
         }
         this.password = builder.toString();
+    }
+
+    public void setPss(String password){
+        this.password = password;
     }
 
     public void setTipo(boolean tipo) {

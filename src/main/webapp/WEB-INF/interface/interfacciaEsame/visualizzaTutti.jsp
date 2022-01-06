@@ -36,7 +36,7 @@
     </thead>
 
     <tbody>
-    <form method="post" action="/UniNotes_war_exploded/Esame/visualizzaTutto">
+    <form method="get" action="/UniNotes_war_exploded/Esame/visualizza">
         <e:forEach items="${esame}" var="e">
 
             <tr>
