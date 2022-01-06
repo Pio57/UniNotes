@@ -21,41 +21,72 @@
         <jsp:param name="script" value=""/>
     </jsp:include>
 
+    <link rel="stylesheet" href="../../../css/libretto.css" type = "text/css">
+
     <title>Visualizza tutti gli esami</title>
+</head>
 <body>
 
 <main>
     <%@include file="/WEB-INF/interface/partials/header.jsp"%>
 
 
-    <div class="container embed-responsive" style="margin-top:50px;">
-
+    <div class="container text-center" >
+        <h1 style="color: black">MY LIBRETTO</h1>
         <div class="row">
-            <div class="col-md-3">
-                <c:forEach items="${corsi}" var="c">
-                    <div class="card-sl">
-
-
-                        <jsp:include page="/WEB-INF/interface/interfacciaCorso/cardCorso.jsp">
-                            <jsp:param name="id" value="${c.getId()}"/>
-                            <jsp:param name="nomeEsame" value="${c.getNunEsami()}"/>
-                            <jsp:param name="crediti" value="${c.getCfuCrediti()}"/>
-                            <jsp:param name="media" value="${c.getMedia()}"/>
-                        </jsp:include>
-
-
-                    </div>
-                </c:forEach>
+            <div class="card">
+                <h3>Media</h3>
+                <h1>27.09</h1>
+            </div>
+            <div class="card">
+                <h3>Cfu Accumulati</h3>
+                <h1>108/150</h1>
+            </div>
+            <div class="card">
+                <h3>Numero esami sostenuti</h3>
+                <h1>13</h1>
             </div>
         </div>
 
+        <h1 style="color: black" >Funzioni del libetto</h1>
+
+        <button class="libretto" name="viewEsame" onclick="viewEsame()"> Visualizza il libretto </button> <br>
+        <div id="viewEsami" style="display: none">
+            <h4>Nome esame</h4>
+            <h4>Voto</h4>
+            <h4>Cfu relativi all esame sostenuto</h4>
+            <h4>Data del esame</h4>
+            <h4>Nome Professore</h4>
+            <!--
+            <form action="AdminProdotto" method="get">
+                <label class="codP" for="cod">Codice Prodotto:</label>
+                <input type="number" id="codP" name="cod"><br><br>
+                <input type="hidden" id="rimuovi" name="rimuovi" value="true" >
+                <input  type="submit" value="Submit">
+            </form>-->
+        </div>
     </div>
 
 
     <!-- FOOTER -->
     <%@include file="/WEB-INF/interface/partials/footer.jsp"%>
 
+
+    <script>
+
+        function viewEsame(){
+            var x= document.getElementById("viewEsami");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+    </script>
+
 </main>
+
+
 
 </body>
 </html>
