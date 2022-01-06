@@ -31,6 +31,7 @@
             <div class="postcard__preview-txt">${param.nomeProf}</div>
         </time>
     </div>
+
     <div class="postcard__bar"></div>
     <div class="postcard__preview-txt">${param.descrizione}</div>
     <ul class="postcard__tagbox">
