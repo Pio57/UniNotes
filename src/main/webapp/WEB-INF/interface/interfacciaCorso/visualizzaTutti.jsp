@@ -21,6 +21,7 @@
         <jsp:param name="script" value=""/>
     </jsp:include>
 
+
     <title>Visualizza tutti i corsi</title>
 <body>
 
@@ -28,32 +29,30 @@
     <%@include file="/WEB-INF/interface/partials/header.jsp"%>
 
 
-    <div class="container embed-responsive" style="margin-top:50px;">
+    <section class="light">
+        <div class="container py-2">
 
-        <div class="row">
-            <div class="col-md-3">
-                <c:forEach items="${corsi}" var="c">
-                <div class="card-sl">
+        <c:forEach items="${corsi}" var="c">
+            <article class="postcard light red"
 
-
-                        <jsp:include page="/WEB-INF/interface/interfacciaCorso/cardCorso.jsp">
-                            <jsp:param name="id" value="${c.getId()}"/>
-                            <jsp:param name="nome" value="${c.getNome()}"/>
-                            <jsp:param name="descrizione" value="${c.getDescrizione()}"/>
-                            <jsp:param name="nomeProf" value="${c.getNomeProfessore()}"/>
-                        </jsp:include>
+            <jsp:include page="/WEB-INF/interface/interfacciaCorso/cardCorso.jsp">
+                <jsp:param name="id" value="${c.getId()}"/>
+                <jsp:param name="nome" value="${c.getNome()}"/>
+                <jsp:param name="descrizione" value="${c.getDescrizione()}"/>
+                <jsp:param name="nomeProf" value="${c.getNomeProfessore()}"/>
+            </jsp:include>
 
 
-                </div>
-                </c:forEach>
-            </div>
+        </article>
+        </c:forEach>
         </div>
+    </section>
 
     </div>
+</section>
 
-
-        <!-- FOOTER -->
-    <%@include file="/WEB-INF/interface/partials/footer.jsp"%>
+<!-- FOOTER -->
+<%@include file="/WEB-INF/interface/partials/footer.jsp"%>
 
 </main>
 

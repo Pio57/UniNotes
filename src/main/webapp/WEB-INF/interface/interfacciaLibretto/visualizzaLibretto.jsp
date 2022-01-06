@@ -13,10 +13,10 @@
     <!-- mobile metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/libretto.css">
+
 
     <jsp:include page="/WEB-INF/interface/partials/head.jsp">
-        <jsp:param name="title" value="UniNotes-Libretto"/>
+        <jsp:param name="title" value="UniNotes-Home"/>
         <jsp:param name="style" value="cards"/>
         <jsp:param name="script" value=""/>
     </jsp:include>
@@ -27,38 +27,32 @@
 <main>
     <%@include file="/WEB-INF/interface/partials/header.jsp"%>
 
-        <div class="jumbotron">
-            <div class="container text-center">
-                <h1>My Libretto</h1>
-                <div class="card">
-                    <p>Media</p>
-                </div>
-                <div class="card">
-                    <p>CFU ottenuti </p>
-                </div>
-                <div class="card">
-                    <p>Numero di esami superati </p>
-                </div>
+
+    <div class="container embed-responsive" style="margin-top:50px;">
+
+        <div class="row">
+            <div class="col-md-3">
+                <c:forEach items="${corsi}" var="c">
+                    <div class="card-sl">
+
+
+                        <jsp:include page="/WEB-INF/interface/interfacciaCorso/cardCorso.jsp">
+                            <jsp:param name="id" value="${c.getId()}"/>
+                            <jsp:param name="nomeEsame" value="${c.getNunEsami()}"/>
+                            <jsp:param name="crediti" value="${c.getCfuCrediti()}"/>
+                            <jsp:param name="media" value="${c.getMedia()}"/>
+                        </jsp:include>
+
+
+                    </div>
+                </c:forEach>
             </div>
         </div>
 
-        <div class="container-fluid bg-3 text-center">
-            <h3>Some of my Work</h3><br>
-            <div class="row">
-                <p>Nome dello Studente </p>
+    </div>
 
-                <div class="col-sm-3">
-                    <p>Materia Esame</p>
-                    <p>Voto</p>
-                    <p>CFU</p>
-                    <p>Nome professore</p>
-                    <p>Data Esame</p>
-                </div>
 
-            </div>
-        </div><br>
-
-          <!-- FOOTER -->
+    <!-- FOOTER -->
     <%@include file="/WEB-INF/interface/partials/footer.jsp"%>
 
 </main>

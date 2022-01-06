@@ -10,7 +10,7 @@ public class UtenteDao {
    public boolean doSave(UtenteBean utente) throws SQLException {
        try(Connection con = ConPool.getConnection()) {
            PreparedStatement ps = con.prepareStatement(
-                   "INSERT INTO Utente(nome, cognome, cf, mail, dataDiNascita, password, tipo) VALUES(?,?,?,?,?,?,?)",
+                   "INSERT INTO Utente(nome, cognome, cf, email, dataDiNascita, password, tipo) VALUES(?,?,?,?,?,?,?)",
                    Statement.RETURN_GENERATED_KEYS);
 
            ps.setString(1, utente.getNome());
@@ -18,7 +18,8 @@ public class UtenteDao {
            ps.setString(3, utente.getCf());
            ps.setString(4, utente.getEmail());
            ps.setObject(5, utente.getDdn());
-           ps.setBoolean(6, utente.isTipo());
+           ps.setString(6, utente.getPassword());
+           ps.setBoolean(7, utente.isTipo());
 
            if (ps.executeUpdate() != 1) {
                throw new RuntimeException("INSERT error.");
@@ -34,7 +35,7 @@ public class UtenteDao {
        }
    }
 
-   public ArrayList<UtenteBean> doRetriveAll() throws SQLException {
+   public ArrayList<UtenteBean> doRetriveAll(){
        ArrayList<UtenteBean> utenti = new ArrayList<>();
        try (Connection con = ConPool.getConnection()) {
            PreparedStatement ps = con.prepareStatement("SELECT * FROM Utente u");
@@ -94,15 +95,14 @@ public class UtenteDao {
 
     public boolean doUpdate(UtenteBean u) {
         try (Connection con = ConPool.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("UPDATE Utente SET nome = ?, cognome = ?, cf = ?, email = ?, dataDiNascita= ?, password = ?, tipo = ? WHERE id = " + u.getIdUtente());
+            PreparedStatement ps = con.prepareStatement("UPDATE Utente SET nome = ?, cognome = ?, cf = ?, email = ?, dataDiNascita= ?, tipo = ? WHERE id = " + u.getIdUtente());
 
             ps.setString(1,u.getNome());
             ps.setString(2, u.getCognome());
             ps.setString(3, u.getCf());
             ps.setString(4, u.getEmail());
             ps.setObject(5, u.getDdn());
-            ps.setString(6, u.getPassword());
-            ps.setBoolean(7, u.isTipo());
+            ps.setBoolean(6, u.isTipo());
 
 
             if (ps.executeUpdate() != 1) {
@@ -130,7 +130,6 @@ public class UtenteDao {
 
     public UtenteBean findAccount(String email, String password) {
         try (Connection con = ConPool.getConnection()) {
-
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Utente u WHERE u.email = ? AND u.password = ?");
 
             ps.setString(1, email);
@@ -140,9 +139,10 @@ public class UtenteDao {
             UtenteBean u = null;
 
             if (rs.next()) {
-
                 u = ue.extract(rs);
             }
+
+            con.close();
             return u;
 
         } catch (SQLException e) {

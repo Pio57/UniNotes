@@ -11,6 +11,8 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
 
+    <link id="pagestyle" href="../assets/css/material-dashboard.min.css?v=3.0.0" rel="stylesheet">
+
     <jsp:include page="/WEB-INF/interface/partials/head.jsp">
         <jsp:param name="title" value="UniNotes-Home"/>
         <jsp:param name="style" value="dashboard"/>
@@ -32,6 +34,54 @@
 
 
     <style>
+
+        .mt-n4 {
+            margin-top: -1.5rem!important;
+        }
+
+        .card {
+            box-shadow: 0 4px 6px -1px , 0 2px 4px -1px ;
+        }
+
+
+        .card {
+            position: relative;
+            display: flex; !important;
+            flex-direction: column;
+            /* min-width: 0; */
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid rgba(0,0,0,.125);
+            border-radius: 0.75rem;
+        }
+
+        .bg-gradient-secondary {
+            background-image: linear-gradient(
+                    195deg,#747b8a,#495361);
+        }
+
+        .bg-gradient-success {
+            background-image: linear-gradient(
+                    195deg,#66bb6a,#43a047);
+        }
+
+        .badge, .btn {
+            text-transform: uppercase;
+        }
+
+        .border-radius-lg {
+            border-radius: 0.5rem;
+        }
+        .bg-gradient-primary {
+            background-image: linear-gradient(
+                    195deg, #0c0c0c, #343434);
+        }
+
+        .shadow-primary {
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14),0 7px 10px -5px rgba(203, 203, 203, 0.4) !important;
+        }
+
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -82,7 +132,87 @@
             </div>
 
 
-            <h2>Lista utenti</h2>
+
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card my-4">
+                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                                <h6 class="text-white text-capitalize ps-3">Lista utenti</h6>
+                            </div>
+                        </div>
+                        <div class="card-body px-0 pb-2">
+                            <div class="table-responsive p-0">
+                                <table class="table align-items-center mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Ruolo</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cf</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Data di nascita</th>
+                                        <th class="text-secondary opacity-7"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${utenti}" var="u">
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">${u.getIdUtente()}</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">${u.getNome()} ${u.getCognome()}</h6>
+                                                    <p class="text-xs text-secondary mb-0">${u.getEmail()}</p>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <c:if test="${u.isTipo()}">
+                                            <p class="text-xs font-weight-bold mb-0">Amministratore</p>
+                                            </c:if>
+                                            <c:if test="${!u.isTipo()}">
+                                                <p class="text-xs font-weight-bold mb-0">Studente</p>
+                                            </c:if>
+
+                                        </td>
+
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold">${u.getCf()}</span>
+                                        </td>
+
+                                        <td class="align-middle text-center">
+                                            <span class="text-secondary text-xs font-weight-bold">${u.getDdn()}</span>
+                                        </td>
+
+                                        <td class="align-middle">
+                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                Edit
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <!--    TABELLA CLASSICA
             <div class="table-responsive">
                 <table class="table table-striped table-sm">
                     <thead>
@@ -120,7 +250,9 @@
                     </tr>
                     </tbody>
                 </table>
+
             </div>
+             -->
         </main>
     </div>
 </div>

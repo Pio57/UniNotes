@@ -1,3 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -108,6 +112,7 @@
                                     <p>Statistics on minimal cards.</p>
                                 </div>
                             </div>
+                            <c:if test="${utente.isTipo()}">
                             <div class="row">
                                 <div class="col-xl-3 col-sm-6 col-12">
                                     <div class="card">
@@ -119,7 +124,7 @@
                                                             <i class="icon-book-open primary font-large-2 float-left"></i>
                                                         </div>
                                                         <div class="media-body text-right">
-                                                            <h3>278</h3>
+                                                            <h3>${totCorsi}</h3>
                                                             <span>Corsi</span>
                                                         </div>
                                                     </div>
@@ -128,6 +133,9 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                </c:if>
+                                <c:if test="${utente.isTipo()}">
                                 <div class="col-xl-3 col-sm-6 col-12">
                                     <div class="card">
                                         <div class="card-content">
@@ -138,7 +146,7 @@
                                                             <i class="icon-users warning font-large-2 float-left"></i>
                                                         </div>
                                                         <div class="media-body text-right">
-                                                            <h3>156</h3>
+                                                            <h3>${totUtenti}</h3>
                                                             <span>Utenti</span>
                                                         </div>
                                                     </div>
@@ -147,6 +155,8 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                </c:if>
                                 <div class="col-xl-3 col-sm-6 col-12">
                                     <div class="card">
                                         <div class="card-content">
@@ -157,8 +167,14 @@
                                                             <i class="icon-doc success font-large-2 float-left"></i>
                                                         </div>
                                                         <div class="media-body text-right">
-                                                            <h3>64.89 %</h3>
+                                                            <c:if test="${utente.isTipo()}">
+                                                            <h3>${totMateriale}</h3>
                                                             <span>Materiale</span>
+                                                            </c:if>
+                                                            <c:if test="${!utente.isTipo()}">
+                                                                <h3>${utente.getMateriale().size()}</h3>
+                                                                <span>Materiale</span>
+                                                            </c:if>
                                                         </div>
                                                     </div>
                                                 </a>

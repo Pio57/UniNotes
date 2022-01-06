@@ -3,6 +3,7 @@ package Application.MaterialeDidattico;
 import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoService;
 import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoServiceImpl;
 import Storage.MaterialeDidattico.MaterialeDidatticoBean;
+import Storage.Utente.UtenteBean;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -38,14 +39,35 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                 break;
             }
             case "/visualizza":{
-                request.setAttribute("materiale",materialeDidattico.visualizza(5));//togliere l'id statico --> mettendone uno dinamico
+
+                HttpSession ssn = request.getSession();
+                UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
+                if(u == null){
+                    response.sendRedirect("/UniNotes_war_exploded/");
+                    break;
+                }
+                if(u.isTipo()){
+                   request.setAttribute("materiale",materialeDidattico.visualizzaTutti());
+                }else{
+                    request.setAttribute("materiale",materialeDidattico.visualizzaMaterialeDiUnUtente(u.getIdUtente()));
+                }
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/visualizza.jsp").forward(request,response);
                 break;
             }
             case "/visualizzaTutti":{
-                ArrayList<MaterialeDidatticoBean> c = materialeDidattico.visualizzaTutti();
-                request.setAttribute("materiali",c);//ho cambiato la path per farlo andare nella dashboard --> bisogna rivederla
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/materiale.jsp").forward(request,response);
+                HttpSession ssn = request.getSession();
+                UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
+                if(u == null){
+                    response.sendRedirect("/UniNotes_war_exploded/");
+                    break;
+                }
+                if(u.isTipo()){
+                    request.setAttribute("materiale",materialeDidattico.visualizzaTutti());
+                }else{
+                    request.setAttribute("materiale",materialeDidattico.visualizzaMaterialeDiUnUtente(u.getIdUtente()));
+                }
+                //ho cambiato la path per farlo andare nella dashboard --> bisogna rivederla
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/visualizza.jsp").forward(request,response);
                 break;
             }
         }
@@ -57,18 +79,24 @@ public class MaterialeDidatticoServlet extends HttpServlet {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
             case "/inserireMateriale":{
+                HttpSession ssn = request.getSession();
+                UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
+                if(u == null){
+                    response.sendRedirect("/UniNotes_war_exploded/");
+                    break;
+                }
                 String idCorso = request.getParameter("idCorso");
-                String idUtente = request.getParameter("idUtente");
+                int idUtente = u.getIdUtente();
                 String nome = request.getParameter("Nome");
                 Part filePart = request.getPart("File");
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                if(materialeDidattico.inserireMateriale(nome,fileName,Integer.parseInt(idCorso),Integer.parseInt(idUtente))){
+                if(materialeDidattico.inserireMateriale(nome,fileName,Integer.parseInt(idCorso),idUtente)){
                     String uploadRoot = "/Users/piosantosuosso/Desktop/apache-tomcat-9.0.43/uploads/";
 
                     try (InputStream fileStream = filePart.getInputStream()) {
                         File file = new File(uploadRoot + fileName);
                         Files.copy(fileStream, file.toPath());
-                        response.sendRedirect("/UniNotes_war_exploded/");
+                        response.sendRedirect("/UniNotes_war_exploded/Corso/visualizzaTutti");
                         break;
                     }
                }

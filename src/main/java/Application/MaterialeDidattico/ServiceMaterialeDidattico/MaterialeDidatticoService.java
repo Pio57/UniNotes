@@ -21,4 +21,8 @@ public interface MaterialeDidatticoService {
 
     public ArrayList<MaterialeDidatticoBean> visualizzaTutti();
 
+    public ArrayList<MaterialeDidatticoBean> visualizzaMaterialeDiUnUtente(int idUtente);
+
+    public ArrayList<MaterialeDidatticoBean> visualizzaMaterialeDiUnCorso(int idCorso);
+
 }

@@ -17,7 +17,7 @@
         <jsp:param name="script" value="dashboard"/>
     </jsp:include>
 
-
+33
     <!-- Bootstrap core CSS
     <link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 -->
@@ -32,6 +32,62 @@
 
 
     <style>
+
+
+        .row{
+            justify-content: space-around;
+        }
+
+
+        .rounded {
+            box-shadow: 0 4px 6px -1px, 0 2px 4px -1px;
+            border-radius: 0.25rem!important;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #6b6b6b
+        }
+
+        .profile-button {
+            background: rgb(105, 105, 105);
+            box-shadow: none;
+            border: none
+        }
+
+        .profile-button:hover {
+            background: #6B6B6B
+        }
+
+        .profile-button:focus {
+            background: #6B6B6B;
+            box-shadow: none
+        }
+
+        .profile-button:active {
+            background: #6B6B6B;
+            box-shadow: none
+        }
+
+        .back:hover {
+            color: #6B6B6B;
+            cursor: pointer
+        }
+
+        .labels {
+            font-size: 11px
+        }
+
+        .add-experience:hover {
+            background: #6b6b6b;
+            color: #fff;
+            cursor: pointer;
+            border: solid 1px #6B6B6B
+        }
+
+
+
+
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -81,50 +137,44 @@
                 <h1 class="h2">Pagina personale</h1>
             </div>
 
+            <form action="/UniNotes_war_exploded/Utente/modifica" method="post">
 
-            <h2>Informazioni personali</h2>
-            <!--
-            <div class="table-responsive">
-                <table class="table table-striped table-sm">
-                    <thead>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Cognome</th>
-                        <th scope="col">Cf</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Data di nascita</th>
-                        <th scope="col">Ruolo</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                <div class="container rounded bg-white mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-3 border-right" >
+                            <div class="d-flex flex-column align-items-center border-right text-center p-3 py-5" >
+                                <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                                <span class="font-weight-bold">${utente.getNome()} ${utente.getCognome()}</span>
+                                <span class="text-black-50">${utente.getEmail()}</span>
+                                <span> </span>
+                            </div>
+                        </div>
+                        <div class="col-md-5 border-right">
+                            <div class="p-3 py-5">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4 class="text-right">Impostazioni del profilo</h4>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-6"><label class="labels">Nome</label><input name="Nome"  type="text" class="form-control" placeholder="first name" value="${utente.getNome()}"></div>
+                                    <div class="col-md-6"><label class="labels">Cognome</label><input name="Cognome" type="text" class="form-control" value="${utente.getCognome()}" placeholder="surname"></div>
+                                </div>
+                                <div class="row mt-3">
+                                        <div class="col-md-12"><label class="labels">Codice Fiscale</label><input  name="CF" type="text" class="form-control" placeholder="Codice Fiscale" value="${utente.getCf()}"></div>
+                                    <div class="col-md-12"><label class="labels">Email</label><input name="Email" type="text" class="form-control" placeholder="Email" value="${utente.getEmail()}"></div>
+                                    <div class="col-md-12"><label class="labels">Data di nascita</label><input  name="DataDiNascita" type="text" class="form-control" placeholder="enter address line 2" value="${utente.getDdn()}"></div>
+                                </div>
 
-                    <c:forEach items="${utenti}" var="u">
-                        <tr>
-                            <td>${u.getIdUtente()}</td>
-                            <td>${u.getNome()}</td>
-                            <td>${u.getCognome()}</td>
-                            <td>${u.getCf()}</td>
-                            <td>${u.getEmail()}</td>
-                            <td>${u.getDdn()}</td>
-                            <c:if test="${u.isTipo()}">
-                                <td>Amministratore</td>
-                            </c:if>
-                            <c:if test="${!u.isTipo()}">
-                                <td>Studente</td>
-                            </c:if>
-                        </tr>
+                                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    </c:forEach>
 
-                    <tr>
+            </form>
+        </main>
+</div>
 
-                    </tr>
-                    </tbody>
-                </table>
-
-            </div>
-             -->
         </main>
     </div>
 </div>

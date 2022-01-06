@@ -7,31 +7,41 @@ import Storage.ListaPreferiti.ListaPreferitiDao;
 import Storage.Utente.UtenteBean;
 import Storage.Utente.UtenteDao;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class UtenteServiceImpl implements UtenteService {
 
-    public void registrazione(String nome, String cognome, String cf, String email, String password, String data) throws SQLException {
+    public UtenteBean registrazione(String nome, String cognome, String cf, String email, String password, String data) throws SQLException, NoSuchAlgorithmException {
         UtenteBean utente = new UtenteBean();
         UtenteDao ud = new UtenteDao();
 
         utente.setNome(nome);
         utente.setCognome(cognome);
-        utente.setCognome(cf);
+        utente.setCf(cf);
         utente.setEmail(email);
         utente.setPassword(password);
         utente.setDdn(LocalDate.parse(data));
 
         ud.doSave(utente);
+
+        return utente;
     }
 
     public UtenteBean login(String email, String password) {
         UtenteDao ud = new UtenteDao();
         UtenteBean utente = new UtenteBean();
-        utente = ud.findAccount(email, password);
-        return utente;
+        return ud.findAccount(email, password);
+    }
+
+    @Override
+    public UtenteBean aggiorna(UtenteBean u) {
+        UtenteDao ud = new UtenteDao();
+        if(ud.doUpdate(u))
+            return u;
+        return null;
     }
 
     public void interireInListaPreferiti(int u, int c) {
@@ -44,7 +54,7 @@ public class UtenteServiceImpl implements UtenteService {
         ld.doDelateCorso(c);
     }
 
-    public ArrayList<UtenteBean> visualizzaUtenti() throws SQLException {
+    public ArrayList<UtenteBean> visualizzaUtenti(){
         ArrayList<UtenteBean> utenti = new ArrayList<>();
         UtenteDao ud = new UtenteDao();
         utenti = ud.doRetriveAll();
