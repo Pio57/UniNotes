@@ -103,6 +103,15 @@ public class UtenteServlet extends HttpServlet {
                 break;
             }
 
+            case "/logout": {//logout [adimn/cliente]
+                HttpSession session = request.getSession(false);
+                session.removeAttribute("utente");
+                session.invalidate();
+                response.sendRedirect("/UniNotes_war_exploded/index.jsp");
+
+                break;
+            }
+
         }
     }
 

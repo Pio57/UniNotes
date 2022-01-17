@@ -20,13 +20,12 @@ public class LibrettoServlet extends HttpServlet {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
             case "/visualizzaLibretto":{//ho modificato questa classe per fare una prova
+                /*
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/prova.jsp").forward(request,response);
                 break;
-                /*
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaLibretto/visualizzaLibretto").forward(request,response);
+                */
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaLibretto/visualizzaLibretto.jsp").forward(request,response);
                 break;
-
-                 */
             }
         }
     }
