@@ -44,9 +44,7 @@
                 </li>
 
             </ul>
-            <li>
                 <span style="color: white">Salve ${utente.getNome()}</span>
-            </li>
         </div>
     </div>
 </nav>

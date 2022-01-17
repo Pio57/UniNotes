@@ -11,6 +11,8 @@ public interface ListaPreferitiService {
 
     public ListaPreferitiBean visualizzaListaPreferiti(int id);
 
+    public ListaPreferitiBean visualizzaListaUtente(int idUtente);
+
     public void inserisciInListaPreferiti(int idUtente, int idCorso);
 
     public void rimuoviDaListaPreferiti(int idCorso);

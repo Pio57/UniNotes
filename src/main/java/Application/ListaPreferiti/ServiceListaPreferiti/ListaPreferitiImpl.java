@@ -17,6 +17,12 @@ public class ListaPreferitiImpl implements ListaPreferitiService{
     }
 
     @Override
+    public ListaPreferitiBean visualizzaListaUtente(int idUtente) {
+        ListaPreferitiDao ld = new ListaPreferitiDao();
+        return ld.doRetriveAllByIdUtente(idUtente);
+    }
+
+    @Override
     public void inserisciInListaPreferiti(int idUtente, int idCorso) {
         ListaPreferitiDao ld = new ListaPreferitiDao();
         ld.doSave(idUtente, idCorso);

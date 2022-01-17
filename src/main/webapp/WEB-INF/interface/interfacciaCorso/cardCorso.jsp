@@ -1,8 +1,31 @@
-
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="Storage.ListaPreferiti.ListaPreferitiBean" %>
+<%@ page import="Storage.Corso.CorsoBean" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
 
+    <style>
+
+
+
+        .button {
+            border-radius: 20px;
+            transition-duration: 0.4s;
+        }
+
+        .button:hover {
+            background-color: #6b6b6b;
+            color: white;
+        }
+
+
+
+
+
+    </style>
 
 </head>
 <body>
@@ -20,11 +43,11 @@
 <a class="postcard__img_link">
     <img class="postcard__img" src="../img/card.png"  alt="Image Title" />
 </a>
-<form action="/UniNotes_war_exploded/Corso/visualizza" method="get" >
+
 
 
 <div class="postcard__text t-dark">
-    <input type="hidden" name="idCorso" value="${param.id}">
+
     <h1 class="postcard__title red">${param.nome}</h1>
     <div class="postcard__subtitle small">
         <time datetime="2020-05-25 12:00:00">
@@ -35,29 +58,32 @@
     <div class="postcard__bar"></div>
     <div class="postcard__preview-txt">${param.descrizione}</div>
     <ul class="postcard__tagbox">
+        <form action="/UniNotes_war_exploded/ListaPreferiti/toggle" method="get" >
+            <input type="hidden" name="idCorso" value="${param.id}">
+            <button type="submit " class="button">
+                <c:forEach items="${listaPreferiti.getCorsi()}" var="c">
+                    <c:if test="${c.getId()} == ${param.id}">
+                        <a name="rimuovi"><span data-feather="folder-plus"></span>Rimuovi a preferiti</a>
+                        <a name="aggiungi" type="hidden"><span data-feather="folder-plus"></span>Aggiungi a preferiti</a>
+                    </c:if>
+                    <c:if test="${c.getId()} != ${param.id}">
+                        <a name="rimuovi"><span data-feather="folder-plus"></span>Rimuovi a preferiti</a>
+                        <a name="aggiungi" type="hidden"><span data-feather="folder-plus"></span>Aggiungi a preferiti</a>
+                    </c:if>
 
-        <li class="tag__item play red">
-            <a href="/UniNotes_war_exploded/ListaPrferiti/aggiungi">
-                <span data-feather="heart"></span>
-                Aggiungi ai preferiti</a>
-        </li>
-
-
-        <li class="tag__item play red">
-            <a href="/UniNotes_war_exploded/Materiale/inserireMateriale">
-                <span data-feather="folder-plus"></span>
-                Inserisci materiale</a>
-        </li>
-
-
-        <li class="tag__item play red">
-            <a><button type="submit"></button>
-                <span data-feather="folder-plus"></span>
-                Inserisci materiale</a>
-        </li>
+                </c:forEach>
+                <a><span data-feather="folder-plus"></span>Aggiungi a preferiti</a>
+            </button>
+        </form>
+        <form action="/UniNotes_war_exploded/Corso/visualizza" method="get" >
+            <input type="hidden" name="idCorso" value="${param.id}">
+            <button type="submit " class="button">
+                <a><span data-feather="folder-plus"></span>Visualizza corso</a>
+            </button>
+        </form>
     </ul>
 </div>
-</form>
+
 </body>
 </html>
 

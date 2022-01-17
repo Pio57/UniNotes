@@ -67,7 +67,7 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                     request.setAttribute("materiale",materialeDidattico.visualizzaMaterialeDiUnUtente(u.getIdUtente()));
                 }
                 //ho cambiato la path per farlo andare nella dashboard --> bisogna rivederla
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/visualizza.jsp").forward(request,response);
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/materiale.jsp").forward(request,response);
                 break;
             }
         }

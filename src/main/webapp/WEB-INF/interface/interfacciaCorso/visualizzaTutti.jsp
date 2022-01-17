@@ -1,4 +1,3 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -34,13 +33,16 @@
 
         <c:forEach items="${corsi}" var="c">
             <article class="postcard light red"
-
-            <jsp:include page="/WEB-INF/interface/interfacciaCorso/cardCorso.jsp">
-                <jsp:param name="id" value="${c.getId()}"/>
-                <jsp:param name="nome" value="${c.getNome()}"/>
-                <jsp:param name="descrizione" value="${c.getDescrizione()}"/>
-                <jsp:param name="nomeProf" value="${c.getNomeProfessore()}"/>
-            </jsp:include>
+            <c:forEach items="${listaPreferiti.getCorsi()}" var="l">
+            <c:if test="${c.getId().contains(l)}">
+                <jsp:include page="/WEB-INF/interface/interfacciaCorso/cardCorso.jsp">
+                    <jsp:param name="id" value="${c.getId()}"/>
+                    <jsp:param name="nome" value="${c.getNome()}"/>
+                    <jsp:param name="descrizione" value="${c.getDescrizione()}"/>
+                    <jsp:param name="nomeProf" value="${c.getNomeProfessore()}"/>
+                    <jsp:param name="toggle" value="Rimuovi"/>
+                </jsp:include>
+            </c:if>
 
 
         </article>

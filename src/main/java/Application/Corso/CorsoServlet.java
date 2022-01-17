@@ -2,9 +2,15 @@ package Application.Corso;
 
 import Application.Corso.ServiceCorso.CorsoService;
 import Application.Corso.ServiceCorso.CorsoServiceImpl;
+import Application.ListaPreferiti.ServiceListaPreferiti.ListaPreferitiImpl;
+import Application.ListaPreferiti.ServiceListaPreferiti.ListaPreferitiService;
 import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoService;
 import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoServiceImpl;
+import Application.Utente.ServiceUtente.UtenteService;
+import Application.Utente.ServiceUtente.UtenteServiceImpl;
 import Storage.Corso.CorsoBean;
+import Storage.ListaPreferiti.ListaPreferitiBean;
+import Storage.ListaPreferiti.ListaPreferitiDao;
 import Storage.Utente.UtenteBean;
 
 import javax.servlet.*;
@@ -18,8 +24,10 @@ import java.util.ArrayList;
 @WebServlet(name = "CorsoServlet", value = "/Corso/*")
 public class CorsoServlet extends HttpServlet {
 
+    private final UtenteService utenteService = new UtenteServiceImpl();
     private final CorsoService corsoService = new CorsoServiceImpl();
     private final MaterialeDidatticoService materialeDidattico = new MaterialeDidatticoServiceImpl();
+    private final ListaPreferitiService listaPreferitiService = new ListaPreferitiImpl();
 
 
     @Override
@@ -47,7 +55,6 @@ public class CorsoServlet extends HttpServlet {
                 }
                 int id = Integer.parseInt(request.getParameter("idCorso"));
                 CorsoBean c = corsoService.visualizzaCorso(id);
-                System.out.println(id);
                 c.setListaMateriale(materialeDidattico.visualizzaMaterialeDiUnCorso(id));
                 request.setAttribute("Corso",c);
                 request.setAttribute("Materiale",materialeDidattico.visualizzaMaterialeDiUnCorso(id));
@@ -82,6 +89,23 @@ public class CorsoServlet extends HttpServlet {
                 }
 
 
+                System.out.println("corsi"+listaPreferitiService.visualizzaListaUtente(u.getIdUtente()).getCorsi());
+                request.setAttribute("listaPreferiti",listaPreferitiService.visualizzaListaUtente(u.getIdUtente()));
+                request.setAttribute("corsi",corsoService.visualizzaCorsi());
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizzaTutti.jsp").forward(request,response);
+                break;
+            }
+            case "/aggiungiAPreferiti":{
+
+                HttpSession ssn = request.getSession();
+                UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
+                if(u == null){
+                    response.sendRedirect("/UniNotes_war_exploded/");
+                    break;
+                }
+
+                int idCorso = Integer.parseInt(request.getParameter("idCorso"));
+                utenteService.interireInListaPreferiti(u.getIdUtente(),idCorso);
                 request.setAttribute("corsi",corsoService.visualizzaCorsi());
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizzaTutti.jsp").forward(request,response);
                 break;

@@ -2,6 +2,7 @@ package Storage.ListaPreferiti;
 
 import Storage.ConPool;
 import Storage.Corso.CorsoBean;
+import Storage.Corso.CorsoDao;
 import Storage.Corso.CorsoExtractor;
 
 import java.sql.*;
@@ -45,12 +46,13 @@ public class ListaPreferitiDao {
             ResultSet rs = ps.executeQuery();
             ListaPreferitiBean l = new ListaPreferitiBean();
             ListaPreferitiExtractor le = new ListaPreferitiExtractor();
+            CorsoDao cd = new CorsoDao();
             CorsoExtractor ce = new CorsoExtractor();
             ArrayList<CorsoBean> corsi = new ArrayList<>();
 
             while (rs.next()) {
                 l = le.extract(rs);
-                corsi.add(ce.extract(rs));
+                corsi.add(cd.doRetriveById(rs.getInt("l.idCorso")));
             }
             l.setCorsi(corsi);
 
