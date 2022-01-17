@@ -132,10 +132,10 @@ public class UtenteServlet extends HttpServlet {
                 String confermaPassword = request.getParameter("CPassword");
                 String data = request.getParameter("DataDiNascita");
 
-
                 if (nome.matches(nomePattern) && cognome.matches(cognomePattern) && cf.matches(cfPattern) && email.matches(emailPattern) && password.matches(passwordPattern) && confermaPassword.matches(passwordPattern) && password.equals(confermaPassword)) {
 
                     try {
+
                         u = utenteService.registrazione(nome, cognome, cf, email, password, data);
                         request.getSession(false).invalidate();
                         HttpSession ssn = request.getSession(true);
@@ -145,7 +145,6 @@ public class UtenteServlet extends HttpServlet {
                     } catch (SQLException | NoSuchAlgorithmException throwables) {
                         throwables.printStackTrace();
                     }
-
                     response.sendRedirect("/UniNotes_war_exploded/Utente/home");
                 }
                     break;

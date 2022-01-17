@@ -22,6 +22,11 @@
 
 
     <title>Visualizza tutti i corsi</title>
+
+
+
+
+
 <body>
 
 <main>
@@ -33,16 +38,25 @@
 
         <c:forEach items="${corsi}" var="c">
             <article class="postcard light red"
-            <c:forEach items="${listaPreferiti.getCorsi()}" var="l">
-            <c:if test="${c.getId().contains(l)}">
+            <c:if test="${listaPreferitiID.contains(c.getId())}">
                 <jsp:include page="/WEB-INF/interface/interfacciaCorso/cardCorso.jsp">
                     <jsp:param name="id" value="${c.getId()}"/>
                     <jsp:param name="nome" value="${c.getNome()}"/>
                     <jsp:param name="descrizione" value="${c.getDescrizione()}"/>
                     <jsp:param name="nomeProf" value="${c.getNomeProfessore()}"/>
-                    <jsp:param name="toggle" value="Rimuovi"/>
+                    <jsp:param name="toggle" value="x Rimuovi dalla favorite list"/>
                 </jsp:include>
             </c:if>
+            <c:if test="${!listaPreferitiID.contains(c.getId())}">
+                <jsp:include page="/WEB-INF/interface/interfacciaCorso/cardCorso.jsp">
+                    <jsp:param name="id" value="${c.getId()}"/>
+                    <jsp:param name="nome" value="${c.getNome()}"/>
+                    <jsp:param name="descrizione" value="${c.getDescrizione()}"/>
+                    <jsp:param name="nomeProf" value="${c.getNomeProfessore()}"/>
+                    <jsp:param name="toggle" value="+ Aggiungi alla favorite list"/>
+                </jsp:include>
+            </c:if>
+
 
 
         </article>

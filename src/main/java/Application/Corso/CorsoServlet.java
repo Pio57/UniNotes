@@ -88,8 +88,7 @@ public class CorsoServlet extends HttpServlet {
                     break;
                 }
 
-
-                System.out.println("corsi"+listaPreferitiService.visualizzaListaUtente(u.getIdUtente()).getCorsi());
+                request.setAttribute("listaPreferitiID",listaPreferitiService.idCorsi(u.getIdUtente()));
                 request.setAttribute("listaPreferiti",listaPreferitiService.visualizzaListaUtente(u.getIdUtente()));
                 request.setAttribute("corsi",corsoService.visualizzaCorsi());
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizzaTutti.jsp").forward(request,response);

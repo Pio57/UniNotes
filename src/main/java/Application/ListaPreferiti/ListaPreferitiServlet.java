@@ -36,10 +36,57 @@ public class ListaPreferitiServlet extends HttpServlet {
                 }
 
                 int idCorso = Integer.parseInt(request.getParameter("idCorso"));
-                listaPreferitiService.inserisciInListaPreferiti(u.getIdUtente(),idCorso);
+                boolean appartiene = false;
+                for(CorsoBean c : listaPreferitiService.visualizzaListaUtente(u.getIdUtente()).getCorsi()){
+                    if(c.getId() == idCorso){
+                        appartiene = true;
+                    }
+                }
+
+                if(appartiene){
+                    listaPreferitiService.rimuoviDaListaPreferiti(idCorso);
+                }else{
+                    listaPreferitiService.inserisciInListaPreferiti(u.getIdUtente(),idCorso);
+                }
+
+                request.setAttribute("listaPreferitiID",listaPreferitiService.idCorsi(u.getIdUtente()));
                 request.setAttribute("listaPreferiti",listaPreferitiService.visualizzaListaUtente(u.getIdUtente()));
                 request.setAttribute("corsi",corsoService.visualizzaCorsi());
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizzaTutti.jsp").forward(request,response);
+                break;
+            }
+
+            case "/visualizza":{
+                HttpSession ssn = request.getSession();
+                UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
+                if(u == null){
+                    response.sendRedirect("/UniNotes_war_exploded/");
+                    break;
+                }
+
+                request.setAttribute("listaPreferiti",listaPreferitiService.visualizzaListaUtente(u.getIdUtente()));
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaListaPreferiti/visualizzaListaPreferiti.jsp").forward(request,response);
+                break;
+            }
+
+            case "/rimuoviDallaFavoriteList":{
+                HttpSession ssn = request.getSession();
+                UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
+                if(u == null){
+                    response.sendRedirect("/UniNotes_war_exploded/");
+                    break;
+                }
+
+
+                int idCorso = Integer.parseInt(request.getParameter("idCorso"));
+                for(CorsoBean c : listaPreferitiService.visualizzaListaUtente(u.getIdUtente()).getCorsi()){
+                    if(c.getId() == idCorso){
+                        listaPreferitiService.rimuoviDaListaPreferiti(idCorso);
+                    }
+                }
+
+                request.setAttribute("listaPreferiti",listaPreferitiService.visualizzaListaUtente(u.getIdUtente()));
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaListaPreferiti/visualizzaListaPreferiti.jsp").forward(request,response);
                 break;
             }
 

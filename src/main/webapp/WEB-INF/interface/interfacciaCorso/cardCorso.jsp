@@ -12,6 +12,7 @@
 
 
         .button {
+            margin-right: 10px;
             border-radius: 20px;
             transition-duration: 0.4s;
         }
@@ -61,18 +62,7 @@
         <form action="/UniNotes_war_exploded/ListaPreferiti/toggle" method="get" >
             <input type="hidden" name="idCorso" value="${param.id}">
             <button type="submit " class="button">
-                <c:forEach items="${listaPreferiti.getCorsi()}" var="c">
-                    <c:if test="${c.getId()} == ${param.id}">
-                        <a name="rimuovi"><span data-feather="folder-plus"></span>Rimuovi a preferiti</a>
-                        <a name="aggiungi" type="hidden"><span data-feather="folder-plus"></span>Aggiungi a preferiti</a>
-                    </c:if>
-                    <c:if test="${c.getId()} != ${param.id}">
-                        <a name="rimuovi"><span data-feather="folder-plus"></span>Rimuovi a preferiti</a>
-                        <a name="aggiungi" type="hidden"><span data-feather="folder-plus"></span>Aggiungi a preferiti</a>
-                    </c:if>
-
-                </c:forEach>
-                <a><span data-feather="folder-plus"></span>Aggiungi a preferiti</a>
+                <a><span data-feather="folder-plus"></span>${param.toggle}</a>
             </button>
         </form>
         <form action="/UniNotes_war_exploded/Corso/visualizza" method="get" >

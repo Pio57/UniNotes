@@ -17,4 +17,6 @@ public interface ListaPreferitiService {
 
     public void rimuoviDaListaPreferiti(int idCorso);
 
+    public ArrayList<Integer> idCorsi(int idUtente);
+
 }

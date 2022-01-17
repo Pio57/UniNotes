@@ -33,4 +33,13 @@ public class ListaPreferitiImpl implements ListaPreferitiService{
         ListaPreferitiDao ld = new ListaPreferitiDao();
         ld.doDelateCorso(idCorso);
     }
+
+    @Override
+    public ArrayList<Integer> idCorsi(int idUtente) {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for(CorsoBean c : visualizzaListaUtente(idUtente).getCorsi()) {
+            ids.add(c.getId());
+        }
+        return ids;
+    }
 }

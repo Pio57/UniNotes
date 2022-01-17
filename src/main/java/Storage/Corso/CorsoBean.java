@@ -81,4 +81,5 @@ public class CorsoBean {
     public void setListaMateriale(ArrayList<MaterialeDidatticoBean> listaMateriale) {
         this.listaMateriale = listaMateriale;
     }
+
 }
