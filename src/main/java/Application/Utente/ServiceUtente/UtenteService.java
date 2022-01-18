@@ -1,6 +1,7 @@
 package Application.Utente.ServiceUtente;
 
 
+import Storage.Libretto.LibrettoBean;
 import Storage.Utente.UtenteBean;
 import Storage.Utente.UtenteDao;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 
 public interface UtenteService {
 
-    public UtenteBean registrazione(String nome, String cognome, String cf, String email, String password, String data) throws SQLException, NoSuchAlgorithmException;
+    public UtenteBean registrazione(String nome, String cognome, String cf, String email, String password, String data, LibrettoBean l) throws SQLException, NoSuchAlgorithmException;
 
 
     public UtenteBean login(String email, String password);

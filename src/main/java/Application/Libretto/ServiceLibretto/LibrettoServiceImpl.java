@@ -16,6 +16,12 @@ public class LibrettoServiceImpl implements LibrettoService {
         return ld.doRetriveAll();
     }
 
+    @Override
+    public LibrettoBean visualizzaLibrettoDiUtente(int idUtente) {
+        LibrettoDao l = new LibrettoDao();
+        return l.doRetriveByIdUtente(idUtente);
+    }
+
     public LibrettoBean visualizzaLibretto(int id){
         LibrettoDao lb = new LibrettoDao();
         return lb.doRetriveById(id);

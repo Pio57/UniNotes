@@ -2,13 +2,20 @@ package Application.Esame;
 
 import Application.Esame.ServiceEsame.EsameService;
 import Application.Esame.ServiceEsame.EsameServiceImpl;
+import Storage.Esame.EsameBean;
+import Storage.Libretto.LibrettoBean;
+import Storage.Utente.UtenteBean;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -42,14 +49,31 @@ public class EsameServlet extends HttpServlet {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
             case "/crea":{
-                String nome = request.getParameter("nome");
-                String nomeProfessore = request.getParameter("nomeProfessore");
-                int cfu=Integer.parseInt(request.getParameter("cfu"));
-                float voto= Float.parseFloat(request.getParameter("voto"));
-                //Date data = LocalDate.parse(request.getParameter("dataEsame"));
-                Date data=new Date();
-                esameService.inserisciEsame(nome,nomeProfessore,voto,cfu,data);
-                response.sendRedirect("home.jsp");
+
+                HttpSession ssn = request.getSession();
+                UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
+                LibrettoBean l = (LibrettoBean) ssn.getAttribute("libretto");
+                if(u == null){
+                    response.sendRedirect("/UniNotes_war_exploded/");
+                    break;
+                }
+
+
+                String nomePattern = "[a-zA-Z\\s]+$";// pattern vecchio [A-Z a-z]
+
+                String nome = request.getParameter("Nome");
+                String nomeProfessore = request.getParameter("NomeProfessore");
+                int cfu = Integer.parseInt(request.getParameter("Cfu"));
+                float voto = Float.parseFloat(request.getParameter("Voto"));
+                LocalDate data = LocalDate.parse(request.getParameter("Data"));
+
+                if (nome.matches(nomePattern) && nomeProfessore.matches(nomePattern)) {
+
+                    l.aggiungiEsame(new EsameBean(nome,nomeProfessore,voto,cfu,data));
+                    u.setLibretto(l);
+                    esameService.inserisciEsame(nome,nomeProfessore,voto,cfu,data,l.getIdLibretto());
+                    response.sendRedirect("/UniNotes_war_exploded/Libretto/visualizzaLibretto");
+                }
                 break;
             }
             case "/elimina":{

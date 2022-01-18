@@ -5,12 +5,13 @@ package Application.Esame.ServiceEsame;
 import Storage.Esame.EsameBean;
 import Storage.Esame.EsameDao;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class EsameServiceImpl implements EsameService{
 
 
-    public EsameBean inserisciEsame(String nome, String nomeProfessore, float voto, int cfu, Date data){
+    public EsameBean inserisciEsame(String nome, String nomeProfessore, float voto, int cfu, LocalDate data,int idLibretto){
         EsameDao ed = new EsameDao();
         EsameBean e=new EsameBean();
         e.setCfu(cfu);
@@ -19,7 +20,7 @@ public class EsameServiceImpl implements EsameService{
         e.setNomeProfessore(nomeProfessore);
         e.setVoto(voto);
 
-        if( ed.doSave(e))
+        if( ed.doSave(e,idLibretto))
             return e;
         return null;
     }

@@ -1,6 +1,7 @@
 package Storage.Utente;
 
 import Storage.ConPool;
+import Storage.Libretto.LibrettoBean;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ public class UtenteDao {
    public boolean doSave(UtenteBean utente) throws SQLException {
        try(Connection con = ConPool.getConnection()) {
            PreparedStatement ps = con.prepareStatement(
-                   "INSERT INTO Utente(nome, cognome, cf, email, dataDiNascita, password, tipo) VALUES(?,?,?,?,?,?,?)",
+                   "INSERT INTO Utente(nome, cognome, cf, email, dataDiNascita, password, tipo, idLibretto) VALUES(?,?,?,?,?,?,?,?)",
                    Statement.RETURN_GENERATED_KEYS);
 
            ps.setString(1, utente.getNome());
@@ -20,6 +21,7 @@ public class UtenteDao {
            ps.setObject(5, utente.getDdn());
            ps.setString(6, utente.getPassword());
            ps.setBoolean(7, utente.isTipo());
+           ps.setInt(8, utente.getLibretto().getIdLibretto());
 
            if (ps.executeUpdate() != 1) {
                throw new RuntimeException("INSERT error.");
@@ -143,8 +145,9 @@ public class UtenteDao {
 
             if (rs.next()) {
                 u = ue.extract(rs);
+                u.setLibretto(new LibrettoBean(rs.getInt("u.idLibretto"),null));
             }
-
+            u.getLibretto().setNunEsami(0);
             con.close();
             return u;
 

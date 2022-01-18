@@ -11,7 +11,7 @@ public class EsameExtractor {
         esameBean.setNome(rs.getString("e.nome"));
         esameBean.setVoto(rs.getInt("e.voto"));
         esameBean.setCfu(rs.getInt("e.cfu"));
-        esameBean.setData(rs.getDate("e.data"));
+        esameBean.setData(rs.getDate("e.dataEsame").toLocalDate());
         esameBean.setNomeProfessore(rs.getString("e.nomeProfessore"));
 
         return esameBean;

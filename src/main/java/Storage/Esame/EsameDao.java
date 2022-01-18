@@ -27,18 +27,20 @@ public class EsameDao {
         }
     }
 
-    public boolean doSave(EsameBean esameBean) { //salva una pianta
+    public boolean doSave(EsameBean esameBean,int idLibretto) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO esame (nome,voto,cfu,dataEsame,nomeProfessore) VALUES(?,?,?,?,?)",
+                    "INSERT INTO Esame (nome, voto, cfu, dataEsame, nomeProfessore, idLibretto) VALUES(?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
+
+            System.out.println(idLibretto);
 
             ps.setString(1, esameBean.getNome());
             ps.setFloat(2, esameBean.getVoto());
             ps.setInt(3, esameBean.getCfu());
             ps.setObject(4, esameBean.getData());
             ps.setString(5, esameBean.getNomeProfessore());
-
+            ps.setInt(6, idLibretto);
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");
             }
@@ -46,9 +48,7 @@ public class EsameDao {
             rs.next();
             int id = rs.getInt(1);
             esameBean.setId(id);
-
             return true;
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -58,7 +58,7 @@ public class EsameDao {
     public ArrayList<EsameBean> doRetriveById(int id){
         ArrayList<EsameBean> esame= new ArrayList<>();
         try (Connection con = ConPool.getConnection()) {
-            PreparedStatement ps =con.prepareStatement("SELECT * FROM  esame e  WHERE e.id = ?");
+            PreparedStatement ps =con.prepareStatement("SELECT * FROM  Esame e  WHERE e.id = ?");
             ps.setInt(1, id);
 
             ResultSet rs = ps.executeQuery();
@@ -81,7 +81,7 @@ public class EsameDao {
 
     public boolean doDelate(int id){
         try (Connection con = ConPool.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("DELETE FROM esame e WHERE id = ?", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = con.prepareStatement("DELETE FROM Esame e WHERE id = ?", Statement.RETURN_GENERATED_KEYS);
 
             ps.setInt(1, id);
 
@@ -98,7 +98,7 @@ public class EsameDao {
 
     public boolean doUpdate(EsameBean eb){
         try (Connection con = ConPool.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("UPDATE esame e SET nome=?, voto=?, cfu=?, dataEsame=?, nomeProfessore=? WHERE id = " + eb.getId()+"");
+            PreparedStatement ps = con.prepareStatement("UPDATE Esame e SET nome=?, voto=?, cfu=?, dataEsame=?, nomeProfessore=? WHERE id = " + eb.getId()+"");
             ps.setString(1, eb.getNome());
             ps.setFloat(2,eb.getVoto());
             ps.setInt(3,eb.getCfu());

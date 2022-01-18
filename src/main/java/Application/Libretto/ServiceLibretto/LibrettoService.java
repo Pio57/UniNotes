@@ -10,6 +10,8 @@ public interface LibrettoService {
 
     public ArrayList<LibrettoBean> visualizzaLibretto();
 
+    public LibrettoBean visualizzaLibrettoDiUtente(int idUtente);
+
     public LibrettoBean visualizzaLibretto(int id);
 
     public LibrettoBean inserisciLibretto(int ne, int cc, float media);

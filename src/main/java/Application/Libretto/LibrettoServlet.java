@@ -2,13 +2,18 @@ package Application.Libretto;
 
 import Application.Libretto.ServiceLibretto.LibrettoService;
 import Application.Libretto.ServiceLibretto.LibrettoServiceImpl;
+import Storage.Libretto.LibrettoBean;
+import Storage.Utente.UtenteBean;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
 @WebServlet(name = "LibrettoServlet", value = "/Libretto/*")
 public class LibrettoServlet extends HttpServlet {
@@ -20,10 +25,17 @@ public class LibrettoServlet extends HttpServlet {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
             case "/visualizzaLibretto":{//ho modificato questa classe per fare una prova
-                /*
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/prova.jsp").forward(request,response);
-                break;
-                */
+                HttpSession ssn = request.getSession();
+                UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
+                if(u == null){
+                    response.sendRedirect("/UniNotes_war_exploded/");
+                    break;
+                }
+
+
+                u.setLibretto(librettoService.visualizzaLibrettoDiUtente(u.getIdUtente()));
+                u.setLibretto(librettoService.visualizzaLibretto(u.getLibretto().getIdLibretto()));
+                ssn.setAttribute("libretto",librettoService.visualizzaLibrettoDiUtente(u.getIdUtente()));
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaLibretto/visualizzaLibretto.jsp").forward(request,response);
                 break;
             }

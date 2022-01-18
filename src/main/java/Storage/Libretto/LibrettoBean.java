@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class LibrettoBean {
     private ArrayList<EsameBean> listaEsami;
-    private int idLibretto,nunEsami,cfuCrediti;
+    private int idLibretto,numEsami,cfuCrediti;
     private float media;
 
 
@@ -18,12 +18,32 @@ public class LibrettoBean {
     }
 
     public LibrettoBean(int nunEsami, int cfuCrediti, float media){
-        this.nunEsami=nunEsami;
+        this.numEsami=nunEsami;
         this.cfuCrediti=cfuCrediti;
         this.media=media;
     }
 
+    public void aggiungiEsame(EsameBean esame){
+        if(listaEsami == null){
+            listaEsami = new ArrayList<>();
+        }
+        if(esame != null){
+            listaEsami.add(esame);
+            numEsami++;
+            cfuCrediti+=esame.getCfu();
+            media = calcolaMedia();
+        }
+    }
 
+    private float calcolaMedia(){//media aritmetica
+        int totVoti = 0;
+        for(EsameBean e : listaEsami){
+            totVoti+=e.getVoto();
+        }
+        if(totVoti > 0)
+            return totVoti/numEsami;
+        return 0;
+    }
 
     public LibrettoBean(ArrayList<EsameBean> esame) {
         this.listaEsami = esame;
@@ -46,11 +66,11 @@ public class LibrettoBean {
     }
 
     public int getNunEsami() {
-        return nunEsami;
+        return numEsami;
     }
 
     public void setNunEsami(int nunEsami) {
-        this.nunEsami = nunEsami;
+        this.numEsami = nunEsami;
     }
 
     public int getCfuCrediti() {

@@ -13,7 +13,7 @@ public class LibrettoDao {
     public boolean doSave(LibrettoBean l){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO libretto (numEsami,media,cfuCrediti) VALUES(?,?,?)",
+                    "INSERT INTO libretto (numEsami,media,crediti) VALUES(?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
 
             ps.setInt(1, l.getNunEsami());
@@ -67,7 +67,7 @@ public class LibrettoDao {
     public LibrettoBean doRetriveById(int id){
         ArrayList<EsameBean> eb = new ArrayList<>();
         try (Connection con = ConPool.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM esame e, libretto l WHERE (l.id = e.idCorso) AND l.Codice = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM esame e, libretto l WHERE (l.id = e.idLibretto) AND l.id = ?");
             ps.setInt(1, id);
 
             ResultSet rs = ps.executeQuery();
@@ -85,6 +85,29 @@ public class LibrettoDao {
                 }
             }
             lb.setListaEsami(eb);
+            con.close();
+            return lb;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public LibrettoBean doRetriveByIdUtente(int idUtente){
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM libretto l, Utente u WHERE (l.id = u.idLibretto) AND u.id = ?");
+            ps.setInt(1, idUtente);
+
+            ResultSet rs = ps.executeQuery();
+            LibrettoBean lb = new LibrettoBean();
+
+            LibrettoExtractor le = new LibrettoExtractor();
+
+
+            if (rs.next()) {
+                lb = le.extract(rs);
+            }
+            lb.setListaEsami(null);
             con.close();
             return lb;
         } catch (SQLException e) {
@@ -112,7 +135,7 @@ public class LibrettoDao {
 
     public boolean doUpdate(LibrettoBean lb){
         try (Connection con = ConPool.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("UPDATE libretto SET numEsami = ?,media = ? ,cfuCrediti = ? WHERE id =? " + lb.getIdLibretto()+"");
+            PreparedStatement ps = con.prepareStatement("UPDATE libretto SET numEsami = ?,media = ? ,crediti = ? WHERE id =? " + lb.getIdLibretto()+"");
             ps.setInt(1, lb.getNunEsami());
             ps.setFloat(2,lb.getMedia());
             ps.setInt(3,lb.getCfuCrediti());

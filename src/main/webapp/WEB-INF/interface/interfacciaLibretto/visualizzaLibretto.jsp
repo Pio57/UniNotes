@@ -105,6 +105,7 @@
             border: none;
             border-radius: 100%;
             background-color: #4a4a4a;
+            color: white;
         }
 
 
@@ -236,12 +237,6 @@
 
         <div class="grey-bg container-fluid">
             <section id="minimal-statistics">
-                <div class="row">
-                    <div class="col-12 mt-3 mb-1">
-                        <h4 class="text-uppercase">Minimal Statistics Cards</h4>
-                        <p>Statistics on minimal cards.</p>
-                    </div>
-                </div>
                 <div class="row" style="justify-content: center">
                     <div class="col-xl-3 col-sm-6 col-12">
                         <div class="card">
@@ -253,7 +248,7 @@
                                                 <i class="icon-bar-chart primary font-large-2 float-left"></i>
                                             </div>
                                             <div class="media-body text-right">
-                                                <h3>27.9</h3>
+                                                <h3>${libretto.getMedia()}</h3>
                                                 <span>Media</span>
                                             </div>
                                         </div>
@@ -273,7 +268,7 @@
                                                     <i class="icon-graduation warning font-large-2 float-left"></i>
                                                 </div>
                                                 <div class="media-body text-right">
-                                                    <h3>156/180</h3>
+                                                    <h3>${libretto.getCfuCrediti()}/180</h3>
                                                     <span>Crediti acquisiti</span>
                                                 </div>
                                             </div>
@@ -293,7 +288,7 @@
                                                 <i class="icon-notebook success font-large-2 float-left"></i>
                                             </div>
                                             <div class="media-body text-right">
-                                                    <h3>12/18</h3>
+                                                    <h3>${libretto.getNunEsami()}</h3>
                                                     <span>Numero di esami</span>
                                             </div>
                                         </div>
@@ -306,7 +301,7 @@
             </section>
         </div>
 
-        <button class="libretto" id="viewBotton" name="viewEsame" onclick="viewEsame()"> Visualizza il libretto </button>
+        <button class="libretto" id="viewBotton" name="viewEsame" onclick="viewEsame()">Nascondi libretto </button>
 
 
 
@@ -321,7 +316,7 @@
 
 
 
-            <form action="/UniNotes_war_exploded/Materiale/inserireMateriale" method="post" enctype="multipart/form-data">
+            <form action="/UniNotes_war_exploded/Esame/crea" method="post">
 
 
 
@@ -329,11 +324,10 @@
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalToggleLabel">Modal 1</h5>
+                                <h5 class="modal-title" id="exampleModalToggleLabel">Esame</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <input name="idCorso" type="hidden" value="${Corso.getId()}">
 
 
                                 <div class="row">
@@ -345,7 +339,28 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <input required type="file" id="File" name="File" placeholder="File">
+                                            <div class="input-group"> <input name="Voto" class="form-control" type="text" placeholder="Voto"> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="input-group"> <input name="Cfu" class="form-control" type="text" placeholder="Cfu"> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="input-group"> <input name="Data" class="form-control" type="date" placeholder="Data"> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="input-group"> <input name="NomeProfessore" class="form-control" type="text" placeholder="Nome professore"> </div>
                                         </div>
                                     </div>
                                 </div>
@@ -354,27 +369,31 @@
 
 
 
+
+
                             </div>
                             <div class="modal-footer justify-content-center">
-                                <button type="submit" class="btn btn-primary" data-bs-toggle="modal">Crea</button>
+                                <button type="submit" class="btn btn-primary" data-bs-toggle="modal">Salva</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <a id="buttonRotondo" class="btn" data-bs-toggle="modal" href="#exampleModalToggle" style="background-color: #4a4a4a; color: white" role="button">+</a>
+                <a id="buttonRotondo" class="btn" data-bs-toggle="modal" href="#exampleModalToggle"  role="button">+</a>
 
 
 
+
+
+                <!-- FORM TABELLA -->
             </form>
 
-
-
+            <!--  TABELLA CORSI  -->
             <div class="row">
                 <div class="col-12">
                     <div class="card my-4">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                <h6 class="text-white text-capitalize ps-3">Lista materiale</h6>
+                            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 justify-content-center">
+                                <h6 class="text-white text-capitalize ps-3">MY LIBRETTO</h6>
                             </div>
                         </div>
                         <div class="card-body px-0 pb-2">
@@ -382,28 +401,115 @@
                                 <table class="table align-items-center mb-0">
                                     <thead>
                                     <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Materiale</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Esame</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Voto</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">CFU</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Data</th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Docente</th>
                                         <th class="text-secondary opacity-7"></th>
                                     </tr>
                                     </thead>
-
-
-
                                     <tbody>
-                                    <c:forEach items="${Materiale}" var="m">
+                                    <c:forEach items="${libretto.getListaEsami()}" var="e">
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
-                                                    <span data-feather="file"></span>
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">${m.getNome()}</h6>
+                                                        <h6 class="mb-0 text-sm">${e.getNome()}</h6>
                                                     </div>
                                                 </div>
                                             </td>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">${e.getVoto()}</h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0">${e.getCfU()}</p>
+
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <span class="text-secondary text-xs font-weight-bold">${e.getData()}</span>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <span class="text-secondary text-xs font-weight-bold">${e.getNomeProfessore()}</span>
+                                            </td>
+
+
+
+
+
                                             <td class="align-middle">
-                                                <a href="/UniNotes_war_exploded/covers/${m.getPathFile()}" download="${m.getNome()}" style="color: gray">
-                                                    <span data-feather="download"></span>
-                                                </a>
+
+                                                <form action="/UniNotes_war_exploded/Corso/modifica" method="post">
+
+
+                                                    <div class="modal fade" id="editModal${e.getId()}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                                                        <div class="modal-dialog modal-dialog-centered">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="editModalLabel">Edit esame</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+
+                                                                    <input type="hidden" name="id" value="${e.getId()}">
+
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <div class="form-group">
+                                                                                 <input name="Nome" class="form-control" type="text" placeholder="Name" value="${c.getNome()}"> </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group"> <input name="Voto" class="form-control" type="text" placeholder="Voto" value="${e.getVoto()}" > </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group"> <input name="Cfu" class="form-control" type="text" placeholder="Cfu" value="${e.getCfU()}"> </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group"> <input name="Data" class="form-control" type="date" placeholder="Data" value="${e.getData()}" > </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group"> <input name="NomeProfessore" class="form-control" type="text" placeholder="Nome professore" value="${e.getNomeProfessore()}"> </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+
+                                                                </div>
+                                                                <div class="modal-footer justify-content-center">
+                                                                    <button type="submit" class="btn btn-primary" data-bs-toggle="modal">Modifica</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+
+
+
+                                                    <a style="color: gray" href="#editModal${e.getId()}" data-bs-toggle="modal"  role="button">Edit
+                                                    </a>
+                                                </form>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -414,8 +520,6 @@
                     </div>
                 </div>
             </div>
-
-
         </main>
     </div>
 </div>

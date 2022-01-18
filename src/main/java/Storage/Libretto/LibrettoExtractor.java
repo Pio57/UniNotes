@@ -10,7 +10,7 @@ public class LibrettoExtractor {
         lb.setIdLibretto(resultSet.getInt("l.id"));
         lb.setNunEsami(resultSet.getInt("l.numEsami"));
         lb.setMedia(resultSet.getFloat("l.media"));
-        lb.setCfuCrediti(resultSet.getInt("l.cfuCrediti"));
+        lb.setCfuCrediti(resultSet.getInt("l.crediti"));
 
         return lb;
     }

@@ -2,11 +2,14 @@ package Application.Utente;
 
 import Application.Corso.ServiceCorso.CorsoService;
 import Application.Corso.ServiceCorso.CorsoServiceImpl;
+import Application.Libretto.ServiceLibretto.LibrettoService;
+import Application.Libretto.ServiceLibretto.LibrettoServiceImpl;
 import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoService;
 import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoServiceImpl;
 import Application.Utente.ServiceUtente.UtenteService;
 import Application.Utente.ServiceUtente.UtenteServiceImpl;
 import Storage.Corso.CorsoBean;
+import Storage.Libretto.LibrettoBean;
 import Storage.MaterialeDidattico.MaterialeDidatticoBean;
 import Storage.Utente.UtenteBean;
 import Storage.Utente.UtenteDao;
@@ -31,6 +34,7 @@ import java.util.ArrayList;
 public class UtenteServlet extends HttpServlet {
 
     private final UtenteService utenteService = new UtenteServiceImpl();
+    private final LibrettoService librettoService = new LibrettoServiceImpl();
     private final CorsoService corsoService = new CorsoServiceImpl();
     private final MaterialeDidatticoService materialeService = new MaterialeDidatticoServiceImpl();
     @Override
@@ -144,8 +148,8 @@ public class UtenteServlet extends HttpServlet {
                 if (nome.matches(nomePattern) && cognome.matches(cognomePattern) && cf.matches(cfPattern) && email.matches(emailPattern) && password.matches(passwordPattern) && confermaPassword.matches(passwordPattern) && password.equals(confermaPassword)) {
 
                     try {
-
-                        u = utenteService.registrazione(nome, cognome, cf, email, password, data);
+                        LibrettoBean l = librettoService.inserisciLibretto(0,0,0);
+                        u = utenteService.registrazione(nome, cognome, cf, email, password, data,l);
                         request.getSession(false).invalidate();
                         HttpSession ssn = request.getSession(true);
                         ssn.setAttribute("utente", u);

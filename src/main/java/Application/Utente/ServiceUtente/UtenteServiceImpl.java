@@ -3,6 +3,7 @@ package Application.Utente.ServiceUtente;
 
 
 
+import Storage.Libretto.LibrettoBean;
 import Storage.ListaPreferiti.ListaPreferitiDao;
 import Storage.Utente.UtenteBean;
 import Storage.Utente.UtenteDao;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 
 public class UtenteServiceImpl implements UtenteService {
 
-    public UtenteBean registrazione(String nome, String cognome, String cf, String email, String password, String data) throws SQLException, NoSuchAlgorithmException {
+    public UtenteBean registrazione(String nome, String cognome, String cf, String email, String password, String data, LibrettoBean l) throws SQLException, NoSuchAlgorithmException {
         UtenteBean utente = new UtenteBean();
         UtenteDao ud = new UtenteDao();
 
@@ -24,6 +25,7 @@ public class UtenteServiceImpl implements UtenteService {
         utente.setEmail(email);
         utente.setPassword(password);
         utente.setDdn(LocalDate.parse(data));
+        utente.setLibretto(l);
 
         ud.doSave(utente);
 

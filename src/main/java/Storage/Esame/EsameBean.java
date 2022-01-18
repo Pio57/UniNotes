@@ -1,14 +1,14 @@
 package Storage.Esame;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class EsameBean {
     private String nome,nomeProfessore;
     private float voto;
     private int cfu,id;
-    private Date data;
+    private LocalDate data;
 
-    public EsameBean(String nome,String nomeProfessore,float voto,int cfu,Date data,int id){
+    public EsameBean(String nome,String nomeProfessore,float voto,int cfu,LocalDate data,int id){
         this.nome=nome;
         this.nomeProfessore=nomeProfessore;
         this.voto=voto;
@@ -17,7 +17,7 @@ public class EsameBean {
         this.id=id;
     }
 
-    public EsameBean(String nome,String nomeProfessore,float voto,int cfu,Date data){
+    public EsameBean(String nome,String nomeProfessore,float voto,int cfu,LocalDate data){
         this.nome=nome;
         this.nomeProfessore=nomeProfessore;
         this.voto=voto;
@@ -67,11 +67,11 @@ public class EsameBean {
         this.id = id;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 }
