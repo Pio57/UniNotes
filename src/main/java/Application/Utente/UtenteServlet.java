@@ -131,7 +131,7 @@ public class UtenteServlet extends HttpServlet {
 
                 String nomePattern = "[a-zA-Z\\s]+$";// pattern vecchio [A-Z a-z]
                 String cognomePattern = "[a-zA-Z\\s]+$";// pattern vecchio [A-Z a-z]
-                String cfPattern = "(^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$)"; // qui ho aggiunto delle patentesi in piu all'inizio e alla fine
+                String cfPattern = "^([A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$)"; // qui ho aggiunto delle patentesi in piu all'inizio e alla fine
                 String emailPattern = "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$)"; //pattern vecchio ^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-]+\.)*$
                 String dataPattern = ""; //rivedere
                 String passwordPattern = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])\\w{6,}$"; // pattern vecchio [A-Za-z0-9.]&
@@ -145,7 +145,7 @@ public class UtenteServlet extends HttpServlet {
                 String confermaPassword = request.getParameter("CPassword");
                 String data = request.getParameter("DataDiNascita");
 
-                if (nome.matches(nomePattern) && cognome.matches(cognomePattern) && cf.matches(cfPattern) && email.matches(emailPattern) && password.matches(passwordPattern) && confermaPassword.matches(passwordPattern) && password.equals(confermaPassword)) {
+              if (nome.matches(nomePattern) && cognome.matches(cognomePattern) && cf.matches(cfPattern) && email.matches(emailPattern) && password.matches(passwordPattern) && confermaPassword.matches(passwordPattern) && password.equals(confermaPassword)) {
 
                     try {
                         LibrettoBean l = librettoService.inserisciLibretto(0,0,0);
@@ -159,7 +159,7 @@ public class UtenteServlet extends HttpServlet {
                         throwables.printStackTrace();
                     }
                     response.sendRedirect("/UniNotes_war_exploded/Utente/home");
-                }
+               }
                     break;
             }
 
@@ -224,8 +224,6 @@ public class UtenteServlet extends HttpServlet {
                     response.sendRedirect("/UniNotes_war_exploded/");
                     break;
                 }
-
-
                 String nomePattern = "[a-zA-Z\\s]+$";// pattern vecchio [A-Z a-z]
                 String cognomePattern = "[a-zA-Z\\s]+$";// pattern vecchio [A-Z a-z]
                 String cfPattern = "(^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$)"; // qui ho aggiunto delle patentesi in piu all'inizio e alla fine
@@ -239,9 +237,10 @@ public class UtenteServlet extends HttpServlet {
                 String cf = request.getParameter("CF");
                 String email = request.getParameter("Email");
                 String data = request.getParameter("DataDiNascita");
+                String password = request.getParameter("Password");
+                String confermaPassword = request.getParameter("ConfermaPassword");
 
-
-                if (nome.matches(nomePattern) && cognome.matches(cognomePattern) && cf.matches(cfPattern) && email.matches(emailPattern)) {
+                if (nome.matches(nomePattern) && cognome.matches(cognomePattern) && cf.matches(cfPattern) && email.matches(emailPattern) && password.matches(passwordPattern) && confermaPassword.matches(passwordPattern) && password.equals(confermaPassword)) {
                         u.setNome(nome);
                         u.setCognome(cognome);
                         u.setCf(cf);

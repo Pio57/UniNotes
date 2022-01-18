@@ -118,7 +118,7 @@
 
 
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Logo</a>
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/UniNotes_war_exploded/Utente/home"><img src="../img/scrittalogo.png" width="100" height="30"></a>
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -142,7 +142,7 @@
                     <div class="row">
                         <div class="col-md-3 border-right" >
                             <div class="d-flex flex-column align-items-center border-right text-center p-3 py-5" >
-                                <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                                <img class="rounded-circle mt-5" width="150px" src="../img/nofoto.png">
                                 <span class="font-weight-bold">${utente.getNome()} ${utente.getCognome()}</span>
                                 <span class="text-black-50">${utente.getEmail()}</span>
                                 <span> </span>
