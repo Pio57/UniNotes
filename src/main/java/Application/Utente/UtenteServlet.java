@@ -185,6 +185,8 @@ public class UtenteServlet extends HttpServlet {
                 utente = utenteService.login(email, utente.getPassword());
                 if(utente != null){
                     request.getSession(false).invalidate();
+                    LibrettoBean librettoConIdUtente = librettoService.visualizzaLibrettoDiUtente(utente.getIdUtente());
+                    utente.setLibretto(librettoService.visualizzaLibretto(librettoConIdUtente.getIdLibretto()));
                     HttpSession ssn = request.getSession(true);
                     ssn.setAttribute("utente", utente);
                     ssn.setMaxInactiveInterval(86400);

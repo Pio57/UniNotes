@@ -1,3 +1,4 @@
+<%@ page import="Storage.Libretto.LibrettoBean" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="en">
@@ -102,10 +103,15 @@
 
 
         #buttonRotondo{
+              border: none;
+              border-radius: 100%;
+              background-color: #4a4a4a;
+              color: white;
+          }
+
+        #buttonElimina{
             border: none;
             border-radius: 100%;
-            background-color: #4a4a4a;
-            color: white;
         }
 
 
@@ -222,11 +228,10 @@
     </style>
 
 
-    <!-- Cust
-    om styles for this template -->
     <link href="dashboard.css" rel="stylesheet">
 </head>
 <body>
+
 
 
 <%@include file="/WEB-INF/interface/partials/header.jsp"%>
@@ -304,90 +309,78 @@
         <button class="libretto" id="viewBotton" name="viewEsame" onclick="viewEsame()">Nascondi libretto </button>
 
 
-
-        <main id = "viewEsami" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">${Corso.getNome()}</h1>
-            </div>
-
-            <h2>${Corso.getNomeProfessore()}</h2>
-
-            <p>${Corso.getDescrizione()}</p>
+        <form action="/UniNotes_war_exploded/Esame/crea" method="post">
 
 
 
-            <form action="/UniNotes_war_exploded/Esame/crea" method="post">
+            <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalToggleLabel">Esame</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
 
-
-
-                <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalToggleLabel">Esame</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <input name="Nome" class="form-control" type="text" placeholder="Name"> </div>
+                                </div>
                             </div>
-                            <div class="modal-body">
-
-
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <input name="Nome" class="form-control" type="text" placeholder="Name"> </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="input-group"> <input name="Voto" class="form-control" type="text" placeholder="Voto"> </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <div class="input-group"> <input name="Voto" class="form-control" type="text" placeholder="Voto"> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <div class="input-group"> <input name="Cfu" class="form-control" type="text" placeholder="Cfu"> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <div class="input-group"> <input name="Data" class="form-control" type="date" placeholder="Data"> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <div class="input-group"> <input name="NomeProfessore" class="form-control" type="text" placeholder="Nome professore"> </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-
-
-
-
                             </div>
-                            <div class="modal-footer justify-content-center">
-                                <button type="submit" class="btn btn-primary" data-bs-toggle="modal">Salva</button>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="input-group"> <input name="Cfu" class="form-control" type="text" placeholder="Cfu"> </div>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="input-group"> <input name="Data" class="form-control" type="date" placeholder="Data"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="input-group"> <input name="NomeProfessore" class="form-control" type="text" placeholder="Nome professore"> </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="submit" class="btn btn-primary" data-bs-toggle="modal">Crea</button>
                         </div>
                     </div>
                 </div>
-                <a id="buttonRotondo" class="btn" data-bs-toggle="modal" href="#exampleModalToggle"  role="button">+</a>
+            </div>
+            <a id="buttonRotondo" class="btn" data-bs-toggle="modal" href="#exampleModalToggle"  role="button">+</a>
 
 
 
 
 
-                <!-- FORM TABELLA -->
-            </form>
+            <!-- FORM TABELLA -->
+        </form>
 
-            <!--  TABELLA CORSI  -->
+
+        <main id = "viewEsami" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
             <div class="row">
                 <div class="col-12">
                     <div class="card my-4">
@@ -407,34 +400,27 @@
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Data</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Docente</th>
                                         <th class="text-secondary opacity-7"></th>
+                                        <th class="text-secondary opacity-7"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach items="${libretto.getListaEsami()}" var="e">
+                                    <c:if test="${libretto != null}">
+                                    <c:forEach items="${libretto.getListaEsami()}" var="p">
                                         <tr>
                                             <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">${e.getNome()}</h6>
-                                                    </div>
-                                                </div>
+                                                <span class="text-secondary text-xs font-weight-bold">${p.getNome()}</span>
                                             </td>
                                             <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">${e.getVoto()}</h6>
-                                                    </div>
-                                                </div>
+                                                <span class="text-secondary text-xs font-weight-bold">${p.getVoto()}</span>
                                             </td>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0">${e.getCfU()}</p>
-
+                                                <span class="text-secondary text-xs font-weight-bold">${p.getCfu()}</span>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">${e.getData()}</span>
+                                                <span class="text-secondary text-xs font-weight-bold">${p.getData()}</span>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">${e.getNomeProfessore()}</span>
+                                                <span class="text-secondary text-xs font-weight-bold">${p.getNomeProfessore()}</span>
                                             </td>
 
 
@@ -443,10 +429,10 @@
 
                                             <td class="align-middle">
 
-                                                <form action="/UniNotes_war_exploded/Corso/modifica" method="post">
+                                                <form action="/UniNotes_war_exploded/Esame/modifica" method="post">
 
 
-                                                    <div class="modal fade" id="editModal${e.getId()}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                                                    <div class="modal fade" id="editModal${p.getId()}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
                                                         <div class="modal-dialog modal-dialog-centered">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -455,39 +441,39 @@
                                                                 </div>
                                                                 <div class="modal-body">
 
-                                                                    <input type="hidden" name="id" value="${e.getId()}">
+                                                                    <input type="hidden" name="id" value="${p.getId()}">
 
                                                                     <div class="row">
                                                                         <div class="col-sm-12">
                                                                             <div class="form-group">
-                                                                                 <input name="Nome" class="form-control" type="text" placeholder="Name" value="${c.getNome()}"> </div>
+                                                                                 <input name="Nome" class="form-control" type="text" placeholder="Name" value="${p.getNome()}"> </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="col-sm-12">
                                                                             <div class="form-group">
-                                                                                <div class="input-group"> <input name="Voto" class="form-control" type="text" placeholder="Voto" value="${e.getVoto()}" > </div>
+                                                                                <div class="input-group"> <input name="Voto" class="form-control" type="text" placeholder="Voto" value="${p.getVoto()}" > </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="col-sm-12">
                                                                             <div class="form-group">
-                                                                                <div class="input-group"> <input name="Cfu" class="form-control" type="text" placeholder="Cfu" value="${e.getCfU()}"> </div>
+                                                                                <div class="input-group"> <input name="Cfu" class="form-control" type="text" placeholder="Cfu" value="${p.getCfu()}"> </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="col-sm-12">
                                                                             <div class="form-group">
-                                                                                <div class="input-group"> <input name="Data" class="form-control" type="date" placeholder="Data" value="${e.getData()}" > </div>
+                                                                                <div class="input-group"> <input name="Data" class="form-control" type="date" placeholder="Data" value="${p.getData()}" > </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="col-sm-12">
                                                                             <div class="form-group">
-                                                                                <div class="input-group"> <input name="NomeProfessore" class="form-control" type="text" placeholder="Nome professore" value="${e.getNomeProfessore()}"> </div>
+                                                                                <div class="input-group"> <input name="NomeProfessore" class="form-control" type="text" placeholder="Nome professore" value="${p.getNomeProfessore()}"> </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -501,18 +487,21 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-
-
-
-
-
-                                                    <a style="color: gray" href="#editModal${e.getId()}" data-bs-toggle="modal"  role="button">Edit
+                                                    <a style="color: gray" href="#editModal${p.getId()}" data-bs-toggle="modal"  role="button">Edit
                                                     </a>
                                                 </form>
                                             </td>
+                                            <form action="/UniNotes_war_exploded/Esame/elimina" method="get">
+                                                <td class="align-middle text-center">
+                                                    <input type="hidden" name="id" value="${p.getId()}">
+                                                    <button id="buttonElimina">X</button>
+                                                </td>
+                                            </form>
+
+
                                         </tr>
                                     </c:forEach>
+                                    </c:if>
                                     </tbody>
                                 </table>
                             </div>
@@ -527,6 +516,20 @@
 
 <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
 
+
+
+
+<!-- FOOTER -->
+    <%@include file="/WEB-INF/interface/partials/footer.jsp"%>
+
+
+
+</main>
+
+
+
+</body>
+
 <script>
     var myModal = document.getElementById('myModal')
     var myInput = document.getElementById('myInput')
@@ -539,28 +542,18 @@
 
 
 
-<!-- FOOTER -->
-    <%@include file="/WEB-INF/interface/partials/footer.jsp"%>
+<script>
 
-
-    <script>
-
-        function viewEsame(){
-            var x= document.getElementById("viewEsami");
-            var y= document.getElementById("viewBotton");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-                y.innerHTML="Nascondi libretto";
-            } else {
-                x.style.display = "none";
-                y.innerHTML="Visualizza il libretto";
-            }
+    function viewEsame(){
+        var x= document.getElementById("viewEsami");
+        var y= document.getElementById("viewBotton");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+            y.innerHTML="Nascondi libretto";
+        } else {
+            x.style.display = "none";
+            y.innerHTML="Visualizza il libretto";
         }
-    </script>
-
-</main>
-
-
-
-</body>
+    }
+</script>
 </html>

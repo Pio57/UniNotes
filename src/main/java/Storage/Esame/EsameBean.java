@@ -8,7 +8,19 @@ public class EsameBean {
     private int cfu,id;
     private LocalDate data;
 
-    public EsameBean(String nome,String nomeProfessore,float voto,int cfu,LocalDate data,int id){
+    @Override
+    public String toString() {
+        return "EsameBean{" +
+                "nome='" + nome + '\'' +
+                ", nomeProfessore='" + nomeProfessore + '\'' +
+                ", voto=" + voto +
+                ", cfu=" + cfu +
+                ", id=" + id +
+                ", data=" + data +
+                '}';
+    }
+
+    public EsameBean(String nome, String nomeProfessore, float voto, int cfu, LocalDate data, int id){
         this.nome=nome;
         this.nomeProfessore=nomeProfessore;
         this.voto=voto;

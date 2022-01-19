@@ -67,7 +67,7 @@ public class LibrettoDao {
     public LibrettoBean doRetriveById(int id){
         ArrayList<EsameBean> eb = new ArrayList<>();
         try (Connection con = ConPool.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM esame e, libretto l WHERE (l.id = e.idLibretto) AND l.id = ?");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Esame e, Libretto l WHERE (l.id = e.idLibretto) AND l.id = ?");
             ps.setInt(1, id);
 
             ResultSet rs = ps.executeQuery();
@@ -77,12 +77,9 @@ public class LibrettoDao {
             EsameExtractor ee = new EsameExtractor();
 
 
-            if (rs.next()) {
+            while(rs.next()){
                 lb = le.extract(rs);
                 eb.add(ee.extract(rs));
-                while(rs.next()){
-                    eb.add(ee.extract(rs));
-                }
             }
             lb.setListaEsami(eb);
             con.close();
@@ -135,7 +132,7 @@ public class LibrettoDao {
 
     public boolean doUpdate(LibrettoBean lb){
         try (Connection con = ConPool.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("UPDATE libretto SET numEsami = ?,media = ? ,crediti = ? WHERE id =? " + lb.getIdLibretto()+"");
+            PreparedStatement ps = con.prepareStatement("UPDATE Libretto SET numEsami = ?,media = ? ,crediti = ? WHERE id = "+ lb.getIdLibretto()+"");
             ps.setInt(1, lb.getNunEsami());
             ps.setFloat(2,lb.getMedia());
             ps.setInt(3,lb.getCfuCrediti());

@@ -25,14 +25,22 @@ public class EsameServiceImpl implements EsameService{
         return null;
     }
 
-    public EsameBean eliminaEsame(EsameBean e){
+    public boolean eliminaEsame(int id){
         EsameDao ed = new EsameDao();
-        ed.doDelate(e.getId());
-        return e;
+        if(ed.doDelate(id))
+            return true;
+        return false;
     }
 
-    public EsameBean modificaEsame(EsameBean e){ /// da rivedere
+    public EsameBean modificaEsame(int id,String nome, String nomeProfessore, float voto, int cfu, LocalDate data){ /// da rivedere
         EsameDao ed = new EsameDao();
+        EsameBean e=new EsameBean();
+        e.setId(id);
+        e.setCfu(cfu);
+        e.setData(data);
+        e.setNome(nome);
+        e.setNomeProfessore(nomeProfessore);
+        e.setVoto(voto);
         if( ed.doUpdate(e))
             return e;
         return null;

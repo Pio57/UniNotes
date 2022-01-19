@@ -2,6 +2,7 @@ package Application.Libretto;
 
 import Application.Libretto.ServiceLibretto.LibrettoService;
 import Application.Libretto.ServiceLibretto.LibrettoServiceImpl;
+import Storage.Esame.EsameBean;
 import Storage.Libretto.LibrettoBean;
 import Storage.Utente.UtenteBean;
 
@@ -32,10 +33,10 @@ public class LibrettoServlet extends HttpServlet {
                     break;
                 }
 
-
-                u.setLibretto(librettoService.visualizzaLibrettoDiUtente(u.getIdUtente()));
-                u.setLibretto(librettoService.visualizzaLibretto(u.getLibretto().getIdLibretto()));
-                ssn.setAttribute("libretto",librettoService.visualizzaLibrettoDiUtente(u.getIdUtente()));
+                LibrettoBean l = librettoService.visualizzaLibretto(u.getLibretto().getIdLibretto());
+                u.setLibretto(l);
+                ssn.setAttribute("libretto",u.getLibretto());
+                ssn.setAttribute("utente",u);
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaLibretto/visualizzaLibretto.jsp").forward(request,response);
                 break;
             }

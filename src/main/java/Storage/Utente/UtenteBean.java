@@ -166,7 +166,10 @@ public class UtenteBean {
     }
 
     public void setLibretto(LibrettoBean libretto) {
-        this.libretto = libretto;
+       this.libretto = libretto;
+       if(this.libretto.getListaEsami()!=null){
+           this.libretto.aggiorna();
+       }
     }
 
     public void setListaPreferiti(ListaPreferitiBean listaPreferiti) {

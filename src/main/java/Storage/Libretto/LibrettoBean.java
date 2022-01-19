@@ -2,9 +2,10 @@ package Storage.Libretto;
 
 import Storage.Esame.EsameBean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class LibrettoBean {
+public class LibrettoBean{
     private ArrayList<EsameBean> listaEsami;
     private int idLibretto,numEsami,cfuCrediti;
     private float media;
@@ -23,11 +24,23 @@ public class LibrettoBean {
         this.media=media;
     }
 
+    @Override
+    public String toString() {
+        return "LibrettoBean{" +
+                "listaEsami=" + listaEsami +
+                ", idLibretto=" + idLibretto +
+                ", numEsami=" + numEsami +
+                ", cfuCrediti=" + cfuCrediti +
+                ", media=" + media +
+                '}';
+    }
+
     public void aggiungiEsame(EsameBean esame){
         if(listaEsami == null){
             listaEsami = new ArrayList<>();
         }
         if(esame != null){
+            aggiorna();
             listaEsami.add(esame);
             numEsami++;
             cfuCrediti+=esame.getCfu();
@@ -35,13 +48,23 @@ public class LibrettoBean {
         }
     }
 
+    public void aggiorna(){//questo metodo è creato per aggiornare lo stato del libretto con quello nel db
+        numEsami = listaEsami.size();
+        cfuCrediti = 0;
+        for(EsameBean e : listaEsami){
+            cfuCrediti+=e.getCfu();
+            media = calcolaMedia();
+        }
+    }
+
     private float calcolaMedia(){//media aritmetica
-        int totVoti = 0;
+        float totVoti = 0;
         for(EsameBean e : listaEsami){
             totVoti+=e.getVoto();
         }
-        if(totVoti > 0)
+        if(totVoti > 0){
             return totVoti/numEsami;
+        }
         return 0;
     }
 

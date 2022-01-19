@@ -10,7 +10,7 @@ public interface EsameService {
 
     public EsameBean inserisciEsame(String nome, String nomeProfessore, float voto, int cfu, LocalDate data,int idLibretto);
 
-    public EsameBean eliminaEsame(EsameBean e);
+    public boolean eliminaEsame(int id);
 
-    public EsameBean modificaEsame(EsameBean e);
+    public EsameBean modificaEsame(int id,String nome, String nomeProfessore, float voto, int cfu, LocalDate data);
 }
