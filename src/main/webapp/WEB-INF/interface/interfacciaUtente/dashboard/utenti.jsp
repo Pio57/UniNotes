@@ -157,6 +157,7 @@
                                     </thead>
                                     <tbody>
                                     <c:forEach items="${utenti}" var="u">
+
                                     <tr>
                                         <td>
                                             <div class="d-flex px-2 py-1">
@@ -198,6 +199,8 @@
                                                 Edit
                                             </a>
                                         </td>
+
+
                                     </tr>
                                     </c:forEach>
                                     </tbody>
@@ -207,6 +210,7 @@
                     </div>
                 </div>
             </div>
+
 
 
 

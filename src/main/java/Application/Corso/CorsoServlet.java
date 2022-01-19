@@ -175,13 +175,12 @@ public class CorsoServlet extends HttpServlet {
 
                 if (nome.matches(nomePattern) && descrizione.matches(nomePattern) && nomeProfessore.matches(nomePattern)) {
                     c = corsoService.modificaCorso(Integer.parseInt(id),nome,descrizione,nomeProfessore);
-                    System.out.println("SOno qui");
                     response.sendRedirect("/UniNotes_war_exploded/Corso/visualizzaTutti");
                     break;
                 }
 
-                //da rivedere quando non lo crea
-                response.sendRedirect("/UniNotes_war_exploded/");
+
+                response.sendError(400, "La modifica non è andata a buon fine");
                 break;
             }
             case "/visualizza":{

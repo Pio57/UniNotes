@@ -159,8 +159,12 @@ public class UtenteServlet extends HttpServlet {
                         throwables.printStackTrace();
                     }
                     response.sendRedirect("/UniNotes_war_exploded/Utente/home");
-               }
-                    break;
+                  break;
+               }else {
+                  response.sendError(400, "La registrazione non è andata a buon fine");
+                  break;
+              }
+
             }
 
             case "/login" : {
@@ -192,7 +196,8 @@ public class UtenteServlet extends HttpServlet {
                     ssn.setMaxInactiveInterval(86400);
                     response.sendRedirect("/UniNotes_war_exploded/Utente/home");
                 }else{
-                    response.sendRedirect("/UniNotes_war_exploded/");
+                    response.sendError(400, "Credenziali non valide");
+                    break;
                 }
 
 
@@ -249,10 +254,11 @@ public class UtenteServlet extends HttpServlet {
                         u.setEmail(email);
                         u.setDdn(LocalDate.parse(data));
                         u = utenteService.aggiorna(u);
+                    response.sendRedirect("/UniNotes_war_exploded/Utente/visualizzaUtenti");
                         if(u != null){
                             ssn.setAttribute("utente", u);
                         }else{
-                            //aggiungere pagina d'errore
+                            response.sendError(400, "La modifica non è andata a buon fine");
                             break;
                         }
 
