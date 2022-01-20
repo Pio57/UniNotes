@@ -1,6 +1,8 @@
 package Storage.Esame;
 
 import Storage.ConPool;
+import Storage.Utente.UtenteBean;
+import Storage.Utente.UtenteExtractor;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -55,29 +57,25 @@ public class EsameDao {
     }
 
 
-    public ArrayList<EsameBean> doRetriveById(int id){
-        ArrayList<EsameBean> esame= new ArrayList<>();
+    public EsameBean doRetriveById(int id){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =con.prepareStatement("SELECT * FROM  Esame e  WHERE e.id = ?");
             ps.setInt(1, id);
 
             ResultSet rs = ps.executeQuery();
-
+            EsameBean e = new EsameBean();
             EsameExtractor ee= new EsameExtractor();
 
             if (rs.next()) {
-                esame.add(ee.extract(rs));
-                while(rs.next()) {
-                    esame.add(ee.extract(rs));
-                }
+                e = ee.extract(rs);
             }
-            con.close();
-            return esame;
+
+
+            return e;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
 
     public boolean doDelate(int id){
         try (Connection con = ConPool.getConnection()) {
