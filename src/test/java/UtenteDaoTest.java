@@ -6,18 +6,19 @@ import Storage.Utente.UtenteBean;
 import Storage.Utente.UtenteDao;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.*;
+
+
 
 public class UtenteDaoTest {
     private UtenteDao utenteDAO;
@@ -27,6 +28,22 @@ public class UtenteDaoTest {
     public void setUp(){
         utenteDAO = new UtenteDao();
         utenteService = new UtenteServiceImpl();
+    }
+
+
+
+    @Test
+    public void doSaveTest() throws SQLException, NoSuchAlgorithmException {
+        UtenteBean u = new UtenteBean();
+        u.setNome("provaN");
+        u.setCognome("provaC");
+        u.setCf("provacf");
+        u.setEmail("provaEmail");
+        u.setDdn(LocalDate.of(2016, 1, 1));
+        u.setPss("prova123");
+        u.setTipo(false);
+        u.setLibretto(new LibrettoBean(2,new ArrayList<>()));
+        assertEquals("provaN",utenteDAO.doSave(u).getNome());
     }
 
     @Test
@@ -43,24 +60,12 @@ public class UtenteDaoTest {
         assertEquals(size, list.size());
     }
 
-    @Test
-    public void doSaveTest() throws SQLException {
-        UtenteBean u = new UtenteBean();
-        u.setNome("provaN");
-        u.setCognome("provaC");
-        u.setCf("provacf");
-        u.setEmail("provaEmail");
-        u.setDdn(LocalDate.of(2016, 1, 1));
-        u.setPss("prova123");
-        u.setTipo(false);
-        u.setLibretto(new LibrettoBean(2,new ArrayList<>()));
-        assertEquals("provaN",utenteDAO.doSave(u).getNome());
-    }
+
 
     @Test
     public void doUpdateTest() throws SQLException {
         UtenteBean u = new UtenteBean();
-        u.setIdUtente(12);
+        u.setIdUtente(12);//qui ci va l'id del nuovo elemento
         u.setNome("provaNome");
         u.setCognome("provaC");
         u.setCf("provacf");
