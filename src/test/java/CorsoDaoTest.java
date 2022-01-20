@@ -5,6 +5,7 @@ import Storage.Corso.CorsoDao;
 import Storage.Libretto.LibrettoBean;
 import Storage.Utente.UtenteBean;
 import Storage.Utente.UtenteDao;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CorsoDaoTest {
     private CorsoDao corsoDao;
@@ -29,8 +31,20 @@ public class CorsoDaoTest {
         c.setNome("CorsoNome");
         c.setDescrizione("DescrizioneCorso");
         c.setNomeProfessore("NomeProfessore");
-        assertEquals(true,corsoDao.doSave(c));//qui ho messo true
+        assertEquals(true,corsoDao.doSave(c));
     }
+
+    @Test
+    public void doSaveTestRuntimeException(){
+        CorsoBean c = new CorsoBean();
+        try{
+            corsoDao.doSave(c);
+        }catch (RuntimeException e){
+            Assert.assertEquals(" Column 'nome' cannot be null",e.getMessage().split(":")[1]);
+        }
+
+    }
+
 
 
     @Test
@@ -38,6 +52,18 @@ public class CorsoDaoTest {
         int id=2;
         CorsoBean c = corsoDao.doRetriveById(id);
         assertEquals(id, c.getId());
+    }
+
+    @Test
+    public void doUpdateTestRuntimeException(){
+        CorsoBean c = new CorsoBean();
+        c.setId(12);
+        try{
+            assertEquals(true,corsoDao.doUpdate(c));
+        }catch (RuntimeException e){
+            Assert.assertEquals(" Column 'nome' cannot be null",e.getMessage().split(":")[1]);
+        }
+
     }
 
     @Test

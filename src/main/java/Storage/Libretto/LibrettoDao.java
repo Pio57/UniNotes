@@ -6,6 +6,7 @@ import Storage.Esame.EsameExtractor;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LibrettoDao {
 
@@ -42,7 +43,7 @@ public class LibrettoDao {
         ArrayList<LibrettoBean> lb = new ArrayList<>();
         ArrayList<EsameBean> esameBeans=new ArrayList<>();;
         try (Connection con = ConPool.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM esame e, libretto l WHERE (l.id = e.idCorso) ");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM Esame e, Libretto l WHERE (l.id = e.idCorso) ");
             ResultSet rs = ps.executeQuery();
 
 
