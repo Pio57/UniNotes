@@ -103,6 +103,43 @@
         }
 
 
+
+        #buttonElimina{
+            border: none;
+            border-radius: 100%;
+        }
+
+
+
+        .modal-content{
+            border-radius:  30px;
+        }
+
+        .modal-header{
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            background-image: linear-gradient(
+                    195deg,#878787,#000000);
+            color: white;
+        }
+
+
+        .modal-footer > button{
+            background-image: linear-gradient(
+                    195deg,#878787,#000000);
+            color: white;
+            border: none;
+
+        }
+
+
+        .modal-footer{
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+
+
+
     </style>
 
 
@@ -128,11 +165,8 @@
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Materiali</h1>
+                <h1 class="h2">Materiale</h1>
             </div>
-
-
-            <h2>Lista Materiale</h2>
 
 
 
@@ -149,24 +183,18 @@
                                 <table class="table align-items-center mb-0">
                                     <thead>
                                     <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Materiale</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Corso</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Publicato </th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NON SO</th>
+                                        <th class="text-secondary opacity-7"></th>
+                                        <th class="text-secondary opacity-7"></th>
                                         <th class="text-secondary opacity-7"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach items="${materiale}" var="m">
+                                    <c:forEach items="${hashMapCorsiMateriale.keySet()}" var="k">
+                                        <c:forEach items="${hashMapCorsiMateriale.get(k)}" var="m">
                                     <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">${m.getId()}</h6>
-                                                </div>
-                                            </div>
-                                        </td>
+
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <span data-feather="file"></span>
@@ -176,21 +204,73 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="text-xs font-weight-bold mb-0">Nome corso</p>
-                                            <p class="text-xs text-secondary mb-0">bho</p>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">Nome Persona</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">NON so</span>
+                                            <p class="text-xs font-weight-bold mb-0">${k}</p>
                                         </td>
                                         <td class="align-middle">
                                             <a href="/UniNotes_war_exploded/covers/${m.getPathFile()}" download="${m.getNome()}" style="color: gray">
                                                 <span data-feather="download"></span>
                                             </a>
                                         </td>
+
+                                        <td class="align-middle">
+
+                                            <form action="/UniNotes_war_exploded/Materiale/modificaMateriale" method="post" enctype="multipart/form-data">
+
+
+                                                <div class="modal fade" id="editModal${m.getId()}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editModalLabel">Edit materiale</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+
+                                                                <input name="idMateriale" type="hidden" value="${m.getId()}">
+
+
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <div class="form-group">
+                                                                            <input name="Nome" class="form-control" type="text" placeholder="Name" value="${m.getNome()}"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <div class="form-group">
+                                                                            <input type="file" id="File" name="File" placeholder="File">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                            <div class="modal-footer justify-content-center">
+                                                                <button type="submit" class="btn btn-primary" data-bs-toggle="modal">Modifica</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+
+
+                                                <a style="color: gray" href="#editModal${m.getId()}" data-bs-toggle="modal"  role="button">Edit
+                                                </a>
+                                            </form>
+                                        </td>
+
+                                        <form action="/UniNotes_war_exploded/Materiale/elimina" method="get">
+                                            <td class="align-middle text-center">
+                                                <input type="hidden" name="id" value="${m.getId()}">
+                                                <button id="buttonElimina">X</button>
+                                            </td>
+                                        </form>
+
                                     </tr>
+                                        </c:forEach>
                                     </c:forEach>
                                     </tbody>
                                 </table>
@@ -252,5 +332,14 @@
 <%@include file="../../partials/footer.jsp"%>
 
 <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
+<script>
+    var myModal = document.getElementById('myModal')
+    var myInput = document.getElementById('myInput')
+
+    myModal.addEventListener('shown.bs.modal', function () {
+        myInput.focus()
+    })
+
+</script>
 </body>
 </html>

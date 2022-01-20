@@ -14,7 +14,7 @@ public interface MaterialeDidatticoService {
         public ArrayList<MaterialeDidatticoBean> eliminaMateriale(MaterialeDidatticoBean m, CorsoBean c);
 
     */
-    public MaterialeDidatticoBean modificaMateriale(MaterialeDidatticoBean m);
+    public boolean modificaMateriale(int id,String nome,String fileName);
 
 
     public MaterialeDidatticoBean visualizza(int id);

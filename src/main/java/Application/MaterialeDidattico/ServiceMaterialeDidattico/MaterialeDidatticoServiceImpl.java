@@ -27,11 +27,12 @@ public class MaterialeDidatticoServiceImpl implements MaterialeDidatticoService 
             return md.doRetriveAllByIdUtente(u.getIdUtente());
         }
     */
-    public MaterialeDidatticoBean modificaMateriale(MaterialeDidatticoBean m){
+    public boolean modificaMateriale(int id,String nome,String fileName){
         MaterialeDidatticoDao md = new MaterialeDidatticoDao();
+        MaterialeDidatticoBean m = new MaterialeDidatticoBean(id,nome,fileName);
         if(md.doUpdate(m))
-            return m;
-        return null;
+            return true;
+        return false;
     }
 
     public MaterialeDidatticoBean visualizza(int id){

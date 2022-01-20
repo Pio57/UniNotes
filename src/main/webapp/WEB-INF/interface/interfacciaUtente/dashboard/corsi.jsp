@@ -69,7 +69,14 @@
     }
 
 
-    .modal-content{
+        #buttonElimina{
+            border: none;
+            border-radius: 100%;
+        }
+
+
+
+        .modal-content{
         border-radius:  30px;
     }
 
@@ -208,7 +215,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalToggleLabel">Modal 1</h5>
+                            <h5 class="modal-title" id="exampleModalToggleLabel">Corso</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -275,6 +282,7 @@
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Descrizione</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nome professore</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#Materiale</th>
+                                        <th class="text-secondary opacity-7"></th>
                                         <th class="text-secondary opacity-7"></th>
                                     </tr>
                                     </thead>
@@ -366,6 +374,14 @@
                                             </a>
                                             </form>
                                         </td>
+
+                                        <form action="/UniNotes_war_exploded/Corso/elimina" method="get">
+                                            <td class="align-middle text-center">
+                                                <input type="hidden" name="id" value="${c.getId()}">
+                                                <button id="buttonElimina">X</button>
+                                            </td>
+                                        </form>
+
                                     </tr>
                                     </c:forEach>
                                     </tbody>

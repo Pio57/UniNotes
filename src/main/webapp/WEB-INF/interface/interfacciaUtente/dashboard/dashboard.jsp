@@ -101,17 +101,9 @@
             </div>
 
 
-            <h2>Section title</h2>
-
 
                     <div class="grey-bg container-fluid">
                         <section id="minimal-statistics">
-                            <div class="row">
-                                <div class="col-12 mt-3 mb-1">
-                                    <h4 class="text-uppercase">Minimal Statistics Cards</h4>
-                                    <p>Statistics on minimal cards.</p>
-                                </div>
-                            </div>
                             <c:if test="${utente.isTipo()}">
                             <div class="row">
                                 <div class="col-xl-3 col-sm-6 col-12">

@@ -90,18 +90,17 @@ public class UtenteServlet extends HttpServlet {
                     response.sendRedirect("/UniNotes_war_exploded/");
                     break;
                 }
-
-                ArrayList<UtenteBean> utenti = new ArrayList<>();
-                utenti = utenteService.visualizzaUtenti();;
+                ArrayList<UtenteBean> utenti = utenteService.visualizzaUtenti();
+                for(UtenteBean utente : utenti){
+                    if(utente.getIdUtente() == u.getIdUtente())
+                        utenti.remove(utente);
+                }
                 request.setAttribute("utenti", utenti);
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/utenti.jsp").forward(request, response);
                 break;
             }
 
             case "/visualizzaPaginaPersonale":{ //visualizza utenti registrati [adimn]
-                //da implementare
-
-
 
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/paginaPersonale.jsp").forward(request, response);
                 break;
@@ -231,42 +230,57 @@ public class UtenteServlet extends HttpServlet {
                     response.sendRedirect("/UniNotes_war_exploded/");
                     break;
                 }
+
                 String nomePattern = "[a-zA-Z\\s]+$";// pattern vecchio [A-Z a-z]
                 String cognomePattern = "[a-zA-Z\\s]+$";// pattern vecchio [A-Z a-z]
                 String cfPattern = "(^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$)"; // qui ho aggiunto delle patentesi in piu all'inizio e alla fine
                 String emailPattern = "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$)"; //pattern vecchio ^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-]+\.)*$
-                String dataPattern = ""; //rivedere
-                String passwordPattern = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])\\w{6,}$"; // pattern vecchio [A-Za-z0-9.]&
-
 
                 String nome = request.getParameter("Nome");
                 String cognome = request.getParameter("Cognome");
                 String cf = request.getParameter("CF");
                 String email = request.getParameter("Email");
                 String data = request.getParameter("DataDiNascita");
-                String password = request.getParameter("Password");
-                String confermaPassword = request.getParameter("ConfermaPassword");
 
-                if (nome.matches(nomePattern) && cognome.matches(cognomePattern) && cf.matches(cfPattern) && email.matches(emailPattern) && password.matches(passwordPattern) && confermaPassword.matches(passwordPattern) && password.equals(confermaPassword)) {
+                if (nome.matches(nomePattern) && cognome.matches(cognomePattern) && cf.matches(cfPattern) && email.matches(emailPattern)) {
                         u.setNome(nome);
                         u.setCognome(cognome);
                         u.setCf(cf);
                         u.setEmail(email);
                         u.setDdn(LocalDate.parse(data));
                         u = utenteService.aggiorna(u);
-                    response.sendRedirect("/UniNotes_war_exploded/Utente/visualizzaUtenti");
                         if(u != null){
                             ssn.setAttribute("utente", u);
+                            response.sendRedirect("/UniNotes_war_exploded/Utente/visualizzaPaginaPersonale");
+                            break;
                         }else{
                             response.sendError(400, "La modifica non è andata a buon fine");
                             break;
                         }
-
-                    response.sendRedirect("/UniNotes_war_exploded/Utente/home");
                 }
                 break;
             }
+            case "/toggleRuolo" : { //modifica stato studente [adimn]
 
+                UtenteDao ud = new UtenteDao();
+                UtenteBean utente;
+                String idAccount = request.getParameter("id");
+                HttpSession ssn = request.getSession();
+
+                UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
+                if(u == null){
+                    response.sendRedirect("/UniNotes_war_exploded/");
+                    break;
+                }
+
+                if (idAccount != null) {
+                    utente = ud.doRetriveById(Integer.parseInt(idAccount));
+                    utenteService.rendiAdmin(utente);
+                }
+                response.sendRedirect("/UniNotes_war_exploded/Utente/visualizzaUtenti"); //NON so se è giusto
+
+                break;
+            }
 
         }
     }

@@ -5,6 +5,7 @@ package Application.Utente.ServiceUtente;
 
 import Storage.Libretto.LibrettoBean;
 import Storage.ListaPreferiti.ListaPreferitiDao;
+import Storage.MaterialeDidattico.MaterialeDidatticoBean;
 import Storage.Utente.UtenteBean;
 import Storage.Utente.UtenteDao;
 
@@ -54,6 +55,15 @@ public class UtenteServiceImpl implements UtenteService {
     public void rimuoviDaListaPreferiti(int c) {
         ListaPreferitiDao ld = new ListaPreferitiDao();
         ld.doDelateCorso(c);
+    }
+
+    @Override
+    public boolean verificaProprioMateriale(ArrayList<MaterialeDidatticoBean> materiale, MaterialeDidatticoBean m) {
+        for(MaterialeDidatticoBean ma : materiale){
+            if(ma.getId() == m.getId())
+                return true;
+        }
+        return false;
     }
 
     public ArrayList<UtenteBean> visualizzaUtenti(){

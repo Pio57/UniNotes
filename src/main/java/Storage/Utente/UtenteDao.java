@@ -118,7 +118,7 @@ public class UtenteDao {
 
     public boolean doUpdateAdmin(UtenteBean u) {
         try (Connection con = ConPool.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("UPDATE Utente SET tipo = "+!u.isTipo()+" WHERE id = " + u.getIdUtente());
+            PreparedStatement ps = con.prepareStatement("UPDATE Utente SET tipo = "+!u.isTipo()+" WHERE id ="+ u.getIdUtente());
 
 
             if (ps.executeUpdate() != 1) {
@@ -133,8 +133,6 @@ public class UtenteDao {
     public UtenteBean findAccount(String email, String password) {
         try (Connection con = ConPool.getConnection()) {
 
-            System.out.println(email);
-            System.out.println(password);
             PreparedStatement ps = con.prepareStatement("SELECT * FROM Utente u WHERE u.email = ? AND u.password = ?");
 
             ps.setString(1, email);

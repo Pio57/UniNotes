@@ -160,7 +160,7 @@
                                 <div class="row mt-3">
                                         <div class="col-md-12"><label class="labels">Codice Fiscale</label><input  name="CF" type="text" class="form-control" placeholder="Codice Fiscale" value="${utente.getCf()}"></div>
                                     <div class="col-md-12"><label class="labels">Email</label><input name="Email" type="text" class="form-control" placeholder="Email" value="${utente.getEmail()}"></div>
-                                    <div class="col-md-12"><label class="labels">Data di nascita</label><input  name="DataDiNascita" type="text" class="form-control" placeholder="enter address line 2" value="${utente.getDdn()}"></div>
+                                    <div class="col-md-12"><label class="labels">Data di nascita</label><input  name="DataDiNascita" type="date" class="form-control" placeholder="enter address line 2" value="${utente.getDdn()}"></div>
                                 </div>
 
                                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>

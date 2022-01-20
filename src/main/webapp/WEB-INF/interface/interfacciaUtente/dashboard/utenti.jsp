@@ -103,6 +103,14 @@
         }
 
 
+        #buttonElimina{
+            border: none;
+            border-radius: 20px;
+        }
+
+
+
+
     </style>
 
 
@@ -194,12 +202,20 @@
                                             <span class="text-secondary text-xs font-weight-bold">${u.getDdn()}</span>
                                         </td>
 
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
-                                            </a>
-                                        </td>
 
+                                        <form action="/UniNotes_war_exploded/Utente/toggleRuolo" method="post">
+
+                                            <td>
+                                                <input type="hidden" name="id" value="${u.getIdUtente()}">
+                                                <c:if test="${!u.isTipo()}">
+                                                    <button id="buttonElimina">Rendi amministratore</button>
+                                                </c:if>
+                                                <c:if test="${u.isTipo()}">
+                                                    <button id="buttonElimina">Rendi studente</button>
+                                                </c:if>
+
+                                            </td>
+                                        </form>
 
                                     </tr>
                                     </c:forEach>

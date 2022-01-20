@@ -2,6 +2,7 @@ package Application.Utente.ServiceUtente;
 
 
 import Storage.Libretto.LibrettoBean;
+import Storage.MaterialeDidattico.MaterialeDidatticoBean;
 import Storage.Utente.UtenteBean;
 import Storage.Utente.UtenteDao;
 
@@ -21,6 +22,8 @@ public interface UtenteService {
     public void interireInListaPreferiti(int u, int c);
 
     public  void rimuoviDaListaPreferiti(int c);
+
+    public boolean verificaProprioMateriale(ArrayList<MaterialeDidatticoBean> materiale, MaterialeDidatticoBean m);
 
     public ArrayList<UtenteBean> visualizzaUtenti();
 

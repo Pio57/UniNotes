@@ -1,7 +1,12 @@
 package Application.MaterialeDidattico;
 
+import Application.Corso.ServiceCorso.CorsoService;
+import Application.Corso.ServiceCorso.CorsoServiceImpl;
 import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoService;
 import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoServiceImpl;
+import Application.Utente.ServiceUtente.UtenteService;
+import Application.Utente.ServiceUtente.UtenteServiceImpl;
+import Storage.Corso.CorsoBean;
 import Storage.MaterialeDidattico.MaterialeDidatticoBean;
 import Storage.Utente.UtenteBean;
 
@@ -13,14 +18,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @WebServlet(name = "MaterialeDidatticoServlet", value = "/Materiale/*")
 @MultipartConfig
 public class MaterialeDidatticoServlet extends HttpServlet {
 
     private final MaterialeDidatticoService materialeDidattico = new MaterialeDidatticoServiceImpl();
-
+    private final CorsoService corsoService = new CorsoServiceImpl();
+    private final UtenteService utenteService = new UtenteServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,16 +38,27 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/crea.jsp").forward(request,response);
                 break;
             }
-            case "/eliminaMateriale":{
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/elimina.jsp").forward(request,response);
+            case "/elimina":{
+                HttpSession ssn = request.getSession();
+                UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
+                if(u == null){
+                    response.sendRedirect("/UniNotes_war_exploded/");
+                    break;
+                }
+                int id = Integer.parseInt(request.getParameter("id"));
+                if(materialeDidattico.eliminaMateriale(id)){
+                    response.sendRedirect("/UniNotes_war_exploded/Materiale/visualizzaTutti");
+                    break;
+                }
+                response.sendRedirect("/UniNotes_war_exploded/Libretto/visualizzaLibretto");//pagina di errore
                 break;
+
             }
             case "/modificaMateriale":{
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/modifica.jsp").forward(request,response);
                 break;
             }
             case "/visualizza":{
-
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
                 if(u == null){
@@ -62,10 +81,39 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                     break;
                 }
                 if(u.isTipo()){
+                    HashMap<String,ArrayList<MaterialeDidatticoBean>> hashMapCorsiMateriale = new HashMap<>();
+                    for(CorsoBean c : corsoService.visualizzaCorsi()){
+                        for(MaterialeDidatticoBean m : materialeDidattico.visualizzaMaterialeDiUnCorso(c.getId())){
+                            if(!hashMapCorsiMateriale.containsKey(c.getNome())){
+                                hashMapCorsiMateriale.put(c.getNome(),new ArrayList<>());
+                            }
+                            hashMapCorsiMateriale.get(c.getNome()).add(m);
+                        }
+                    }
+                    request.setAttribute("hashMapCorsiMateriale",hashMapCorsiMateriale);
                     request.setAttribute("materiale",materialeDidattico.visualizzaTutti());
+
                 }else{
+                    HashMap<String,ArrayList<MaterialeDidatticoBean>> hashMapCorsiMateriale = new HashMap<>();
+                    ArrayList<MaterialeDidatticoBean> materialeDidatticoBeans = materialeDidattico.visualizzaMaterialeDiUnUtente(u.getIdUtente());
+                    for(CorsoBean c : corsoService.visualizzaCorsi()){
+                        for(MaterialeDidatticoBean m : materialeDidattico.visualizzaMaterialeDiUnCorso(c.getId())){
+                            if(utenteService.verificaProprioMateriale(materialeDidatticoBeans,m)){
+                                if(!hashMapCorsiMateriale.containsKey(c.getNome())){
+                                    hashMapCorsiMateriale.put(c.getNome(),new ArrayList<>());
+                                }
+                                hashMapCorsiMateriale.get(c.getNome()).add(m);
+                            }
+                        }
+                    }
+                    request.setAttribute("hashMapCorsiMateriale",hashMapCorsiMateriale);
                     request.setAttribute("materiale",materialeDidattico.visualizzaMaterialeDiUnUtente(u.getIdUtente()));
                 }
+
+
+
+
+
                 //ho cambiato la path per farlo andare nella dashboard --> bisogna rivederla
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/materiale.jsp").forward(request,response);
                 break;
@@ -96,7 +144,7 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                     try (InputStream fileStream = filePart.getInputStream()) {
                         File file = new File(uploadRoot + fileName);
                         Files.copy(fileStream, file.toPath());
-                        response.sendRedirect("/UniNotes_war_exploded/Corso/visualizzaTutti");
+                        response.sendRedirect("/UniNotes_war_exploded/Corso/visualizzaTuttiUtente");
                         break;
                     }
                }
@@ -114,7 +162,39 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                 break;
             }
             case "/modificaMateriale":{
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/modifica.jsp").forward(request,response);
+                HttpSession ssn = request.getSession();
+                UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
+                if(u == null){
+                    response.sendRedirect("/UniNotes_war_exploded/");
+                    break;
+                }
+                String idMateriale = request.getParameter("idMateriale");
+                int idUtente = u.getIdUtente();
+                String nome = request.getParameter("Nome");
+                Part filePart = request.getPart("File");
+                MaterialeDidatticoBean m = materialeDidattico.visualizza(Integer.parseInt(idMateriale));
+                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                if(fileName.length()>0){
+                    if(materialeDidattico.modificaMateriale(m.getId(),nome,fileName)){
+                        String uploadRoot = "/Users/piosantosuosso/Desktop/apache-tomcat-9.0.43/uploads/";
+
+                        try (InputStream fileStream = filePart.getInputStream()) {
+                            File file = new File(uploadRoot + fileName);
+                            Files.copy(fileStream, file.toPath(),StandardCopyOption.REPLACE_EXISTING);
+                            response.sendRedirect("/UniNotes_war_exploded/Materiale/visualizzaTutti");
+                            break;
+                        }
+                    }
+                }else{
+                    System.out.println("quo");
+                    if(materialeDidattico.modificaMateriale(m.getId(),nome,m.getPathFile())){
+                        response.sendRedirect("/UniNotes_war_exploded/Materiale/visualizzaTutti");
+                        break;
+                    }
+                }
+
+
+                response.sendRedirect("/UniNotes_war_exploded/");
                 break;
             }
             case "/visualizza":{

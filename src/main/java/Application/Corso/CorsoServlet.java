@@ -9,6 +9,7 @@ import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatti
 import Application.Utente.ServiceUtente.UtenteService;
 import Application.Utente.ServiceUtente.UtenteServiceImpl;
 import Storage.Corso.CorsoBean;
+import Storage.Libretto.LibrettoBean;
 import Storage.ListaPreferiti.ListaPreferitiBean;
 import Storage.ListaPreferiti.ListaPreferitiDao;
 import Storage.Utente.UtenteBean;
@@ -39,8 +40,20 @@ public class CorsoServlet extends HttpServlet {
                 break;
             }
             case "/elimina":{
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/elimina.jsp").forward(request,response);
+                HttpSession ssn = request.getSession();
+                UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
+                if(u == null){
+                    response.sendRedirect("/UniNotes_war_exploded/");
+                    break;
+                }
+                int id = Integer.parseInt(request.getParameter("id"));
+                if(corsoService.eliminaCorso(id)){
+                    response.sendRedirect("/UniNotes_war_exploded/Corso/visualizzaTutti");
+                    break;
+                }
+                response.sendRedirect("/UniNotes_war_exploded/Libretto/visualizzaLibretto");//pagina di errore
                 break;
+
             }
             case "/modifica":{
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/modifica.jsp").forward(request,response);
@@ -62,7 +75,7 @@ public class CorsoServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizza.jsp").forward(request,response);
                 break;
             }
-            case "/visualizzaTutti":{
+            case "/visualizzaTutti":{//admin
 
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
@@ -79,7 +92,7 @@ public class CorsoServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/corsi.jsp").forward(request,response);
                 break;
             }
-            case "/visualizzaTuttiUtente":{
+            case "/visualizzaTuttiUtente":{//utente
 
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");

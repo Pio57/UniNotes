@@ -28,7 +28,7 @@
         e[s]=e[s]||[],e.zaraz._preTrack=[],e.zaraz.track=(t,r)=>e.zaraz._preTrack.push([t,r]),e[s].push({"zaraz.start":(new Date).getTime()});var i=t.getElementsByTagName(a)[0],o=t.createElement(a);o.defer=!0,o.src="/cdn-cgi/zaraz/s.js?"+new URLSearchParams(e[r]).toString(),i.parentNode.insertBefore(o,i)}(w,d,"zarazData","script","dataLayer");})(window,document);</script></head>
 
 <body body class="img js-fullheight">
-<main>
+<main style="background-image: url(img/unisa.jpeg); background: no-repeat" >
 
 <section class="ftco-section">
     <div class="container">

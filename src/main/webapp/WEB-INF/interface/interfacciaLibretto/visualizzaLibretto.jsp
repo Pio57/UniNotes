@@ -247,7 +247,6 @@
                         <div class="card">
                             <div class="card-content">
                                 <div class="card-body">
-                                    <a href="/UniNotes_war_exploded/Corso/visualizzaTutti" style="text-decoration: none; color:inherit;" >
                                         <div class="media d-flex">
                                             <div class="align-self-center">
                                                 <i class="icon-bar-chart primary font-large-2 float-left"></i>
@@ -267,7 +266,6 @@
                             <div class="card">
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <a href="/UniNotes_war_exploded/Utente/visualizzaUtenti" style="text-decoration: none; color:inherit;" >
                                             <div class="media d-flex">
                                                 <div class="align-self-center">
                                                     <i class="icon-graduation warning font-large-2 float-left"></i>
@@ -287,7 +285,6 @@
                         <div class="card">
                             <div class="card-content">
                                 <div class="card-body">
-                                    <a href="/UniNotes_war_exploded/Materiale/visualizzaTutti" style="text-decoration: none; color:inherit;" >
                                         <div class="media d-flex">
                                             <div class="align-self-center">
                                                 <i class="icon-notebook success font-large-2 float-left"></i>

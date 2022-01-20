@@ -20,16 +20,13 @@
                     <a class="nav-link" href="/UniNotes_war_exploded/Utente/dashboard">Dashboard</a>
                 </li>
 
-                <c:if test="${!utente.isTipo()}">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/UniNotes_war_exploded/Libretto/visualizzaLibretto">Libretto</a>
-                    </li>
-                </c:if>
-                <c:if test="${!utente.isTipo()}">
-                    <li class="nav-item">
+                <li class="nav-item">
+                    <a class="nav-link" href="/UniNotes_war_exploded/Libretto/visualizzaLibretto">Libretto</a>
+                </li>
+
+                <li class="nav-item">
                         <a class="nav-link" href="/UniNotes_war_exploded/ListaPreferiti/visualizza">Favorite List</a>
-                    </li>
-                </c:if>
+                </li>
 
 
 
