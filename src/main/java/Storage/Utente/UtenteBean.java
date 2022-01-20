@@ -28,7 +28,7 @@ public class UtenteBean {
     public UtenteBean(){ }
 
 
-    public UtenteBean(String nome, String cognome, String cf, String MaterialeDidatticoemail, LocalDate ddn, String password, boolean tipo) {
+    public UtenteBean(String nome, String cognome, String cf, String email, LocalDate ddn, String password, boolean tipo) {
         this.nome = nome;
         this.cognome = cognome;
         this.cf = cf;

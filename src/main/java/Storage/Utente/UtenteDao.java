@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class UtenteDao {
 
-   public boolean doSave(UtenteBean utente) throws SQLException {
+   public UtenteBean doSave(UtenteBean utente) throws SQLException {
        try(Connection con = ConPool.getConnection()) {
            PreparedStatement ps = con.prepareStatement(
                    "INSERT INTO Utente(nome, cognome, cf, email, dataDiNascita, password, tipo, idLibretto) VALUES(?,?,?,?,?,?,?,?)",
@@ -30,7 +30,7 @@ public class UtenteDao {
            rs.next();
            int id = rs.getInt(1);
            utente.setIdUtente(id);
-           return true;
+           return utente;
 
        } catch (SQLException e) {
            throw new RuntimeException(e);

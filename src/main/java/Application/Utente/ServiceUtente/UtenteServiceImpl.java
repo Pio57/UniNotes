@@ -28,9 +28,9 @@ public class UtenteServiceImpl implements UtenteService {
         utente.setDdn(LocalDate.parse(data));
         utente.setLibretto(l);
 
-        ud.doSave(utente);
-
+        utente = ud.doSave(utente);
         return utente;
+
     }
 
     public UtenteBean login(String email, String password) {
