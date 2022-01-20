@@ -282,6 +282,27 @@ public class UtenteServlet extends HttpServlet {
                 break;
             }
 
+            case "/faqs":{
+
+                UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
+                if(u == null){
+                    response.sendRedirect("/UniNotes_war_exploded/");
+                    break;
+                }
+                request.getRequestDispatcher("/WEB-INF/interface/partials/FAQs.jsp").forward(request,response);
+                break;
+            }
+            case "/un":{
+
+                UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
+                if(u == null){
+                    response.sendRedirect("/UniNotes_war_exploded/");
+                    break;
+                }
+                request.getRequestDispatcher("/WEB-INF/interface/partials/UN.jsp").forward(request,response);
+                break;
+            }
+
         }
     }
 
