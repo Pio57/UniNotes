@@ -99,15 +99,15 @@ public class UtenteDaoTest {
         UtenteBean u = utenteDAO.findAccount("provaEmail","prova123");
         assertEquals(12, u.getIdUtente());
     }
-/*
 
     @Test
     public void doDeleteTest() throws SQLException {
-        utenteDAO.doDelate(11);
-        assertEquals(11,utenteDAO.doRetriveById(11));
+        ArrayList<UtenteBean> list1 = utenteDAO.doRetriveAll();
+        utenteDAO.doDelate(37);
+        ArrayList<UtenteBean> list2 = utenteDAO.doRetriveAll();
+        assertEquals(list2.size(),list1.size()-1);
     }
 
-*/
 
 
 }

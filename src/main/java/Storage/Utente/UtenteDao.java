@@ -143,12 +143,13 @@ public class UtenteDao {
 
             if (rs.next()) {
                 u = ue.extract(rs);
-                u.setLibretto(new LibrettoBean(rs.getInt("u.idLibretto"),null));
             }
-            u.getLibretto().setNunEsami(0);
+            if(u!=null){
+                u.setLibretto(new LibrettoBean(rs.getInt("u.idLibretto"),null));
+                u.getLibretto().setNunEsami(0);
+            }
             con.close();
             return u;
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

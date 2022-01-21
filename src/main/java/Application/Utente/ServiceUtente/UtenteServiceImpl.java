@@ -35,7 +35,6 @@ public class UtenteServiceImpl implements UtenteService {
 
     public UtenteBean login(String email, String password) {
         UtenteDao ud = new UtenteDao();
-        UtenteBean utente = new UtenteBean();
         return ud.findAccount(email, password);
     }
 

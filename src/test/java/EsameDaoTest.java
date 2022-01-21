@@ -26,17 +26,19 @@ public class EsameDaoTest {
 
     @Test
     public void doRetrieveByIdTest(){
-        int id=1;
+        int id=24;
         EsameBean e = esameDAO.doRetriveById(id);
         assertEquals(id, e.getId());
     }
-
+/*
     @Test
     public void doRetriveAllTest(){
         ArrayList<EsameBean> list = esameDAO.doRetriveAll();
         int size = list.size();
         assertEquals(size, list.size());
     }
+
+ */
 
     @Test
     public void doSaveTest(){
@@ -52,6 +54,7 @@ public class EsameDaoTest {
     @Test
     public void doUpdateTest(){
         EsameBean e = new EsameBean();
+        e.setId(24);
         e.setNome("provaNome");
         e.setVoto(29);
         e.setCfu(12);

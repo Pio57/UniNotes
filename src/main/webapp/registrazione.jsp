@@ -1,4 +1,4 @@
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="en">
@@ -27,9 +27,19 @@
     <script>(function(w,d){!function(e,t,r,a,s){e[r]=e[r]||{},e[r].executed=[],e.zaraz={deferred:[]};var n=t.getElementsByTagName("title")[0];e[r].c=t.cookie,n&&(e[r].t=t.getElementsByTagName("title")[0].text),e[r].w=e.screen.width,e[r].h=e.screen.height,e[r].j=e.innerHeight,e[r].e=e.innerWidth,e[r].l=e.location.href,e[r].r=t.referrer,e[r].k=e.screen.colorDepth,e[r].n=t.characterSet,e[r].o=(new Date).getTimezoneOffset(),//
         e[s]=e[s]||[],e.zaraz._preTrack=[],e.zaraz.track=(t,r)=>e.zaraz._preTrack.push([t,r]),e[s].push({"zaraz.start":(new Date).getTime()});var i=t.getElementsByTagName(a)[0],o=t.createElement(a);o.defer=!0,o.src="/cdn-cgi/zaraz/s.js?"+new URLSearchParams(e[r]).toString(),i.parentNode.insertBefore(o,i)}(w,d,"zarazData","script","dataLayer");})(window,document);</script></head>
 
+
+<style>
+
+    alert{
+        border-radius: 20px;
+    }
+
+</style>
+
 <body body class="img js-fullheight">
 
 <main>
+
 
     <section class="ftco-section">
         <div class="container">
@@ -46,35 +56,48 @@
             <div class="row justify-content-center">
                 <div class="col-md-6 col-lg-4">
                     <div class="login-wrap p-0">
+
+
                         <h3 class="mb-4 text-center">Registrati</h3>
+
+                        <c:if test="${errors != null}">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <c:forEach items="${errors}" var="e">
+                                    <p><strong>Error: </strong>${e}</p>
+                                </c:forEach>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </c:if>
+
+
                         <form action="/UniNotes_war_exploded/Utente/registrazione" method="post" class="signin-form">
                             <div class="form-group">
-                                <input name="Nome" type="text" class="form-control" placeholder="Nome" required>
+                                <input name="Nome" type="text" class="form-control" placeholder="Nome" value="${Nome}" required >
                             </div>
 
                             <div class="form-group">
-                                <input name="Cognome" type="text" class="form-control" placeholder="Cognome" required>
+                                <input name="Cognome" type="text" class="form-control" placeholder="Cognome" value="${Cognome}" required>
                             </div>
 
                             <div class="form-group">
-                                <input name="CF" type="text" class="form-control" placeholder="Codice fiscale" required>
+                                <input name="CF" type="text" class="form-control" placeholder="Codice fiscale" value="${CF}" required>
                             </div>
 
                             <div class="form-group">
-                                <input name="DataDiNascita" type="text" class="form-control" placeholder="Data di nascita" required>
+                                <input name="DataDiNascita" type="text" class="form-control" placeholder="Data di nascita" value="${DataDiNascita}" required>
                             </div>
 
                             <div class="form-group">
-                                <input name="Email" type="text" class="form-control" placeholder="E-mail" required>
+                                <input name="Email" type="text" class="form-control" placeholder="E-mail" value="${Email}" required>
                             </div>
 
                             <div class="form-group">
-                                <input name="Password" id="password-field" type="password" class="form-control" placeholder="Password" required>
+                                <input name="Password" id="password-field" type="password" class="form-control" placeholder="Password" value="${Password}" required>
                                 <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                             </div>
 
                             <div class="form-group">
-                                <input name="CPassword" id="password-confirm" type="password" class="form-control" placeholder="Conferma password" required>
+                                <input name="CPassword" id="password-confirm" type="password" class="form-control" placeholder="Conferma password" value="${CPassword}"  required>
                                 <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                             </div>
 

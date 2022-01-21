@@ -43,16 +43,25 @@
                 <h2 class="heading-section">Login</h2>
             </div>
         </div>
+        <c:if test="${errors != null}">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <c:forEach items="${errors}" var="e">
+                    <p><strong>Error: </strong>${e}</p>
+                </c:forEach>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </c:if>
+
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4">
                 <div class="login-wrap p-0">
                     <h3 class="mb-4 text-center">Hai già un account?</h3>
                     <form action="/UniNotes_war_exploded/Utente/login" method="post" class="signin-form">
                         <div class="form-group">
-                            <input type="text" name="email" class="form-control" placeholder="E-mail" required>
+                            <input type="text" name="email" class="form-control" placeholder="E-mail" value="${Email}" required>
                         </div>
                         <div class="form-group">
-                            <input id="password-field" type="password" name="password" class="form-control" placeholder="Password" required>
+                            <input id="password-field" type="password" name="password" class="form-control" placeholder="Password" value="${Password}" required>
                             <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                         </div>
                         <div class="form-group">

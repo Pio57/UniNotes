@@ -38,12 +38,11 @@ public class UtenteServlet extends HttpServlet {
     private final CorsoService corsoService = new CorsoServiceImpl();
     private final MaterialeDidatticoService materialeService = new MaterialeDidatticoServiceImpl();
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
 
         switch (path){
             case "/home":{
-
                 UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
                 if(u == null){
                     response.sendRedirect("/UniNotes_war_exploded/");
@@ -119,7 +118,7 @@ public class UtenteServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
 
         switch (path){
@@ -144,6 +143,27 @@ public class UtenteServlet extends HttpServlet {
                 String confermaPassword = request.getParameter("CPassword");
                 String data = request.getParameter("DataDiNascita");
 
+                ArrayList<String> errors = new ArrayList<>();
+
+                if(!email.matches(emailPattern)){
+                    errors.add("Email non valida");
+                }
+                if(!nome.matches(nomePattern)){
+                    errors.add("Il nome non deve contenere numeri");
+                }
+                if(!cognome.matches(cognomePattern) ){
+                    errors.add("Il cognome non deve contenere numeri");
+                }
+                if(!cf.matches(cfPattern) ){
+                    errors.add("Il cf non è valido");
+                }
+                if(!password.matches(passwordPattern)){
+                    errors.add("La password non rispetta il formato giusto");
+                }
+                if(!password.equals(confermaPassword)){
+                    errors.add("Le due password non coincidono");
+                }
+
               if (nome.matches(nomePattern) && cognome.matches(cognomePattern) && cf.matches(cfPattern) && email.matches(emailPattern) && password.matches(passwordPattern) && confermaPassword.matches(passwordPattern) && password.equals(confermaPassword)) {
 
                     try {
@@ -160,7 +180,15 @@ public class UtenteServlet extends HttpServlet {
                     response.sendRedirect("/UniNotes_war_exploded/Utente/home");
                   break;
                }else {
-                  response.sendError(400, "La registrazione non è andata a buon fine");
+                  request.setAttribute("errors",errors);
+                  request.setAttribute("Nome",nome);
+                  request.setAttribute("Cognome",cognome);
+                  request.setAttribute("CF",cf);
+                  request.setAttribute("Email",email);
+                  request.setAttribute("DataDiNascita",data);
+                  request.setAttribute("Password",password);
+                  request.setAttribute("CPassword",confermaPassword);
+                  request.getRequestDispatcher("/registrazione.jsp").forward(request,response);
                   break;
               }
 
@@ -178,7 +206,8 @@ public class UtenteServlet extends HttpServlet {
                 String email = request.getParameter("email");
                 String password = request.getParameter("password");
 
-               if (email.matches(emailPattern) && password.matches(passwordPattern)) {
+
+              if (email.matches(emailPattern) && password.matches(passwordPattern)) {
                     utente.setEmail(email);
                 try {
                     utente.setPassword(password);
@@ -194,8 +223,17 @@ public class UtenteServlet extends HttpServlet {
                     ssn.setAttribute("utente", utente);
                     ssn.setMaxInactiveInterval(86400);
                     response.sendRedirect("/UniNotes_war_exploded/Utente/home");
+                    break;
                 }else{
-                    response.sendError(400, "Credenziali non valide");
+                    System.out.println("sono qui");
+                    ArrayList<String> errors = new ArrayList<>();
+                    errors.add("Email o password non validi");
+                    errors.add("ciaoo");
+                    request.setAttribute("Email",email);
+                    request.setAttribute("Password",password);
+                    request.setAttribute("errors",errors);
+                    System.out.println(errors);
+                    request.getRequestDispatcher("/index.jsp").forward(request,response);
                     break;
                 }
 

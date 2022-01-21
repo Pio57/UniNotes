@@ -23,7 +23,7 @@ public class MaterialeDaoTest {
 
         @Test
         public void doRetrieveByIdTest(){
-            int id=1;
+            int id=12;
             MaterialeDidatticoBean m = materialeDAO.doRetriveById(id);
             assertEquals(id, m.getId());
         }
@@ -56,7 +56,7 @@ public class MaterialeDaoTest {
             MaterialeDidatticoBean m = new MaterialeDidatticoBean();
             m.setNome("provaNomeMateriale");
             m.setPathFile("provaPathMateriale");
-            assertEquals(true,materialeDAO.doSave(m, 1, 1));
+            assertEquals(true,materialeDAO.doSave(m, 19, 4));
         }
 
         @Test
