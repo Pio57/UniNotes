@@ -305,6 +305,15 @@
 
         <button class="libretto" id="viewBotton" name="viewEsame" onclick="viewEsame()">Nascondi libretto </button>
 
+        <c:if test="${errors != null}">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <c:forEach items="${errors}" var="er">
+                    <p><strong>Error: </strong>${er}</p>
+                </c:forEach>
+                    ${errors=null}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </c:if>
 
         <form action="/UniNotes_war_exploded/Esame/crea" method="post">
 

@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -32,7 +33,7 @@ public class EsameServlet extends HttpServlet {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
             case "/crea":{
-
+                request.getRequestDispatcher("/WEB-INF/interface/interfacciaEsame/crea.jsp").forward(request,response);
             }
             case "/elimina":{
                 HttpSession ssn = request.getSession();
@@ -62,6 +63,7 @@ public class EsameServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
+        request.getSession().setAttribute("errors", null);
         switch (path){
             case "/crea":{
 
@@ -82,7 +84,31 @@ public class EsameServlet extends HttpServlet {
                 float voto = Float.parseFloat(request.getParameter("Voto"));
                 LocalDate data = LocalDate.parse(request.getParameter("Data"));
 
-                if (nome.matches(nomePattern) && nomeProfessore.matches(nomePattern)) {
+                ArrayList<String> errors = new ArrayList<>();
+
+
+                if(!nome.matches(nomePattern)){
+                    errors.add("Il nome non deve contenere numeri");
+                }
+                if(voto<18 && voto>31 ){//pio devi modificare il voto nella jsp con il voto lode
+                    errors.add("Il voto non valido");
+                }
+                if(cfu<1 && cfu>12 ){
+                    errors.add("Il cfu non valido");
+                }
+                if(!nomeProfessore.matches(nomePattern)){
+                    errors.add("Il nome del professore non deve contenere numeri");
+                }
+
+                request.setAttribute("errors", errors);
+                request.setAttribute("Nome",nome);
+                request.setAttribute("Voto",voto);
+                request.setAttribute("Cfu",cfu);
+                request.setAttribute("NomeProfessore", nomeProfessore);
+
+
+
+                if (nome.matches(nomePattern) && nomeProfessore.matches(nomePattern) && voto>=18 && voto<=31 && cfu<=1 && cfu>=12) {
 
                     l.aggiungiEsame(new EsameBean(nome,nomeProfessore,voto,cfu,data));
                     u.setLibretto(l);
@@ -91,8 +117,18 @@ public class EsameServlet extends HttpServlet {
                     ssn.setAttribute("libretto",u);
                     ssn.setAttribute("utente",u);
                     response.sendRedirect("/UniNotes_war_exploded/Libretto/visualizzaLibretto");
+                    break;
+                }else{
+                    ssn.setAttribute("errors",errors);
+                    request.setAttribute("Nome",nome);
+                    request.setAttribute("Voto",voto);
+                    request.setAttribute("Cfu",cfu);
+                    request.setAttribute("NomeProfessore", nomeProfessore);
+
+                    response.sendRedirect("/UniNotes_war_exploded/Libretto/visualizzaLibretto");
+                    break;
                 }
-                break;
+
             }
             case "/elimina":{
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/elimina.jsp").forward(request,response);
@@ -116,15 +152,47 @@ public class EsameServlet extends HttpServlet {
                 float voto = Float.parseFloat(request.getParameter("Voto"));
                 LocalDate data = LocalDate.parse(request.getParameter("Data"));
 
-                if (nome.matches(nomePattern) && nomeProfessore.matches(nomePattern)) {
+                ArrayList<String> errors = new ArrayList<>();
+
+
+                if(!nome.matches(nomePattern)){
+                    errors.add("Il nome non deve contenere numeri");
+                }
+                if(voto<18 && voto>31 ){//pio devi modificare il voto nella jsp con il voto lode
+                    errors.add("Il voto non valido");
+                }
+                if(cfu<1 && cfu>12 ){
+                    errors.add("Il cfu non valido");
+                }
+                if(!nomeProfessore.matches(nomePattern)){
+                    errors.add("Il nome del professore non deve contenere numeri");
+                }
+
+                request.setAttribute("errors", errors);
+                request.setAttribute("Nome",nome);
+                request.setAttribute("Voto",voto);
+                request.setAttribute("Cfu",cfu);
+                request.setAttribute("NomeProfessore", nomeProfessore);
+
+
+
+                if (nome.matches(nomePattern) && nomeProfessore.matches(nomePattern ) && voto>=18 && voto<=31 && cfu>=1 && cfu<=12) {
                     l.aggiungiEsame(new EsameBean(nome,nomeProfessore,voto,cfu,data));
                     u.setLibretto(l);
                     esameService.modificaEsame(id,nome,nomeProfessore,voto,cfu,data);
                     response.sendRedirect("/UniNotes_war_exploded/Libretto/visualizzaLibretto");
-                }
-                break;
-            }
+                    break;
+                }else{
+                    ssn.setAttribute("errors",errors);
+                    request.setAttribute("Nome",nome);
+                    request.setAttribute("Voto",voto);
+                    request.setAttribute("Cfu",cfu);
+                    request.setAttribute("NomeProfessore", nomeProfessore);
 
+                    response.sendRedirect("/UniNotes_war_exploded/Libretto/visualizzaLibretto");
+                    break;
+                }
+            }
 
             case "/visualizza":{
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizza.jsp").forward(request,response);
