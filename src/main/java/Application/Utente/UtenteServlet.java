@@ -61,10 +61,10 @@ public class UtenteServlet extends HttpServlet {
                 if(u.isTipo()){
                    ArrayList<MaterialeDidatticoBean> materiale = materialeService.visualizzaTutti();
                    request.setAttribute("totMateriale",materiale.size());
-                    ArrayList<UtenteBean> utenti = utenteService.visualizzaUtenti();
-                    request.setAttribute("totUtenti",utenti.size());
-                    ArrayList<CorsoBean> corsi = corsoService.visualizzaCorsi();
-                    request.setAttribute("totCorsi",corsi.size());
+                   ArrayList<UtenteBean> utenti = utenteService.visualizzaUtenti();
+                   request.setAttribute("totUtenti",utenti.size());
+                   ArrayList<CorsoBean> corsi = corsoService.visualizzaCorsi();
+                   request.setAttribute("totCorsi",corsi.size());
                 }
                 u.setMateriale(materialeService.visualizzaMaterialeDiUnUtente(u.getIdUtente()));
                 request.getSession().setAttribute("utente",u);
@@ -90,10 +90,12 @@ public class UtenteServlet extends HttpServlet {
                     break;
                 }
                 ArrayList<UtenteBean> utenti = utenteService.visualizzaUtenti();
+                UtenteBean ut = null;
                 for(UtenteBean utente : utenti){
                     if(utente.getIdUtente() == u.getIdUtente())
-                        utenti.remove(utente);
+                        ut = utente;
                 }
+                utenti.remove(ut);
                 request.setAttribute("utenti", utenti);
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/utenti.jsp").forward(request, response);
                 break;

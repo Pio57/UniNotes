@@ -57,8 +57,8 @@ public class LibrettoDaoTest {
 
     @Test
     public void doRetriveByIdUtenteTest(){
-        int idUtente=4;
-        int id = 1;
+        int idUtente=2;
+        int id = 5;
         LibrettoBean l = librettoDao.doRetriveByIdUtente(idUtente);
         assertEquals(id, l.getIdLibretto());
     }

@@ -26,7 +26,7 @@ public class EsameDaoTest {
 
     @Test
     public void doRetrieveByIdTest(){
-        int id=24;
+        int id=6;
         EsameBean e = esameDAO.doRetriveById(id);
         assertEquals(id, e.getId());
     }
@@ -54,7 +54,7 @@ public class EsameDaoTest {
     @Test
     public void doUpdateTest(){
         EsameBean e = new EsameBean();
-        e.setId(24);
+        e.setId(4);
         e.setNome("provaNome");
         e.setVoto(29);
         e.setCfu(12);

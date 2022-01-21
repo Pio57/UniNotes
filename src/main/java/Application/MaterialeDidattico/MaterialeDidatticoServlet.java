@@ -141,7 +141,7 @@ public class MaterialeDidatticoServlet extends HttpServlet {
 
                 ArrayList<String> errors = new ArrayList<>();
                 ArrayList<String> success = new ArrayList<>();
-
+/*
                 if(materialeDidattico.inserireMateriale(nome,fileName,Integer.parseInt(idCorso),idUtente)){
                     String uploadRoot = "/Users/piosantosuosso/Desktop/apache-tomcat-9.0.43/uploads/";
 
@@ -153,19 +153,36 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                         request.setAttribute("idCorso",idCorso);
                         request.getRequestDispatcher("/Corso/visualizza").forward(request,response);
                         break;
-                    }catch (IOException e){
-                        errors.add("Il nome del file è gia utilizzato");
-                        ssn.setAttribute("errors",errors);
+                    }catch (IOException e){//se il file esiste gia
+                        System.out.println("qui");
+                        success.add(e.getMessage());
+                        ssn.setAttribute("success",success);
                         request.setAttribute("idCorso",idCorso);
                         request.getRequestDispatcher("/Corso/visualizza").forward(request,response);
                         break;
                     }
                }
+*/
 
-                break;
-
-
-
+                    String uploadRoot = "/Users/piosantosuosso/Desktop/apache-tomcat-9.0.43/uploads/";
+                    try (InputStream fileStream = filePart.getInputStream()) {
+                        File file = new File(uploadRoot + fileName);
+                        Files.copy(fileStream, file.toPath());
+                        materialeDidattico.inserireMateriale(nome,fileName,Integer.parseInt(idCorso),idUtente);
+                        success.add("Salvataggio avvenuto con successo");
+                        ssn.setAttribute("success",success);
+                        request.setAttribute("idCorso",idCorso);
+                        request.getRequestDispatcher("/Corso/visualizza").forward(request,response);
+                        break;
+                    }catch (IOException e){//se il file esiste gia
+                        System.out.println("qui");
+                        errors.add("Esiste gia un file chiamato : "+e.getMessage().split("/")[(e.getMessage().split("/").length)-1]);
+                        success.add("Esiste gia un file chiamato : "+e.getMessage().split("/")[(e.getMessage().split("/").length)-1]);
+                        ssn.setAttribute("errors",errors);
+                        request.setAttribute("idCorso",idCorso);
+                        request.getRequestDispatcher("/Corso/visualizza").forward(request,response);
+                        break;
+                    }
             }
             case "/eliminaMateriale":{
                 String id = request.getParameter("id");
