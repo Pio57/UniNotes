@@ -169,6 +169,26 @@
             </div>
 
 
+            <c:if test="${success != null}">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <c:forEach items="${success}" var="success">
+                        <p><strong>success: </strong>${success}</p>
+                    </c:forEach>
+                        ${success=null}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
+
+            <c:if test="${errors != null}">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <c:forEach items="${errors}" var="er">
+                        <p><strong>Error: </strong>${er}</p>
+                    </c:forEach>
+                        ${errors=null}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
+
 
             <div class="row">
                 <div class="col-12">

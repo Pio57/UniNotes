@@ -186,6 +186,8 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                 Part filePart = request.getPart("File");
                 MaterialeDidatticoBean m = materialeDidattico.visualizza(Integer.parseInt(idMateriale));
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+                ArrayList<String> errors = new ArrayList<>();
+                ArrayList<String> success = new ArrayList<>();
                 if(fileName.length()>0){
                     if(materialeDidattico.modificaMateriale(m.getId(),nome,fileName)){
                         String uploadRoot = "/Users/piosantosuosso/Desktop/apache-tomcat-9.0.43/uploads/";
@@ -193,12 +195,16 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                         try (InputStream fileStream = filePart.getInputStream()) {
                             File file = new File(uploadRoot + fileName);
                             Files.copy(fileStream, file.toPath(),StandardCopyOption.REPLACE_EXISTING);
+                            success.add("Caricamento effettuato con successo");
+                            ssn.setAttribute("success", success);
                             response.sendRedirect("/UniNotes_war_exploded/Materiale/visualizzaTutti");
                             break;
                         }
                     }
                 }else{
                     if(materialeDidattico.modificaMateriale(m.getId(),nome,m.getPathFile())){
+                        success.add("Caricamento effettuato con successo");
+                        ssn.setAttribute("success", success);
                         response.sendRedirect("/UniNotes_war_exploded/Materiale/visualizzaTutti");
                         break;
                     }

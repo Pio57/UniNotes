@@ -65,6 +65,7 @@
                                 <c:forEach items="${errors}" var="e">
                                     <p><strong>Error: </strong>${e}</p>
                                 </c:forEach>
+                                ${errors = null}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         </c:if>

@@ -211,7 +211,6 @@
             <c:if test="${errors != null}">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <c:forEach items="${errors}" var="er">
-                        <h3>Stampa ${errors.size()}</h3>
                         <p><strong>Error: </strong>${er}</p>
                     </c:forEach>
                         ${errors=null}
