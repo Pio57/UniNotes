@@ -222,7 +222,6 @@
             <form action="/UniNotes_war_exploded/Materiale/inserireMateriale" method="post" enctype="multipart/form-data">
 
 
-
                 <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">

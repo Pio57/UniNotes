@@ -128,9 +128,10 @@ public class CorsoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
+        request.getSession().setAttribute("errors", null);
         switch (path){
             case "/crea":{
-
+                HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
                 if(u == null){
                     response.sendRedirect("/UniNotes_war_exploded/");
@@ -146,20 +147,40 @@ public class CorsoServlet extends HttpServlet {
                 String descrizione = request.getParameter("Descrizione");
                 String nomeProfessore = request.getParameter("NomeProfessore");
 
+                ArrayList<String> errors = new ArrayList<>();
+
+
+                if(!nome.matches(nomePattern)){
+                    errors.add("Il nome non deve contenere numeri");
+                }
+                if(!descrizione.matches(nomePattern) ){
+                    errors.add("Il descrizione non deve contenere numeri");
+                }
+                if(!nomeProfessore.matches(nomePattern)){
+                    errors.add("Il nome del professore non deve contenere numeri");
+                }
+
+                    request.setAttribute("errors", errors);
+                    request.setAttribute("Nome",nome);
+                    request.setAttribute("Descrizione", descrizione);
+                    request.setAttribute("NomeProfessore", nomeProfessore);
 
                 if (nome.matches(nomePattern) && descrizione.matches(nomePattern) && nomeProfessore.matches(nomePattern)) {
 
-
                     c = corsoService.inserisciCorso(nome,descrizione,nomeProfessore);
 
+                    response.sendRedirect("/UniNotes_war_exploded/Corso/visualizzaTutti");
+                    break;
+
+                }else {
+                    ssn.setAttribute("errors", errors);
+                    request.setAttribute("Nome",nome);
+                    request.setAttribute("Descrizione", descrizione);
+                    request.setAttribute("NomeProfessore", nomeProfessore);
 
                     response.sendRedirect("/UniNotes_war_exploded/Corso/visualizzaTutti");
                     break;
                 }
-
-                //da rivedere quando non lo crea
-                response.sendRedirect("/UniNotes_war_exploded/");
-                break;
             }
             case "/elimina":{
                 String id = request.getParameter("id");
@@ -168,7 +189,7 @@ public class CorsoServlet extends HttpServlet {
                 break;
             }
             case "/modifica":{
-                System.out.println("Sono in modifica");
+
                 UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
                 if(u == null){
                     response.sendRedirect("/UniNotes_war_exploded/");
@@ -177,22 +198,35 @@ public class CorsoServlet extends HttpServlet {
 
                 CorsoBean c;
 
-                String nomePattern = "[a-zA-Z\\s]+$";// pattern vecchio [A-Z a-z]
+                String nomePattern = "[a-zA-Z\\s]+$";
 
                 String id = request.getParameter("id");
                 String nome = request.getParameter("Nome");
                 String descrizione = request.getParameter("Descrizione");
                 String nomeProfessore = request.getParameter("NomeProfessore");
 
+                ArrayList<String> errors = new ArrayList<>();
 
+                if(!nome.matches(nomePattern)){
+                    errors.add("Il nome non deve contenere numeri");
+                }
+                if(!descrizione.matches(nomePattern) ){
+                    errors.add("Il descrizione non deve contenere numeri");
+                }
+                if(!nomeProfessore.matches(nomePattern)){
+                    errors.add("Il nome del professore non deve contenere numeri");
+                }
 
                 if (nome.matches(nomePattern) && descrizione.matches(nomePattern) && nomeProfessore.matches(nomePattern)) {
                     c = corsoService.modificaCorso(Integer.parseInt(id),nome,descrizione,nomeProfessore);
                     response.sendRedirect("/UniNotes_war_exploded/Corso/visualizzaTutti");
                     break;
+                }else{
+                    request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/corsi.jsp").forward(request, response);
+                    break;
+
                 }
-                response.sendError(400, "La modifica non è andata a buon fine");
-                break;
+
             }
             case "/visualizza":{//questo richiama doget per quanto riguarda gli errori
                 doGet(request,response);

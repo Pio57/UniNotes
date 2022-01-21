@@ -32,7 +32,6 @@
 <main>
     <%@include file="/WEB-INF/interface/partials/header.jsp"%>
 
-
     <section class="light">
         <div class="container py-2">
 

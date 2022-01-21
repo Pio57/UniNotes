@@ -206,6 +206,16 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Corsi</h1>
             </div>
+            <c:if test="${errors != null}">
+
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <c:forEach items="${errors}" var="e">
+                        <p><strong>Error: </strong>${e}</p>
+                    </c:forEach>
+                        ${errors = null}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
 
         <form action="/UniNotes_war_exploded/Corso/crea" method="post">
 
@@ -254,10 +264,6 @@
                 </div>
             </div>
             <a id="buttonRotondo" class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle"  role="button">+</a>
-
-
-
-
 
             <!-- FORM TABELLA -->
         </form>
@@ -343,14 +349,14 @@
                                                             <div class="row">
                                                                 <div class="col-sm-12">
                                                                     <div class="form-group">
-                                                                        <div class="input-group"> <input name="NomeProfessore" class="form-control" type="text" placeholder="Nome docente" value="${c.getNomeProfessore()}" > </div>
+                                                                        <div class="input-group"> <input name="NomeProfessore" class="form-control" type="text" placeholder="Nome docente" value="${c.getNomeProfessore()}"> </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-sm-12">
                                                                     <div class="form-group">
-                                                                        <div class="input-group"> <input name="Descrizione" class="form-control" type="text" placeholder="Descrizione corso" value="${c.getDescrizione()}"> </div>
+                                                                        <div class="input-group"> <input name="Descrizione" class="form-control" type="text" placeholder="Descrizione corso" value="${c.getDescrizione()}" > </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -392,52 +398,6 @@
                 </div>
             </div>
 
-
-
-
-
-
-            <!--    TABELLA CLASSICA
-            <div class="table-responsive">
-                <table class="table table-striped table-sm">
-                    <thead>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Cognome</th>
-                        <th scope="col">Cf</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Data di nascita</th>
-                        <th scope="col">Ruolo</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${utenti}" var="u">
-                        <tr>
-                            <td>${u.getIdUtente()}</td>
-                            <td>${u.getNome()}</td>
-                            <td>${u.getCognome()}</td>
-                            <td>${u.getCf()}</td>
-                            <td>${u.getEmail()}</td>
-                            <td>${u.getDdn()}</td>
-                            <c:if test="${u.isTipo()}">
-                                <td>Amministratore</td>
-                            </c:if>
-                            <c:if test="${!u.isTipo()}">
-                                <td>Studente</td>
-                            </c:if>
-                        </tr>
-
-                    </c:forEach>
-
-                    <tr>
-
-                    </tr>
-                    </tbody>
-                </table>
-
-            </div>
-             -->
         </main>
 
 
