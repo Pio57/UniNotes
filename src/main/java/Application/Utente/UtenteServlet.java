@@ -110,7 +110,6 @@ public class UtenteServlet extends HttpServlet {
                 session.removeAttribute("utente");
                 session.invalidate();
                 response.sendRedirect("/UniNotes_war_exploded/index.jsp");
-
                 break;
             }
 
@@ -194,7 +193,7 @@ public class UtenteServlet extends HttpServlet {
 
             }
 
-            case "/login" : {
+            case "/login" : {//rivedere
 
                 UtenteBean utente = new UtenteBean();
 
@@ -205,7 +204,8 @@ public class UtenteServlet extends HttpServlet {
 
                 String email = request.getParameter("email");
                 String password = request.getParameter("password");
-
+                request.setAttribute("errors",null);
+                ArrayList<String> errors = new ArrayList<>();
 
               if (email.matches(emailPattern) && password.matches(passwordPattern)) {
                     utente.setEmail(email);
@@ -226,20 +226,23 @@ public class UtenteServlet extends HttpServlet {
                     break;
                 }else{
                     System.out.println("sono qui");
-                    ArrayList<String> errors = new ArrayList<>();
-                    errors.add("Email o password non validi");
-                    errors.add("ciaoo");
+                    errors.add("Non c'è una corrispondenza per queste credenziali");
                     request.setAttribute("Email",email);
                     request.setAttribute("Password",password);
                     request.setAttribute("errors",errors);
-                    System.out.println(errors);
-                    request.getRequestDispatcher("/index.jsp").forward(request,response);
+                    request.getRequestDispatcher("/UniNotes_war_exploded/index.jsp").forward(request,response);
                     break;
                 }
 
 
-                }
-                break;
+                }else{
+                  errors.add("Email o password non validi");
+                  request.setAttribute("Email",email);
+                  request.setAttribute("Password",password);
+                  request.setAttribute("errors",errors);
+                  request.getRequestDispatcher("/UniNotes_war_exploded/index.jsp").forward(request,response);
+                  break;
+              }
             }
 
             case "/rendiAdmin" : { //modifica stato studente [adimn]

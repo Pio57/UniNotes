@@ -43,10 +43,11 @@
                 <h2 class="heading-section">Login</h2>
             </div>
         </div>
-        <c:if test="${errors != null}">
+        <c:if test="${errors!=null}">
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <c:forEach items="${errors}" var="e">
-                    <p><strong>Error: </strong>${e}</p>
+                <c:forEach items="${errors}" var="er">
+                    <h3>Stampa ${errors.size()}</h3>
+                    <p><strong>Error: </strong>${er}</p>
                 </c:forEach>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>

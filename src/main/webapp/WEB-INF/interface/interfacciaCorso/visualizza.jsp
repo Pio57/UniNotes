@@ -198,7 +198,26 @@
 
             <p>${Corso.getDescrizione()}</p>
 
+            <c:if test="${success != null}">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <c:forEach items="${success}" var="success">
+                        <p><strong>success: </strong>${success}</p>
+                    </c:forEach>
+                        ${success=null}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
 
+            <c:if test="${errors != null}">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <c:forEach items="${errors}" var="er">
+                        <h3>Stampa ${errors.size()}</h3>
+                        <p><strong>Error: </strong>${er}</p>
+                    </c:forEach>
+                        ${errors=null}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
 
             <form action="/UniNotes_war_exploded/Materiale/inserireMateriale" method="post" enctype="multipart/form-data">
 
@@ -256,6 +275,10 @@
                                 <h6 class="text-white text-capitalize ps-3">Lista materiale</h6>
                             </div>
                         </div>
+
+
+
+
                         <div class="card-body px-0 pb-2">
                             <div class="table-responsive p-0">
                                 <table class="table align-items-center mb-0">

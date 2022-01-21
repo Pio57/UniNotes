@@ -138,18 +138,30 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                 String nome = request.getParameter("Nome");
                 Part filePart = request.getPart("File");
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+
+                ArrayList<String> errors = new ArrayList<>();
+                ArrayList<String> success = new ArrayList<>();
+
                 if(materialeDidattico.inserireMateriale(nome,fileName,Integer.parseInt(idCorso),idUtente)){
                     String uploadRoot = "/Users/piosantosuosso/Desktop/apache-tomcat-9.0.43/uploads/";
 
                     try (InputStream fileStream = filePart.getInputStream()) {
                         File file = new File(uploadRoot + fileName);
                         Files.copy(fileStream, file.toPath());
-                        response.sendRedirect("/UniNotes_war_exploded/Corso/visualizzaTuttiUtente");
+                        success.add("Salvataggio avvenuto con successo");
+                        ssn.setAttribute("success",success);
+                        request.setAttribute("idCorso",idCorso);
+                        request.getRequestDispatcher("/Corso/visualizza").forward(request,response);
+                        break;
+                    }catch (IOException e){
+                        errors.add("Il nome del file è gia utilizzato");
+                        ssn.setAttribute("errors",errors);
+                        request.setAttribute("idCorso",idCorso);
+                        request.getRequestDispatcher("/Corso/visualizza").forward(request,response);
                         break;
                     }
                }
 
-                response.sendRedirect("/UniNotes_war_exploded/");
                 break;
 
 
@@ -186,7 +198,6 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                         }
                     }
                 }else{
-                    System.out.println("quo");
                     if(materialeDidattico.modificaMateriale(m.getId(),nome,m.getPathFile())){
                         response.sendRedirect("/UniNotes_war_exploded/Materiale/visualizzaTutti");
                         break;

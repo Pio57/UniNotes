@@ -191,13 +191,11 @@ public class CorsoServlet extends HttpServlet {
                     response.sendRedirect("/UniNotes_war_exploded/Corso/visualizzaTutti");
                     break;
                 }
-
-
                 response.sendError(400, "La modifica non è andata a buon fine");
                 break;
             }
-            case "/visualizza":{
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizza.jsp").forward(request,response);
+            case "/visualizza":{//questo richiama doget per quanto riguarda gli errori
+                doGet(request,response);
                 break;
             }
             case "/visualizzaTutti":{
