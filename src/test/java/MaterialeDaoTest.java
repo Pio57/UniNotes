@@ -62,7 +62,7 @@ public class MaterialeDaoTest {
         @Test
         public void doUpdateTest(){
             MaterialeDidatticoBean m = new MaterialeDidatticoBean();
-            m.setId(4);
+            m.setId(6);
             m.setNome("provaNomeM");
             m.setPathFile("provaPathM");
             assertEquals(true,materialeDAO.doUpdate(m));

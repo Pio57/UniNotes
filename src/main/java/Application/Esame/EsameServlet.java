@@ -88,10 +88,10 @@ public class EsameServlet extends HttpServlet {
                 if(!nome.matches(nomePattern)){
                     errors.add("Il nome non deve contenere numeri");
                 }
-                if(voto<18 && voto>31 ){//pio devi modificare il voto nella jsp con il voto lode
+                if(voto<18 || voto>31 ){//pio devi modificare il voto nella jsp con il voto lode
                     errors.add("Il voto non valido");
                 }
-                if(cfu<1 && cfu>12 ){
+                if(cfu<1 || cfu>12 ){
                     errors.add("Il cfu non valido");
                 }
                 if(!nomeProfessore.matches(nomePattern)){
@@ -158,10 +158,10 @@ public class EsameServlet extends HttpServlet {
                 if(!nome.matches(nomePattern)){
                     errors.add("Il nome non deve contenere numeri");
                 }
-                if(voto<18 && voto>31 ){//pio devi modificare il voto nella jsp con il voto lode
+                if(voto<18 || voto>31 ){//pio devi modificare il voto nella jsp con il voto lode
                     errors.add("Il voto non valido");
                 }
-                if(cfu<1 && cfu>12 ){
+                if(cfu<1 || cfu>12 ){
                     errors.add("Il cfu non valido");
                 }
                 if(!nomeProfessore.matches(nomePattern)){
@@ -203,7 +203,7 @@ public class EsameServlet extends HttpServlet {
                 break;
             }*/
             default:
-                throw new IllegalStateException("Unexpected value: " + path);
+                throw new RuntimeException("Unexpected value: " + path);
         }
     }
 
