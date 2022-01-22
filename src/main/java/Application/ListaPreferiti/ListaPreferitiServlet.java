@@ -44,7 +44,7 @@ public class ListaPreferitiServlet extends HttpServlet {
                 }
 
                 if(appartiene){
-                    listaPreferitiService.rimuoviDaListaPreferiti(idCorso);
+                    listaPreferitiService.rimuoviDaListaPreferiti(u.getIdUtente(),idCorso);
                 }else{
                     listaPreferitiService.inserisciInListaPreferiti(u.getIdUtente(),idCorso);
                 }
@@ -81,7 +81,7 @@ public class ListaPreferitiServlet extends HttpServlet {
                 int idCorso = Integer.parseInt(request.getParameter("idCorso"));
                 for(CorsoBean c : listaPreferitiService.visualizzaListaUtente(u.getIdUtente()).getCorsi()){
                     if(c.getId() == idCorso){
-                        listaPreferitiService.rimuoviDaListaPreferiti(idCorso);
+                        listaPreferitiService.rimuoviDaListaPreferiti(u.getIdUtente(),idCorso);
                     }
                 }
 

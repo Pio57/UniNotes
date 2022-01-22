@@ -21,7 +21,7 @@ public interface UtenteService {
 
     public void interireInListaPreferiti(int u, int c);
 
-    public  void rimuoviDaListaPreferiti(int c);
+    public  void rimuoviDaListaPreferiti(int idUtente,int idCorso);
 
     public boolean verificaProprioMateriale(ArrayList<MaterialeDidatticoBean> materiale, MaterialeDidatticoBean m);
 

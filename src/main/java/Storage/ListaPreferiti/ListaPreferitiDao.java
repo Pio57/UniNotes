@@ -64,14 +64,15 @@ public class ListaPreferitiDao {
         return null;
     }
 
-    public void doDelateCorso(int id) {
+    public void doDelateCorso(int idUtente, int idCorso) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
-                    "DELETE FROM ListaPreferiti  WHERE idCorso = ?",
+                    "DELETE FROM ListaPreferiti  WHERE idCorso = ? AND idUtente = ?",
 
                     Statement.RETURN_GENERATED_KEYS);
 
-            ps.setInt(1, id);
+            ps.setInt(1, idCorso);
+            ps.setInt(2, idUtente);
 
             if (ps.executeUpdate() != 1) {
                 throw new RuntimeException("INSERT error.");

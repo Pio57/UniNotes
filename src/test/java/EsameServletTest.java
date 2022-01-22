@@ -249,4 +249,18 @@ public class EsameServletTest {
 
     }
 
+
+    @Test
+    public void DoGetPathNull() throws ServletException, IOException {
+        when(request.getPathInfo()).thenReturn(null);
+        when(request.getSession()).thenReturn(session);
+
+        try {
+            es.doGet(request, response);
+        }catch (RuntimeException e){
+            assertTrue(e.getMessage().contains("Unexpected value: /"));
+        }
+
+    }
+
 }
