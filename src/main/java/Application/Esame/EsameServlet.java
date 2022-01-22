@@ -29,12 +29,9 @@ public class EsameServlet extends HttpServlet {
     private final LibrettoService librettoService= new LibrettoServiceImpl();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
-            case "/crea":{
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaEsame/crea.jsp").forward(request,response);
-            }
             case "/elimina":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
@@ -52,16 +49,17 @@ public class EsameServlet extends HttpServlet {
                 break;
 
             }
+            /*
             case "/modifica":{
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaEsame/modifica.jsp").forward(request,response);
                 break;
-            }
+            }*/
         }
 
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         request.getSession().setAttribute("errors", null);
         switch (path){
@@ -108,7 +106,7 @@ public class EsameServlet extends HttpServlet {
 
 
 
-                if (nome.matches(nomePattern) && nomeProfessore.matches(nomePattern) && voto>=18 && voto<=31 && cfu<=1 && cfu>=12) {
+                if (nome.matches(nomePattern) && nomeProfessore.matches(nomePattern) && voto>=18 && voto<=31 && cfu>=1 && cfu<=12) {
 
                     l.aggiungiEsame(new EsameBean(nome,nomeProfessore,voto,cfu,data));
                     u.setLibretto(l);
@@ -130,10 +128,12 @@ public class EsameServlet extends HttpServlet {
                 }
 
             }
+            /*
             case "/elimina":{
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/elimina.jsp").forward(request,response);
                 break;
-            }
+            }*/
+
             case "/modifica":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
@@ -193,7 +193,7 @@ public class EsameServlet extends HttpServlet {
                     break;
                 }
             }
-
+/*
             case "/visualizza":{
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizza.jsp").forward(request,response);
                 break;
@@ -201,7 +201,7 @@ public class EsameServlet extends HttpServlet {
             case "/visualizzaTutti":{
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizzaTutti.jsp").forward(request,response);
                 break;
-            }
+            }*/
             default:
                 throw new IllegalStateException("Unexpected value: " + path);
         }

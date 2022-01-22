@@ -227,7 +227,6 @@ public class UtenteServlet extends HttpServlet {
                     response.sendRedirect("/UniNotes_war_exploded/Utente/home");
                     break;
                 }else{
-                    System.out.println("sono qui");
                     errors.add("Non c'è una corrispondenza per queste credenziali");
                     request.setAttribute("Email",email);
                     request.setAttribute("Password",password);
@@ -247,22 +246,6 @@ public class UtenteServlet extends HttpServlet {
               }
             }
 
-            case "/rendiAdmin" : { //modifica stato studente [adimn]
-
-
-                UtenteBean u = new UtenteBean();
-                UtenteDao ud = new UtenteDao();
-
-                String idAccount = request.getParameter("cambio");
-
-                if (idAccount != null) {
-                    u = ud.doRetriveById(Integer.parseInt(idAccount));
-                    utenteService.rendiAdmin(u);
-                }
-                response.sendRedirect("/UniNotes_war_exploded/Utente/visualizzaUtenti"); //NON so se è giusto
-
-                break;
-            }
 
             case "/modifica":{ //login [adimn/studente/guest]
 
