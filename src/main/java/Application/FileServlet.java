@@ -63,7 +63,7 @@ public class FileServlet extends HttpServlet {
      * @see HttpServlet#doHead(HttpServletRequest, HttpServletResponse).
      */
     @Override
-    protected void doHead(HttpServletRequest request, HttpServletResponse response)
+    public void doHead(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Process request without content.
         processRequest(request, response, false);
@@ -75,7 +75,7 @@ public class FileServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest, HttpServletResponse).
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Process request with content.
         processRequest(request, response, true);

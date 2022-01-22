@@ -1,23 +1,18 @@
-import Application.Libretto.ServiceLibretto.LibrettoService;
+package Dao;
+
 import Application.Utente.ServiceUtente.UtenteServiceImpl;
 import Storage.Libretto.LibrettoBean;
-import Storage.Libretto.LibrettoDao;
 import Storage.Utente.UtenteBean;
 import Storage.Utente.UtenteDao;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.*;
-
 
 
 public class UtenteDaoTest {

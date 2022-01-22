@@ -1,17 +1,10 @@
-import Application.Corso.ServiceCorso.CorsoServiceImpl;
+package Dao;
+
 import Application.ListaPreferiti.ServiceListaPreferiti.ListaPreferitiImpl;
-import Application.ListaPreferiti.ServiceListaPreferiti.ListaPreferitiService;
-import Storage.Corso.CorsoBean;
-import Storage.Corso.CorsoDao;
 import Storage.ListaPreferiti.ListaPreferitiBean;
 import Storage.ListaPreferiti.ListaPreferitiDao;
-import Storage.Utente.UtenteBean;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 

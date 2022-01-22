@@ -247,23 +247,7 @@ public class UtenteServlet extends HttpServlet {
               }
             }
 
-            /*
-            case "/rendiAdmin" : { //modifica stato studente [adimn]
 
-
-                UtenteBean u = new UtenteBean();
-                UtenteDao ud = new UtenteDao();
-
-                String idAccount = request.getParameter("cambio");
-
-                if (idAccount != null) {
-                    u = ud.doRetriveById(Integer.parseInt(idAccount));
-                    utenteService.rendiAdmin(u);
-                }
-                response.sendRedirect("/UniNotes_war_exploded/Utente/visualizzaUtenti"); //NON so se è giusto
-
-                break;
-            }*/
 
             case "/modifica":{ //login [adimn/studente/guest]
 

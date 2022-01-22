@@ -1,25 +1,22 @@
+package Servlet;
+
 import Application.Corso.ServiceCorso.CorsoService;
 import Application.ListaPreferiti.ListaPreferitiServlet;
 import Application.ListaPreferiti.ServiceListaPreferiti.ListaPreferitiService;
 import Application.Utente.ServiceUtente.UtenteService;
-import Storage.Corso.CorsoBean;
 import Storage.Utente.UtenteBean;
 import Storage.Utente.UtenteDao;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.io.IOException;
-import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 

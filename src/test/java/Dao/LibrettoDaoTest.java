@@ -1,15 +1,11 @@
-import Application.Corso.ServiceCorso.CorsoServiceImpl;
-import Application.Libretto.ServiceLibretto.LibrettoService;
+package Dao;
+
 import Application.Libretto.ServiceLibretto.LibrettoServiceImpl;
-import Storage.Corso.CorsoBean;
-import Storage.Corso.CorsoDao;
 import Storage.Libretto.LibrettoBean;
 import Storage.Libretto.LibrettoDao;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 

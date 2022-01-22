@@ -1,10 +1,11 @@
+package Servlet;
+
 import Application.Corso.ServiceCorso.CorsoService;
 import Application.Esame.EsameServlet;
 import Application.Esame.ServiceEsame.EsameService;
 import Application.Libretto.ServiceLibretto.LibrettoService;
 import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoService;
 import Application.Utente.ServiceUtente.UtenteService;
-import Application.Utente.UtenteServlet;
 import Storage.Esame.EsameBean;
 import Storage.Libretto.LibrettoBean;
 import Storage.Utente.UtenteBean;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 

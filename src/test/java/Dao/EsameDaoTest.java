@@ -1,16 +1,12 @@
+package Dao;
+
 import Application.Esame.ServiceEsame.EsameServiceImpl;
-import Application.Utente.ServiceUtente.UtenteServiceImpl;
 import Storage.Esame.EsameBean;
 import Storage.Esame.EsameDao;
-import Storage.Libretto.LibrettoBean;
-import Storage.Utente.UtenteBean;
-import Storage.Utente.UtenteDao;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 

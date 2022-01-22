@@ -1,10 +1,10 @@
+package Servlet;
 
 import Application.Corso.CorsoServlet;
 import Application.Corso.ServiceCorso.CorsoService;
 import Application.Libretto.ServiceLibretto.LibrettoService;
 import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoService;
 import Application.Utente.ServiceUtente.UtenteService;
-import Application.Utente.UtenteServlet;
 import Storage.Corso.CorsoBean;
 import Storage.MaterialeDidattico.MaterialeDidatticoBean;
 import Storage.Utente.UtenteBean;
@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -264,6 +263,7 @@ public class CorsoServletTest {
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
 
+    /*
     @Test
     public void DoPostEliminaTest() throws ServletException, IOException {
 
@@ -277,7 +277,7 @@ public class CorsoServletTest {
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
         cs.doPost(request,response);
         verify(requestDispatcher,atLeastOnce()).forward(request,response);
-    }
+    }*/
 
 
     @Test

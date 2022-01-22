@@ -1,19 +1,15 @@
+package Dao;
+
 import Application.Corso.ServiceCorso.CorsoServiceImpl;
-import Application.Utente.ServiceUtente.UtenteServiceImpl;
 import Storage.Corso.CorsoBean;
 import Storage.Corso.CorsoDao;
-import Storage.Libretto.LibrettoBean;
-import Storage.Utente.UtenteBean;
-import Storage.Utente.UtenteDao;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class CorsoDaoTest {
     private CorsoDao corsoDao;

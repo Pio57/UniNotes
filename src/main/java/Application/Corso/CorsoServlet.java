@@ -183,12 +183,14 @@ public class CorsoServlet extends HttpServlet {
                     break;
                 }
             }
+            /*
             case "/elimina":{
                 String id = request.getParameter("id");
                 corsoService.eliminaCorso(Integer.parseInt(id));
                 request.getRequestDispatcher("/UniNotes_war_exploded/").forward(request,response);
                 break;
-            }
+            }*/
+
             case "/modifica":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
@@ -233,7 +235,9 @@ public class CorsoServlet extends HttpServlet {
 
                 }
 
+
             }
+            /*
             case "/visualizza":{//questo richiama doget per quanto riguarda gli errori
                 doGet(request,response);
                 break;
@@ -241,7 +245,7 @@ public class CorsoServlet extends HttpServlet {
             case "/visualizzaTutti":{
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizzaTutti.jsp").forward(request,response);
                 break;
-            }
+            }*/
         }
     }
 
