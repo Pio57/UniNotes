@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -37,6 +38,7 @@ public class EsameServletTest {
     private UtenteService utenteService;
     private EsameServlet es;
     private UtenteDao ud;
+    private Object IllegalArgumentException;
 
 
     @Before
@@ -231,6 +233,34 @@ public class EsameServletTest {
 
         es.doPost(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
+    }
+
+    //path null
+    @Test
+    public void DoPostPathNull() throws ServletException, IOException {
+        when(request.getPathInfo()).thenReturn(null);
+        when(request.getSession()).thenReturn(session);
+
+        try {
+            es.doPost(request, response);
+        }catch (RuntimeException e){
+            assertTrue(e.getMessage().contains("Unexpected value: /"));
+        }
+
+    }
+
+
+    @Test
+    public void DoGetPathNull() throws ServletException, IOException {
+        when(request.getPathInfo()).thenReturn(null);
+        when(request.getSession()).thenReturn(session);
+
+        try {
+            es.doGet(request, response);
+        }catch (RuntimeException e){
+            assertTrue(e.getMessage().contains("Unexpected value: /"));
+        }
+
     }
 
 }

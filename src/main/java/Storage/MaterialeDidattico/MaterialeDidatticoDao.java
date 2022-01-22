@@ -84,7 +84,8 @@ public class MaterialeDidatticoDao {
             ps.setInt(1, id);
 
             if (ps.executeUpdate() != 1) {
-                throw new RuntimeException("INSERT error.");
+                //throw new RuntimeException("INSERT error.");
+                return false;
             }
             con.close();
             return true;

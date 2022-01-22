@@ -51,9 +51,9 @@ public class UtenteServiceImpl implements UtenteService {
         ld.doSave(u,c);
     }
 
-    public void rimuoviDaListaPreferiti(int c) {
+    public void rimuoviDaListaPreferiti(int idUtente,int idCorso) {
         ListaPreferitiDao ld = new ListaPreferitiDao();
-        ld.doDelateCorso(c);
+        ld.doDelateCorso( idUtente, idCorso);
     }
 
     @Override

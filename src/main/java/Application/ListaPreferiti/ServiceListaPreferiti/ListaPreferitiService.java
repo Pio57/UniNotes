@@ -15,7 +15,7 @@ public interface ListaPreferitiService {
 
     public void inserisciInListaPreferiti(int idUtente, int idCorso);
 
-    public void rimuoviDaListaPreferiti(int idCorso);
+    public void rimuoviDaListaPreferiti(int idUtente,int idCorso);
 
     public ArrayList<Integer> idCorsi(int idUtente);
 

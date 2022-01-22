@@ -29,9 +29,9 @@ public class ListaPreferitiImpl implements ListaPreferitiService{
     }
 
     @Override
-    public void rimuoviDaListaPreferiti(int idCorso) {
+    public void rimuoviDaListaPreferiti(int idUtente,int idCorso) {
         ListaPreferitiDao ld = new ListaPreferitiDao();
-        ld.doDelateCorso(idCorso);
+        ld.doDelateCorso(idUtente,idCorso);
     }
 
     @Override

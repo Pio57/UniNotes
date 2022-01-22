@@ -31,13 +31,14 @@ public class MaterialeDidatticoServlet extends HttpServlet {
     private final UtenteService utenteService = new UtenteServiceImpl();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
+            /*
             case "/inserireMateriale":{
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/crea.jsp").forward(request,response);
                 break;
-            }
+            }*/
             case "/elimina":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
@@ -54,10 +55,11 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                 break;
 
             }
+            /*
             case "/modificaMateriale":{
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/modifica.jsp").forward(request,response);
                 break;
-            }
+            }*/
             case "/visualizza":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
@@ -122,7 +124,7 @@ public class MaterialeDidatticoServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
@@ -184,12 +186,16 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                         break;
                     }
             }
+
+            /*
             case "/eliminaMateriale":{
                 String id = request.getParameter("id");
                 materialeDidattico.eliminaMateriale(Integer.parseInt(id));
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/elimina.jsp").forward(request,response);
                 break;
             }
+          
+             */
             case "/modificaMateriale":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
@@ -231,6 +237,7 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                 response.sendRedirect("/UniNotes_war_exploded/");
                 break;
             }
+            /*
             case "/visualizza":{
                 request.setAttribute("materiale",materialeDidattico.visualizza(2));//togliere l'id statico --> mettendone uno dinamico
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/visualizza.jsp").forward(request,response);
@@ -242,6 +249,8 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/visualizzaTutti.jsp").forward(request,response);
                 break;
             }
+
+             */
         }
 
 
