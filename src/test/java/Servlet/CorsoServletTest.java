@@ -76,6 +76,22 @@ public class CorsoServletTest {
 
 
     @Test
+    public void DoGetEliminaTestNoIfElimina() throws ServletException, IOException {
+        UtenteBean u = new UtenteBean();
+        u.setIdUtente(2);
+        CorsoBean c = new CorsoBean();
+
+        when(request.getPathInfo()).thenReturn("/elimina");
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("utente")).thenReturn(u);
+        when(request.getParameter("id")).thenReturn("100");
+        when(corsoService.eliminaCorso(c.getId())).thenReturn(false);
+
+        cs.doGet(request,response);
+        verify(response,atLeastOnce()).sendRedirect(anyString());
+    }
+
+    @Test
     public void DoGetEliminaUtenteNullTest() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
         u.setIdUtente(2);
@@ -174,11 +190,12 @@ public class CorsoServletTest {
         cs.doGet(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
-/*
+
     @Test
     public void DoGetAggiungiAPreferitiTest() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
         CorsoBean c = new CorsoBean();
+        u.setIdUtente(1);
 
         ArrayList<MaterialeDidatticoBean> l = new ArrayList<>();
 
@@ -187,13 +204,12 @@ public class CorsoServletTest {
         when(session.getAttribute("utente")).thenReturn(u);
 
         when(request.getParameter("idCorso")).thenReturn("2");
-        utenteService.interireInListaPreferiti(2,2);
 
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
         cs.doGet(request,response);
         verify(requestDispatcher,atLeastOnce()).forward(request,response);
     }
-*/
+
     @Test
     public void DoGetAggiungiAPreferitiUtenteNUllTest() throws ServletException, IOException {
         when(request.getPathInfo()).thenReturn("/aggiungiAPreferiti");
@@ -314,7 +330,7 @@ public class CorsoServletTest {
     public void DoPostMOdificaNOifMatchesTest() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
         CorsoBean c = new CorsoBean();
-        when(request.getPathInfo()).thenReturn("/crea");
+        when(request.getPathInfo()).thenReturn("/modifica");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
 

@@ -147,6 +147,9 @@ public class UtenteDao {
                 u.setLibretto(new LibrettoBean(rs.getInt("u.idLibretto"),null));
                 u.getLibretto().setNunEsami(0);
             }
+            if(u==null){
+                return null;
+            }
             con.close();
             return u;
         } catch (SQLException e) {

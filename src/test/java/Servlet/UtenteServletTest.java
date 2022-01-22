@@ -351,23 +351,24 @@ public class UtenteServletTest {
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
 
-/*
+
     @Test
     public void DoPostLoginTestUtenteNull() throws ServletException, IOException, SQLException, NoSuchAlgorithmException {//riga 168
-        UtenteBean u = null;
-
+        UtenteBean ut = null;
+        when(request.getSession(false)).thenReturn(session);
+        when(request.getSession(true)).thenReturn(session);
 
         when(request.getPathInfo()).thenReturn("/login");
-        when(request.getParameter("email")).thenReturn("");
-        when(request.getParameter("password")).thenReturn("23");
-        when(utenteService.login("Prova123@gmail.com","Password123")).thenReturn(u);
+        when(request.getParameter("email")).thenReturn("Provawow123@gmail.com");
+        when(request.getParameter("password")).thenReturn("d123poiS");
+        when(utenteService.login("prova123@gmail.com","Password123")).thenReturn(ut);
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
 
         us.doPost(request,response);
         verify(requestDispatcher,atLeastOnce()).forward(request,response);
     }
-*/
+
     //quando email e password non soddisfano i matches
     @Test
     public void DoPostLoginTestNoMatches() throws ServletException, IOException, SQLException, NoSuchAlgorithmException {//riga 168
@@ -455,14 +456,14 @@ public class UtenteServletTest {
 */
 
     @Test
-    public void DoPostRendiAdminTest() throws ServletException, IOException, SQLException, NoSuchAlgorithmException {//riga 168
+    public void DoPostToggleRuoloTest() throws ServletException, IOException, SQLException, NoSuchAlgorithmException {//riga 168
         UtenteBean u = new UtenteBean();
         u.setIdUtente(2);
 
         when(request.getPathInfo()).thenReturn("/toggleRuolo");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
-        when(request.getParameter("cambio")).thenReturn("2");
+        when(request.getParameter("id")).thenReturn("2");
         when(ud.doRetriveById(2)).thenReturn(u);
         doNothing().when(utenteService).rendiAdmin(any());
 
@@ -471,7 +472,7 @@ public class UtenteServletTest {
     }
 
     @Test
-    public void DoPostRendiAdminTestUtenteNull() throws ServletException, IOException, SQLException, NoSuchAlgorithmException {//riga 168
+    public void DoPostToggleRuoloTestUtenteNull() throws ServletException, IOException, SQLException, NoSuchAlgorithmException {//riga 168
         UtenteBean u = new UtenteBean();
         u.setIdUtente(2);
 

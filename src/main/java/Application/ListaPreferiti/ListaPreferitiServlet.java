@@ -95,10 +95,7 @@ public class ListaPreferitiServlet extends HttpServlet {
 
     @Override
    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
-        switch (path){
 
-        }
     }
 
 }

@@ -58,9 +58,6 @@
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.27" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-jdbc:9.0.43" level="project" />
     <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-juli:9.0.43" level="project" />
-    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.27" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-jdbc:9.0.43" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.tomcat:tomcat-juli:9.0.43" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.jacoco:jacoco-maven-plugin:0.8.7" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apache.maven:maven-plugin-api:3.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apache.maven:maven-model:3.0" level="project" />
