@@ -55,7 +55,7 @@ public class ListaPreferitiServletTest {
         when(request.getPathInfo()).thenReturn("/toggle");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
-        when(request.getParameter("idCorso")).thenReturn("6");
+        when(request.getParameter("idCorso")).thenReturn("8");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
         lp.doGet(request,response);
         verify(requestDispatcher,atLeastOnce()).forward(request,response);
@@ -113,11 +113,11 @@ public class ListaPreferitiServletTest {
     @Test
     public void DogetRemove() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
-        u.setIdUtente(3);
+        u.setIdUtente(1);
         when(request.getPathInfo()).thenReturn("/rimuoviDallaFavoriteList");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
-        when(request.getParameter("idCorso")).thenReturn("2");
+        when(request.getParameter("idCorso")).thenReturn("1");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
         lp.doGet(request,response);
         verify(requestDispatcher,atLeastOnce()).forward(request,response);

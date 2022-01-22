@@ -28,7 +28,8 @@ public class ListaPreferitiDaoTest {
 
     @Test
     public void doSaveTest(){
-        assertEquals(true,listaPreferitiDao.doSave(6,2));
+
+        assertEquals(true,listaPreferitiDao.doSave(4,2));
     }
 
     @Test
@@ -38,16 +39,15 @@ public class ListaPreferitiDaoTest {
         assertEquals(id, l.getIdUtente());
     }
 
-/*
+    /*
     @Test
     public void doDelateCorsoTest(){
 
-        CorsoBean c = new CorsoBean();
-        c.setId(3);
+        ListaPreferitiBean l1 = listaPreferitiDao.doRetriveAllByIdUtente(3);
+        listaPreferitiService.rimuoviDaListaPreferiti(3, 1);
+        assertEquals(l1.getCorsi().size(),listaPreferitiDao.doRetriveAllByIdUtente(3).getCorsi().size()+1);
 
-        assertEquals(true, listaPreferitiService.rimuoviDaListaPreferiti(3, 3));
 
+    }*/
 
-    }
-*/
 }

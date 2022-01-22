@@ -247,6 +247,7 @@ public class UtenteServlet extends HttpServlet {
               }
             }
 
+            /*
             case "/rendiAdmin" : { //modifica stato studente [adimn]
 
 
@@ -262,7 +263,7 @@ public class UtenteServlet extends HttpServlet {
                 response.sendRedirect("/UniNotes_war_exploded/Utente/visualizzaUtenti"); //NON so se è giusto
 
                 break;
-            }
+            }*/
 
             case "/modifica":{ //login [adimn/studente/guest]
 
