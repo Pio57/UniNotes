@@ -32,7 +32,7 @@ public class CorsoServlet extends HttpServlet {
 
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
             case "/crea":{
@@ -126,13 +126,14 @@ public class CorsoServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         request.getSession().setAttribute("errors", null);
         switch (path){
             case "/crea":{
-                HttpSession ssn = request.getSession();
+
                 UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
+                HttpSession ssn = request.getSession();
                 if(u == null){
                     response.sendRedirect("/UniNotes_war_exploded/");
                     break;
@@ -189,8 +190,9 @@ public class CorsoServlet extends HttpServlet {
                 break;
             }
             case "/modifica":{
-
+                HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
+
                 if(u == null){
                     response.sendRedirect("/UniNotes_war_exploded/");
                     break;
@@ -222,7 +224,11 @@ public class CorsoServlet extends HttpServlet {
                     response.sendRedirect("/UniNotes_war_exploded/Corso/visualizzaTutti");
                     break;
                 }else{
-                    request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/corsi.jsp").forward(request, response);
+                    ssn.setAttribute("errors", errors);
+                    request.setAttribute("Nome",nome);
+                    request.setAttribute("Descrizione", descrizione);
+                    request.setAttribute("NomeProfessore", nomeProfessore);
+                    response.sendRedirect("/UniNotes_war_exploded/Corso/visualizzaTutti");
                     break;
 
                 }
