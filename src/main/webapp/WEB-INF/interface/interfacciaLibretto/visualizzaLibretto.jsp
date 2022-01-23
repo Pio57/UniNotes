@@ -16,7 +16,7 @@
 
     <jsp:include page="/WEB-INF/interface/partials/head.jsp">
         <jsp:param name="title" value="UniNotes-Home"/>
-        <jsp:param name="style" value="dashboard"/>
+        <jsp:param name="style" value=""/>
         <jsp:param name="script" value="dashboard"/>
     </jsp:include>
 
@@ -34,7 +34,6 @@
     <meta name="theme-color" content="#7952b3">
 
 
-    <link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/bootstrap-extended.min.css">
     <link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/fonts/simple-line-icons/style.min.css">
     <link rel="stylesheet" type="text/css" href="https://pixinvent.com/stack-responsive-bootstrap-4-admin-template/app-assets/css/colors.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
@@ -218,7 +217,7 @@
         .libretto{
             border-radius: 20px;
             width: auto;
-            margin-left: 45%;
+            margin-left: 42%;
         }
 
 
@@ -243,13 +242,13 @@
         <div class="grey-bg container-fluid">
             <section id="minimal-statistics">
                 <div class="row" style="justify-content: center">
-                    <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="col-xl-3 col-sm-6 col-12" style="padding : .5rem">
                         <div class="card">
                             <div class="card-content">
                                 <div class="card-body">
                                         <div class="media d-flex">
                                             <div class="align-self-center">
-                                                <i class="icon-bar-chart primary font-large-2 float-left"></i>
+                                                <i class="icon-bar-chart primary font-large-2 float-left" style="font-size: 2rem"></i>
                                             </div>
                                             <div class="media-body text-right">
                                                 <h3>${libretto.getMedia()}</h3>
@@ -262,13 +261,13 @@
                         </div>
                     </div>
 
-                        <div class="col-xl-3 col-sm-6 col-12">
+                        <div class="col-xl-3 col-sm-6 col-12"  style="padding : .5rem">
                             <div class="card">
                                 <div class="card-content">
                                     <div class="card-body">
                                             <div class="media d-flex">
                                                 <div class="align-self-center">
-                                                    <i class="icon-graduation warning font-large-2 float-left"></i>
+                                                    <i class="icon-graduation warning font-large-2 float-left" style="font-size: 2rem"></i>
                                                 </div>
                                                 <div class="media-body text-right">
                                                     <h3>${libretto.getCfuCrediti()}/180</h3>
@@ -281,13 +280,13 @@
                             </div>
                         </div>
 
-                    <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="col-xl-3 col-sm-6 col-12"  style="padding : .5rem">
                         <div class="card">
                             <div class="card-content">
                                 <div class="card-body">
                                         <div class="media d-flex">
                                             <div class="align-self-center">
-                                                <i class="icon-notebook success font-large-2 float-left"></i>
+                                                <i class="icon-notebook success font-large-2 float-left" style="font-size: 2rem"></i>
                                             </div>
                                             <div class="media-body text-right">
                                                     <h3>${libretto.getNunEsami()}</h3>
