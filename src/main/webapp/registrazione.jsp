@@ -1,9 +1,8 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="en">
 <head>
-
     <!-- basic -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,113 +13,95 @@
 
     <jsp:include page="/WEB-INF/interface/partials/head.jsp">
         <jsp:param name="title" value="UniNotes-Home"/>
-        <jsp:param name="style" value="A.style.css.pagespeed.cf.eQk9-CoeFP"/>
+        <jsp:param name="style" value="home"/>
         <jsp:param name="script" value=""/>
     </jsp:include>
 
-    <title>Login</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/A.style.css.pagespeed.cf.eQk9-CoeFP.css">
-    <script>(function(w,d){!function(e,t,r,a,s){e[r]=e[r]||{},e[r].executed=[],e.zaraz={deferred:[]};var n=t.getElementsByTagName("title")[0];e[r].c=t.cookie,n&&(e[r].t=t.getElementsByTagName("title")[0].text),e[r].w=e.screen.width,e[r].h=e.screen.height,e[r].j=e.innerHeight,e[r].e=e.innerWidth,e[r].l=e.location.href,e[r].r=t.referrer,e[r].k=e.screen.colorDepth,e[r].n=t.characterSet,e[r].o=(new Date).getTimezoneOffset(),//
-        e[s]=e[s]||[],e.zaraz._preTrack=[],e.zaraz.track=(t,r)=>e.zaraz._preTrack.push([t,r]),e[s].push({"zaraz.start":(new Date).getTime()});var i=t.getElementsByTagName(a)[0],o=t.createElement(a);o.defer=!0,o.src="/cdn-cgi/zaraz/s.js?"+new URLSearchParams(e[r]).toString(),i.parentNode.insertBefore(o,i)}(w,d,"zarazData","script","dataLayer");})(window,document);</script></head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fonts,_icomoon,_style.css+css,_owl.carousel.min.css+css,_bootstrap.min.css+css,_style.css.pagespeed.cc.Gajl4v2LrE.css" />
 
 
-<style>
-
-    alert{
-        border-radius: 20px;
-    }
-
-</style>
-
-<body body class="img js-fullheight">
-
-<main>
+    <title>Registrazione</title>
+    <script>(function(w,d){!function(a,e,t,r,z){a.zarazData=a.zarazData||{},a.zarazData.executed=[],a.zarazData.tracks=[],a.zaraz={deferred:[]};var s=e.getElementsByTagName("title")[0];a.zarazData.c=e.cookie,s&&(a.zarazData.t=e.getElementsByTagName("title")[0].text),a.zarazData.w=a.screen.width,a.zarazData.h=a.screen.height,a.zarazData.j=a.innerHeight,a.zarazData.e=a.innerWidth,a.zarazData.l=a.location.href,a.zarazData.r=e.referrer,a.zarazData.k=a.screen.colorDepth,a.zarazData.n=e.characterSet,a.zarazData.o=(new Date).getTimezoneOffset(),//
+        a.dataLayer=a.dataLayer||[],a.zaraz.track=(e,t)=>{for(key in a.zarazData.tracks.push(e),t)a.zarazData["z_"+key]=t[key]},a.zaraz._preSet=[],a.zaraz.set=(e,t,r)=>{a.zarazData["z_"+e]=t,a.zaraz._preSet.push([e,t,r])},a.dataLayer.push({"zaraz.start":(new Date).getTime()}),a.addEventListener("DOMContentLoaded",(()=>{var t=e.getElementsByTagName(r)[0],z=e.createElement(r);z.defer=!0,z.src="/cdn-cgi/zaraz/s.js?z="+btoa(encodeURIComponent(JSON.stringify(a.zarazData))),t.parentNode.insertBefore(z,t)}))}(w,d,0,"script");})(window,document);</script></head>
 
 
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6 text-center mb-5">
-                    <h1 class="heading-section" style="color: #e1853f"><strong> <em>Benvenuto su UniNotes! </em></strong></h1>
-                </div>
+<body>
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="../undraw_remotely_2j6y.svg" alt="Image" class="img-fluid">
             </div>
-            <div class="row justify-content-center">
-                <div class="col-md-6 text-center mb-5">
-                    <h2 class="heading-section"></h2>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-md-6 col-lg-4">
-                    <div class="login-wrap p-0">
-
-
-                        <h3 class="mb-4 text-center">Registrati</h3>
+            <div class="col-md-6 contents">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="mb-4">
+                            <h3>Benvenuto su UniNotes!</h3>
+                            <p class="mb-4">Registrazione</p>
+                        </div>
 
                         <c:if test="${errors != null}">
+
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <c:forEach items="${errors}" var="e">
                                     <p><strong>Error: </strong>${e}</p>
                                 </c:forEach>
+                                    ${errors = null}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         </c:if>
 
+                        <form action="/UniNotes_war_exploded/Utente/registrazione" method="post">
 
-                        <form action="/UniNotes_war_exploded/Utente/registrazione" method="post" class="signin-form">
-                            <div class="form-group">
-                                <input name="Nome" type="text" class="form-control" placeholder="Nome" value="${Nome}" required >
-                            </div>
+                                <div class="form-group first">
 
-                            <div class="form-group">
-                                <input name="Cognome" type="text" class="form-control" placeholder="Cognome" value="${Cognome}" required>
-                            </div>
+                                    <input placeholder="Nome" name = "Nome" type="text" class="form-control" id="nome" value="${Nome}">
+                                </div>
 
-                            <div class="form-group">
-                                <input name="CF" type="text" class="form-control" placeholder="Codice fiscale" value="${CF}" required>
-                            </div>
+                                <div class="form-group first">
+                                    <input placeholder="Cognome" name = "Cognome" type="text" class="form-control" id="cognome" value="${Cognome}">
+                                </div>
 
-                            <div class="form-group">
-                                <input name="DataDiNascita" type="text" class="form-control" placeholder="Data di nascita" value="${DataDiNascita}" required>
-                            </div>
+                                <div class="form-group first">
+                                    <input placeholder="Codice fiscale" name = "CF"  type="text" class="form-control" id="cf" value="${CF}">
+                                </div>
 
-                            <div class="form-group">
-                                <input name="Email" type="text" class="form-control" placeholder="E-mail" value="${Email}" required>
-                            </div>
+                                <div class="form-group first">
+                                    <input placeholder="Data di nascita" name = "DataDiNascita" type="text" class="form-control" id="DataDiNascita" value="${DataDiNascita}">
+                                </div>
 
-                            <div class="form-group">
-                                <input name="Password" id="password-field" type="password" class="form-control" placeholder="Password" value="${Password}" required>
-                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                            </div>
+                                <div class="form-group first">
+                                    <input placeholder="E-mail" name = "Email"  type="text" class="form-control" id="email" value="${Email}">
+                                </div>
 
-                            <div class="form-group">
-                                <input name="CPassword" id="password-confirm" type="password" class="form-control" placeholder="Conferma password" value="${CPassword}"  required>
-                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                            </div>
+                                <div class="form-group last mb-4">
+                                    <input placeholder="Password" name = "Password"  type="password" class="form-control" id="password" value = "${Password}">
+                                </div>
 
+                                <div class="form-group last mb-4">
+                                    <input placeholder="Conferma password" name = "CPassword"  type="password" class="form-control" id="Conf-password" value = "${CPassword}">
+                                </div>
 
-                            <div class="form-group">
-                                <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
-                            </div>
+                                <div class="d-flex mb-5 align-items-center">
+                                    <span class="ml-auto"><a href="/UniNotes_war_exploded/Utente/" class="forgot-pass"> Sei già registrato ad UniNotes ? Accedi!</a></span>
+                                </div>
 
-                            <p class="w-100 text-center">&mdash; Sei già registrato ad UniNotes? <a href="/UniNotes_war_exploded/Utente/login">Accedi !</a> -</p>
+                                <input type="submit" value="Accedi" class="btn btn-block btn-primary">
 
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.js+bootstrap.min.js+main.js.pagespeed.jc.9eD6_Mep8S.js"></script><script>eval(mod_pagespeed_T07FyiNNgg);</script>
-    <script>eval(mod_pagespeed_zB8NXha7lA);</script>
-    <script>eval(mod_pagespeed_xfgCyuItiV);</script>
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194" integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw==" data-cf-beacon='{"rayId":"6c6cbf48de1e3754","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2021.12.0","si":100}' crossorigin="anonymous"></script>
-
-</main>
-
+    </div>
+</div>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/popper.min.js+bootstrap.min.js+main.js.pagespeed.jc.9rL6_qf-nt.js"></script><script>eval(mod_pagespeed_$$cYUBAGVu);</script>
+<script>eval(mod_pagespeed_MR4O_w3mta);</script>
+<script>eval(mod_pagespeed_DPOuBfjpPE);</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194" integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw==" data-cf-beacon='{"rayId":"6d1b61356d323746","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2021.12.0","si":100}' crossorigin="anonymous"></script>
 </body>
 </html>

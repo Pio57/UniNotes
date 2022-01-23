@@ -42,6 +42,11 @@ public class UtenteServlet extends HttpServlet {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
 
         switch (path){
+            case "/":{
+                response.sendRedirect("/UniNotes_war_exploded/");
+                break;
+            }
+
             case "/home":{
                 UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
                 if(u == null){
@@ -196,7 +201,6 @@ public class UtenteServlet extends HttpServlet {
             }
 
             case "/login" : {//rivedere
-
                 UtenteBean utente = new UtenteBean();
 
                 String emailPattern = "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$)"; //pattern vecchio ^[a-zA-Z0-9.!#$%&’*+/=?^_`{}~-]+@(?:[a-zA-Z0-9-]+\.)*$
@@ -209,42 +213,43 @@ public class UtenteServlet extends HttpServlet {
                 request.setAttribute("errors",null);
                 ArrayList<String> errors = new ArrayList<>();
 
-              if (email.matches(emailPattern) && password.matches(passwordPattern)) {
+                if (email.matches(emailPattern) && password.matches(passwordPattern)) {
                     utente.setEmail(email);
-                try {
-                    utente.setPassword(password);
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                }
-                utente = utenteService.login(email, utente.getPassword());
-                if(utente != null){
-                    request.getSession(false).invalidate();
-                    LibrettoBean librettoConIdUtente = librettoService.visualizzaLibrettoDiUtente(utente.getIdUtente());
-                    utente.setLibretto(librettoService.visualizzaLibretto(librettoConIdUtente.getIdLibretto()));
-                    HttpSession ssn = request.getSession(true);
-                    ssn.setAttribute("utente", utente);
-                    ssn.setMaxInactiveInterval(86400);
-                    response.sendRedirect("/UniNotes_war_exploded/Utente/home");
-                    break;
+                    try {
+                        utente.setPassword(password);
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    }
+                    utente = utenteService.login(email, utente.getPassword());
+                    if(utente != null){
+                        request.getSession(false).invalidate();
+                        LibrettoBean librettoConIdUtente = librettoService.visualizzaLibrettoDiUtente(utente.getIdUtente());
+                        utente.setLibretto(librettoService.visualizzaLibretto(librettoConIdUtente.getIdLibretto()));
+                        HttpSession ssn = request.getSession(true);
+                        ssn.setAttribute("utente", utente);
+                        ssn.setMaxInactiveInterval(86400);
+                        response.sendRedirect("/UniNotes_war_exploded/Utente/home");
+                        break;
+                    }else{
+                        System.out.println("sono qui");
+                        errors.add("Non c'è una corrispondenza per queste credenziali");
+                        request.setAttribute("Email",email);
+                        request.setAttribute("Password",password);
+                        request.getSession().setAttribute("errors",errors);
+                        response.sendRedirect("/UniNotes_war_exploded/");
+                        break;
+                    }
+
+
                 }else{
-                    System.out.println("sono qui");
-                    errors.add("Non c'è una corrispondenza per queste credenziali");
+                    errors.add("Email o password non validi");
                     request.setAttribute("Email",email);
                     request.setAttribute("Password",password);
-                    request.setAttribute("errors",errors);
-                    request.getRequestDispatcher("/UniNotes_war_exploded/index.jsp").forward(request,response);
+                    request.getSession().setAttribute("errors",errors);
+                    response.sendRedirect("/UniNotes_war_exploded/");
+
                     break;
                 }
-
-
-                }else{
-                  errors.add("Email o password non validi");
-                  request.setAttribute("Email",email);
-                  request.setAttribute("Password",password);
-                  request.setAttribute("errors",errors);
-                  request.getRequestDispatcher("/UniNotes_war_exploded/index.jsp").forward(request,response);
-                  break;
-              }
             }
 
 
