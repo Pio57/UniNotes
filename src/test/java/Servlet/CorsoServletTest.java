@@ -2,9 +2,13 @@ package Servlet;
 
 import Application.Corso.CorsoServlet;
 import Application.Corso.ServiceCorso.CorsoService;
+import Application.Corso.ServiceCorso.CorsoServiceImpl;
 import Application.Libretto.ServiceLibretto.LibrettoService;
+import Application.Libretto.ServiceLibretto.LibrettoServiceImpl;
 import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoService;
+import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoServiceImpl;
 import Application.Utente.ServiceUtente.UtenteService;
+import Application.Utente.ServiceUtente.UtenteServiceImpl;
 import Storage.Corso.CorsoBean;
 import Storage.MaterialeDidattico.MaterialeDidatticoBean;
 import Storage.Utente.UtenteBean;
@@ -21,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -44,10 +49,36 @@ public class CorsoServletTest {
         session = Mockito.mock(HttpSession.class);
         cs = new CorsoServlet();
         requestDispatcher = Mockito.mock(RequestDispatcher.class);
-        materialeDidatticoService = Mockito.mock(MaterialeDidatticoService.class);
-        utenteService = Mockito.mock(UtenteService.class);
-        corsoService = Mockito.mock(CorsoService.class);
-        librettoService = Mockito.mock(LibrettoService.class);
+        materialeDidatticoService = new MaterialeDidatticoServiceImpl();
+        utenteService = new UtenteServiceImpl();
+        corsoService = new CorsoServiceImpl();
+        librettoService = new LibrettoServiceImpl();
+    }
+
+    @Test
+    public void DoGetPathNull() throws ServletException, IOException {
+        when(request.getPathInfo()).thenReturn(null);
+        when(request.getSession()).thenReturn(session);
+
+        try {
+            cs.doGet(request, response);
+        }catch (RuntimeException e){
+            assertTrue(e.getMessage().contains("Unexpected value: /"));
+        }
+
+    }
+
+    @Test
+    public void DoPostPathNull() throws ServletException, IOException {
+        when(request.getPathInfo()).thenReturn(null);
+        when(request.getSession()).thenReturn(session);
+
+        try {
+            cs.doPost(request, response);
+        }catch (RuntimeException e){
+            assertTrue(e.getMessage().contains("Unexpected value: /"));
+        }
+
     }
 
     @Test
@@ -69,7 +100,6 @@ public class CorsoServletTest {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
         when(request.getParameter("id")).thenReturn("5");
-        when(corsoService.eliminaCorso(c.getId())).thenReturn(true);
 
         cs.doGet(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
@@ -86,7 +116,6 @@ public class CorsoServletTest {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
         when(request.getParameter("id")).thenReturn("100");
-        when(corsoService.eliminaCorso(c.getId())).thenReturn(false);
 
         cs.doGet(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
@@ -96,9 +125,11 @@ public class CorsoServletTest {
     public void DoGetEliminaUtenteNullTest() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
         u.setIdUtente(2);
+
         when(request.getPathInfo()).thenReturn("/elimina");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(null);
+
         cs.doGet(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
@@ -123,13 +154,9 @@ public class CorsoServletTest {
         when(request.getPathInfo()).thenReturn("/visualizza");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
-
         when(request.getParameter("idCorso")).thenReturn("2");
-
-        when(corsoService.visualizzaCorso(2)).thenReturn(c);
-        when(materialeDidatticoService.visualizzaMaterialeDiUnCorso(2)).thenReturn(l);
-
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
         cs.doGet(request,response);
         verify(requestDispatcher,atLeastOnce()).forward(request,response);
     }
@@ -139,6 +166,7 @@ public class CorsoServletTest {
         when(request.getPathInfo()).thenReturn("/visualizza");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(null);
+
         cs.doGet(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
@@ -153,8 +181,8 @@ public class CorsoServletTest {
         when(request.getPathInfo()).thenReturn("/visualizzaTutti");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
-
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
         cs.doGet(request,response);
         verify(requestDispatcher,atLeastOnce()).forward(request,response);
     }
@@ -164,6 +192,7 @@ public class CorsoServletTest {
         when(request.getPathInfo()).thenReturn("/visualizzaTutti");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(null);
+
         cs.doGet(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
@@ -177,8 +206,8 @@ public class CorsoServletTest {
         when(request.getPathInfo()).thenReturn("/visualizzaTuttiUtente");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
-
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
         cs.doGet(request,response);
         verify(requestDispatcher,atLeastOnce()).forward(request,response);
     }
@@ -188,39 +217,11 @@ public class CorsoServletTest {
         when(request.getPathInfo()).thenReturn("/visualizzaTuttiUtente");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(null);
+
         cs.doGet(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
-    /*
 
-    @Test
-    public void DoGetAggiungiAPreferitiTest() throws ServletException, IOException {
-        UtenteBean u = new UtenteBean();
-        CorsoBean c = new CorsoBean();
-        u.setIdUtente(1);
-
-        ArrayList<MaterialeDidatticoBean> l = new ArrayList<>();
-
-        when(request.getPathInfo()).thenReturn("/aggiungiAPreferiti");
-        when(request.getSession()).thenReturn(session);
-        when(session.getAttribute("utente")).thenReturn(u);
-
-        when(request.getParameter("idCorso")).thenReturn("2");
-
-        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
-        cs.doGet(request,response);
-        verify(requestDispatcher,atLeastOnce()).forward(request,response);
-    }
-
-    @Test
-    public void DoGetAggiungiAPreferitiUtenteNUllTest() throws ServletException, IOException {
-        when(request.getPathInfo()).thenReturn("/aggiungiAPreferiti");
-        when(request.getSession()).thenReturn(session);
-        when(session.getAttribute("utente")).thenReturn(null);
-        cs.doGet(request,response);
-        verify(response,atLeastOnce()).sendRedirect(anyString());
-    }
-*/
     @Test
     public void DoPostCreaTest() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
@@ -251,14 +252,13 @@ public class CorsoServletTest {
     public void DoPostCreaifMatchesTest() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
         CorsoBean c = new CorsoBean();
+
         when(request.getPathInfo()).thenReturn("/crea");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
-
         when(request.getParameter("Nome")).thenReturn("Nome Corso");
         when(request.getParameter("Descrizione")).thenReturn("Descrizione corso");
         when(request.getParameter("NomeProfessore")).thenReturn("Nome Prof");
-        when(corsoService.inserisciCorso(anyString(), anyString(), anyString())).thenReturn(c);
 
         cs.doPost(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
@@ -269,10 +269,10 @@ public class CorsoServletTest {
     public void DoPostCreaNOifMatchesTest() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
         CorsoBean c = new CorsoBean();
+
         when(request.getPathInfo()).thenReturn("/crea");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
-
         when(request.getParameter("Nome")).thenReturn("1223");
         when(request.getParameter("Descrizione")).thenReturn("D12345");
         when(request.getParameter("NomeProfessore")).thenReturn("23456");
@@ -281,21 +281,7 @@ public class CorsoServletTest {
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
 
-    /*
-    @Test
-    public void DoPostEliminaTest() throws ServletException, IOException {
 
-        when(request.getPathInfo()).thenReturn("/elimina");
-        when(request.getSession()).thenReturn(session);
-
-        when(request.getParameter("id")).thenReturn("4");
-        when(corsoService.eliminaCorso(4)).thenReturn(true);
-
-
-        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
-        cs.doPost(request,response);
-        verify(requestDispatcher,atLeastOnce()).forward(request,response);
-    }*/
 
 
     @Test
@@ -303,6 +289,7 @@ public class CorsoServletTest {
         when(request.getPathInfo()).thenReturn("/modifica");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(null);
+
         cs.doPost(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
@@ -312,16 +299,14 @@ public class CorsoServletTest {
     public void DoPostMOdificaifMatchesTest() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
         CorsoBean c = new CorsoBean();
+
         when(request.getPathInfo()).thenReturn("/modifica");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
-
         when(request.getParameter("id")).thenReturn("7");
         when(request.getParameter("Nome")).thenReturn("NomeCorso");
         when(request.getParameter("Descrizione")).thenReturn("escrizione corso");
         when(request.getParameter("NomeProfessore")).thenReturn("Nome Prof");
-
-        when(corsoService.modificaCorso(anyInt(), anyString(), anyString(), anyString())).thenReturn(c);
 
         cs.doPost(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
@@ -332,10 +317,10 @@ public class CorsoServletTest {
     public void DoPostMOdificaNOifMatchesTest() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
         CorsoBean c = new CorsoBean();
+
         when(request.getPathInfo()).thenReturn("/modifica");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
-
         when(request.getParameter("id")).thenReturn("20");
         when(request.getParameter("Nome")).thenReturn("1223");
         when(request.getParameter("Descrizione")).thenReturn("D12345");
@@ -345,12 +330,5 @@ public class CorsoServletTest {
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
 
-    @Test
-    public void DoPostVisualizzaTest() throws ServletException, IOException {
-        when(request.getPathInfo()).thenReturn("/visualizza");
-        when(request.getSession()).thenReturn(session);
-        cs.doPost(request,response);
-        verify(response,atLeastOnce()).sendRedirect(anyString());
-    }
-
+    
 }

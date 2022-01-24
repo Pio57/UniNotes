@@ -1,9 +1,12 @@
 package Servlet;
 
 import Application.Corso.ServiceCorso.CorsoService;
+import Application.Corso.ServiceCorso.CorsoServiceImpl;
 import Application.ListaPreferiti.ListaPreferitiServlet;
+import Application.ListaPreferiti.ServiceListaPreferiti.ListaPreferitiImpl;
 import Application.ListaPreferiti.ServiceListaPreferiti.ListaPreferitiService;
 import Application.Utente.ServiceUtente.UtenteService;
+import Application.Utente.ServiceUtente.UtenteServiceImpl;
 import Storage.Utente.UtenteBean;
 import Storage.Utente.UtenteDao;
 import org.junit.Before;
@@ -39,21 +42,23 @@ public class ListaPreferitiServletTest {
         session = Mockito.mock(HttpSession.class);
         lp = new ListaPreferitiServlet();
         requestDispatcher = Mockito.mock(RequestDispatcher.class);
-        utenteService = Mockito.mock(UtenteService.class);
-        corsoService = Mockito.mock(CorsoService.class);
+        utenteService = new UtenteServiceImpl();
+        corsoService = new CorsoServiceImpl();
         ud = Mockito.mock(UtenteDao.class);
-        listaPreferitiService= Mockito.mock(ListaPreferitiService.class);
+        listaPreferitiService= new ListaPreferitiImpl();
     }
 
     @Test
    public void DogetToggle() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
         u.setIdUtente(3);
+
         when(request.getPathInfo()).thenReturn("/toggle");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
         when(request.getParameter("idCorso")).thenReturn("8");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
         lp.doGet(request,response);
         verify(requestDispatcher,atLeastOnce()).forward(request,response);
     }
@@ -63,10 +68,12 @@ public class ListaPreferitiServletTest {
     public void DogetToggleNull() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
         u.setIdUtente(2);
+
         when(request.getPathInfo()).thenReturn("/toggle");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(null);
         when(request.getParameter("idCorso")).thenReturn("3");
+
         lp.doGet(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
@@ -75,11 +82,13 @@ public class ListaPreferitiServletTest {
     public void DogetToggleConAppartienefalso() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
         u.setIdUtente(2);
+
         when(request.getPathInfo()).thenReturn("/toggle");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
         when(request.getParameter("idCorso")).thenReturn("2");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
         lp.doGet(request,response);
         verify(requestDispatcher,atLeastOnce()).forward(request,response);
     }
@@ -88,10 +97,12 @@ public class ListaPreferitiServletTest {
     public void DogetVisualizza() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
         u.setIdUtente(1);
+
         when(request.getPathInfo()).thenReturn("/visualizza");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
         lp.doGet(request,response);
         verify(requestDispatcher,atLeastOnce()).forward(request,response);
     }
@@ -100,9 +111,11 @@ public class ListaPreferitiServletTest {
     public void DogetVisualizzaNull() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
         u.setIdUtente(2);
+
         when(request.getPathInfo()).thenReturn("/visualizza");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(null);
+
         lp.doGet(request, response);
         verify(response, atLeastOnce()).sendRedirect(anyString());
     }
@@ -111,11 +124,13 @@ public class ListaPreferitiServletTest {
     public void DogetRemove() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
         u.setIdUtente(1);
+
         when(request.getPathInfo()).thenReturn("/rimuoviDallaFavoriteList");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
         when(request.getParameter("idCorso")).thenReturn("1");
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
         lp.doGet(request,response);
         verify(requestDispatcher,atLeastOnce()).forward(request,response);
     }
@@ -124,9 +139,11 @@ public class ListaPreferitiServletTest {
     public void DogetRemoveNull() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
         u.setIdUtente(3);
+
         when(request.getPathInfo()).thenReturn("/rimuoviDallaFavoriteList");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(null);
+
         lp.doGet(request, response);
         verify(response, atLeastOnce()).sendRedirect(anyString());
     }

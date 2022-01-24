@@ -1,11 +1,16 @@
 package Servlet;
 
 import Application.Corso.ServiceCorso.CorsoService;
+import Application.Corso.ServiceCorso.CorsoServiceImpl;
 import Application.Esame.EsameServlet;
 import Application.Esame.ServiceEsame.EsameService;
+import Application.Esame.ServiceEsame.EsameServiceImpl;
 import Application.Libretto.ServiceLibretto.LibrettoService;
+import Application.Libretto.ServiceLibretto.LibrettoServiceImpl;
 import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoService;
+import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoServiceImpl;
 import Application.Utente.ServiceUtente.UtenteService;
+import Application.Utente.ServiceUtente.UtenteServiceImpl;
 import Storage.Esame.EsameBean;
 import Storage.Libretto.LibrettoBean;
 import Storage.Utente.UtenteBean;
@@ -49,11 +54,11 @@ public class EsameServletTest {
         session = Mockito.mock(HttpSession.class);
         es = new EsameServlet();
         requestDispatcher = Mockito.mock(RequestDispatcher.class);
-        materialeDidatticoService = Mockito.mock(MaterialeDidatticoService.class);
-        utenteService = Mockito.mock(UtenteService.class);
-        corsoService = Mockito.mock(CorsoService.class);
-        librettoService = Mockito.mock(LibrettoService.class);
-        esameService = Mockito.mock(EsameService.class);
+        materialeDidatticoService = new MaterialeDidatticoServiceImpl();
+        utenteService = new UtenteServiceImpl();
+        corsoService = new CorsoServiceImpl();
+        librettoService = new LibrettoServiceImpl();
+        esameService = new EsameServiceImpl();
         ud = Mockito.mock(UtenteDao.class);
     }
 
@@ -64,12 +69,12 @@ public class EsameServletTest {
         UtenteBean u = new UtenteBean();
         u.setIdUtente(2);
         LibrettoBean l = new LibrettoBean(0,0,0);
+
         when(request.getPathInfo()).thenReturn("/elimina");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
         when(session.getAttribute("libretto")).thenReturn(l);
         when(request.getParameter("id")).thenReturn("2");
-        when(esameService.eliminaEsame(2)).thenReturn(true);
 
 
         es.doGet(request,response);
@@ -81,11 +86,11 @@ public class EsameServletTest {
         UtenteBean u = new UtenteBean();
         u.setIdUtente(2);
         LibrettoBean l = new LibrettoBean(0,0,0);
+
         when(request.getPathInfo()).thenReturn("/elimina");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(null);
         when(session.getAttribute("libretto")).thenReturn(l);
-        when(esameService.eliminaEsame(anyInt())).thenReturn(true);
 
 
         es.doGet(request,response);
@@ -98,12 +103,12 @@ public class EsameServletTest {
         UtenteBean u = new UtenteBean();
         u.setIdUtente(2);
         LibrettoBean l = new LibrettoBean(0,0,0);
+
         when(request.getPathInfo()).thenReturn("/elimina");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
         when(session.getAttribute("libretto")).thenReturn(l);
         when(request.getParameter("id")).thenReturn("10");
-        when(esameService.eliminaEsame(anyInt())).thenReturn(false);
 
 
         es.doGet(request,response);
@@ -116,6 +121,7 @@ public class EsameServletTest {
         UtenteBean u = new UtenteBean();
         u.setIdUtente(2);
         LibrettoBean l = new LibrettoBean(0,0,0);
+
         when(request.getPathInfo()).thenReturn("/crea");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(null);
@@ -132,6 +138,7 @@ public class EsameServletTest {
         LibrettoBean l = new LibrettoBean(0,0,0);
         l.setIdLibretto(2);
         EsameBean e = new EsameBean();
+
         when(request.getPathInfo()).thenReturn("/crea");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
@@ -142,8 +149,6 @@ public class EsameServletTest {
         when(request.getParameter("Cfu")).thenReturn("9");
         when(request.getParameter("Voto")).thenReturn("25");
         when(request.getParameter("Data")).thenReturn("2020-12-12");
-        when(esameService.inserisciEsame("Materia","Mario Rossi",25,9, LocalDate.of(2020,12,12),2)).thenReturn(e);
-        when(librettoService.modificaLibretto(l)).thenReturn(l);
 
 
         es.doPost(request,response);
@@ -156,6 +161,7 @@ public class EsameServletTest {
         UtenteBean u = new UtenteBean();
         u.setIdUtente(2);
         LibrettoBean l = new LibrettoBean(0,0,0);
+
         when(request.getPathInfo()).thenReturn("/crea");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
@@ -179,6 +185,7 @@ public class EsameServletTest {
         LibrettoBean l = new LibrettoBean(0,0,0);
         l.setIdLibretto(2);
         EsameBean e = new EsameBean();
+
         when(request.getParameter("id")).thenReturn("4");
         when(request.getPathInfo()).thenReturn("/modifica");
         when(request.getSession()).thenReturn(session);
@@ -189,9 +196,6 @@ public class EsameServletTest {
         when(request.getParameter("Cfu")).thenReturn("9");
         when(request.getParameter("Voto")).thenReturn("25");
         when(request.getParameter("Data")).thenReturn("2020-12-12");
-        when(esameService.modificaEsame(4,"Materia","Mario Rossi",25,9, LocalDate.of(2020,12,12))).thenReturn(e);
-        //when(librettoService.modificaLibretto(l)).thenReturn(l);
-
 
         es.doPost(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
@@ -205,6 +209,7 @@ public class EsameServletTest {
         LibrettoBean l = new LibrettoBean(0,0,0);
         l.setIdLibretto(2);
         EsameBean e = new EsameBean();
+
         when(request.getPathInfo()).thenReturn("/modifica");
         when(request.getSession()).thenReturn(session);
         when(request.getParameter("id")).thenReturn("3");
@@ -226,6 +231,7 @@ public class EsameServletTest {
         UtenteBean u = new UtenteBean();
         u.setIdUtente(2);
         LibrettoBean l = new LibrettoBean(0,0,0);
+
         when(request.getParameter("id")).thenReturn("2");
         when(request.getPathInfo()).thenReturn("/modifica");
         when(request.getSession()).thenReturn(session);

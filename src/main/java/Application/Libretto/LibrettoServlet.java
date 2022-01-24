@@ -40,6 +40,8 @@ public class LibrettoServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaLibretto/visualizzaLibretto.jsp").forward(request,response);
                 break;
             }
+            default:
+                throw new RuntimeException("Unexpected value: " + path);
         }
     }
 
@@ -52,7 +54,10 @@ public class LibrettoServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizza.jsp").forward(request,response);
                 break;
             }
+            default:
+                throw new RuntimeException("Unexpected value: " + path);
         }
+
     }
 
 

@@ -119,6 +119,8 @@ public class UtenteServlet extends HttpServlet {
                 response.sendRedirect("/UniNotes_war_exploded/index.jsp");
                 break;
             }
+            default:
+                throw new RuntimeException("Unexpected value: " + path);
 
         }
     }
@@ -335,6 +337,8 @@ public class UtenteServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/partials/UN.jsp").forward(request,response);
                 break;
             }
+            default:
+                throw new RuntimeException("Unexpected value: " + path);
 
         }
     }

@@ -1,9 +1,13 @@
 package Servlet;
 
 import Application.Corso.ServiceCorso.CorsoService;
+import Application.Corso.ServiceCorso.CorsoServiceImpl;
 import Application.Libretto.ServiceLibretto.LibrettoService;
+import Application.Libretto.ServiceLibretto.LibrettoServiceImpl;
 import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoService;
+import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoServiceImpl;
 import Application.Utente.ServiceUtente.UtenteService;
+import Application.Utente.ServiceUtente.UtenteServiceImpl;
 import Application.Utente.UtenteServlet;
 import Storage.Corso.CorsoBean;
 import Storage.Libretto.LibrettoBean;
@@ -26,6 +30,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -50,11 +55,37 @@ public class UtenteServletTest {
         session = Mockito.mock(HttpSession.class);
         us = new UtenteServlet();
         requestDispatcher = Mockito.mock(RequestDispatcher.class);
-        materialeDidatticoService = Mockito.mock(MaterialeDidatticoService.class);
-        utenteService = Mockito.mock(UtenteService.class);
-        corsoService = Mockito.mock(CorsoService.class);
-        librettoService = Mockito.mock(LibrettoService.class);
+        materialeDidatticoService = new MaterialeDidatticoServiceImpl();
+        utenteService = new UtenteServiceImpl();
+        corsoService =new CorsoServiceImpl();
+        librettoService = new LibrettoServiceImpl();
         ud = Mockito.mock(UtenteDao.class);
+
+    }
+
+    @Test
+    public void DoGetPathNull() throws ServletException, IOException {
+        when(request.getPathInfo()).thenReturn(null);
+        when(request.getSession()).thenReturn(session);
+
+        try {
+            us.doGet(request, response);
+        }catch (RuntimeException e){
+            assertTrue(e.getMessage().contains("Unexpected value: /"));
+        }
+
+    }
+
+    @Test
+    public void DoPostPathNull() throws ServletException, IOException {
+        when(request.getPathInfo()).thenReturn(null);
+        when(request.getSession()).thenReturn(session);
+
+        try {
+            us.doPost(request, response);
+        }catch (RuntimeException e){
+            assertTrue(e.getMessage().contains("Unexpected value: /"));
+        }
 
     }
 
@@ -106,7 +137,6 @@ public class UtenteServletTest {
         when(request.getPathInfo()).thenReturn("/dashboard");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
-        when(materialeDidatticoService.visualizzaTutti()).thenReturn(materiali);
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
         us.doGet(request,response);
@@ -142,9 +172,6 @@ public class UtenteServletTest {
         when(request.getPathInfo()).thenReturn("/dashboard");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
-        when(materialeDidatticoService.visualizzaMaterialeDiUnUtente(2)).thenReturn(materiali);
-        when(utenteService.visualizzaUtenti()).thenReturn(utenti);
-        when(corsoService.visualizzaCorsi()).thenReturn(corsi);
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
         us.doGet(request,response);
@@ -194,7 +221,6 @@ public class UtenteServletTest {
         when(request.getPathInfo()).thenReturn("/visualizzaUtenti");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(utente1);
-        when(utenteService.visualizzaUtenti()).thenReturn(utenti);
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
         us.doGet(request,response);
@@ -293,7 +319,6 @@ public class UtenteServletTest {
         when(request.getParameter("Password")).thenReturn("Password123");
         when(request.getParameter("CPassword")).thenReturn("Password123");
         when(request.getParameter("DataDiNascita")).thenReturn("2000-12-12");
-        when(utenteService.registrazione(anyString(), anyString(), anyString(), anyString(), anyString(), any(),any())).thenReturn(u);
         when(request.getSession(false)).thenReturn(session);
         when(request.getSession(true)).thenReturn(session);
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
@@ -352,9 +377,7 @@ public class UtenteServletTest {
         when(request.getPathInfo()).thenReturn("/login");
         when(request.getParameter("email")).thenReturn("prova123@gmail.com");
         when(request.getParameter("password")).thenReturn("Password123");
-        when(utenteService.login("prova123@gmail.com","Password123")).thenReturn(u);
         when(request.getSession(false)).thenReturn(session);
-        when(librettoService.visualizzaLibretto(2)).thenReturn(new LibrettoBean(0,0,0));
         when(request.getSession(true)).thenReturn(session);
 
 
@@ -373,7 +396,6 @@ public class UtenteServletTest {
         when(request.getPathInfo()).thenReturn("/login");
         when(request.getParameter("email")).thenReturn("Provawow123@gmail.com");
         when(request.getParameter("password")).thenReturn("d123poiS");
-        when(utenteService.login("prova123@gmail.com","Password123")).thenReturn(ut);
 
 
         us.doPost(request,response);
@@ -398,10 +420,8 @@ public class UtenteServletTest {
         when(request.getPathInfo()).thenReturn("/login");
         when(request.getParameter("email")).thenReturn("prova123gmail.com");
         when(request.getParameter("password")).thenReturn("123");
-        when(utenteService.login("prova123@gmail.com","Password123")).thenReturn(null);
         when(request.getSession(false)).thenReturn(session);
         when(request.getSession()).thenReturn(session);
-        when(librettoService.visualizzaLibretto(2)).thenReturn(new LibrettoBean(0,0,0));
         when(request.getSession(true)).thenReturn(session);
 
         us.doPost(request,response);
@@ -425,7 +445,6 @@ public class UtenteServletTest {
         when(request.getParameter("Password")).thenReturn("Password123");
         when(request.getParameter("CPassword")).thenReturn("Password123");
         when(request.getParameter("DataDiNascita")).thenReturn("2000-12-12");
-        when(utenteService.aggiorna(any())).thenReturn(u);
         us.doPost(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
@@ -440,30 +459,6 @@ public class UtenteServletTest {
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
 
-    //tutti i campi soddisfano i match ma aggiorna restituisce un utente null
-  /*
-    @Test
-    public void DoPostModificaTestIfMatchesUtenteNull() throws ServletException, IOException, SQLException, NoSuchAlgorithmException {//riga 168
-        UtenteBean u = new UtenteBean();
-        u.setIdUtente(2);
-
-
-        when(request.getSession()).thenReturn(session);
-        when(session.getAttribute("utente")).thenReturn(u);
-        when(request.getPathInfo()).thenReturn("/modifica");
-        when(request.getParameter("Nome")).thenReturn("Mario");
-        when(request.getParameter("Cognome")).thenReturn("Rossi");
-        when(request.getParameter("CF")).thenReturn("MWKZPY95B02M196F");
-        when(request.getParameter("Email")).thenReturn("prova123@gmail.com");
-        when(request.getParameter("Password")).thenReturn("Password123");
-        when(request.getParameter("CPassword")).thenReturn("Password123");
-        when(request.getParameter("DataDiNascita")).thenReturn("2000-12-12");
-       //when(utenteService.aggiorna(any())).thenReturn(null);
-
-        us.doPost(request,response);
-        verify(response,atLeastOnce()).sendError(400,"La modifica non è andata a buon fine");
-    }
-*/
 
     @Test
     public void DoPostToggleRuoloTest() throws ServletException, IOException, SQLException, NoSuchAlgorithmException {//riga 168
@@ -475,7 +470,7 @@ public class UtenteServletTest {
         when(session.getAttribute("utente")).thenReturn(u);
         when(request.getParameter("id")).thenReturn("2");
         when(ud.doRetriveById(2)).thenReturn(u);
-        doNothing().when(utenteService).rendiAdmin(any());
+
 
         us.doPost(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());

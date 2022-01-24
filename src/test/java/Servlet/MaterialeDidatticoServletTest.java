@@ -1,10 +1,13 @@
 package Servlet;
 
 import Application.Corso.ServiceCorso.CorsoService;
+import Application.Corso.ServiceCorso.CorsoServiceImpl;
 import Application.Libretto.ServiceLibretto.LibrettoService;
+import Application.Libretto.ServiceLibretto.LibrettoServiceImpl;
 import Application.MaterialeDidattico.MaterialeDidatticoServlet;
 import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoServiceImpl;
 import Application.Utente.ServiceUtente.UtenteService;
+import Application.Utente.ServiceUtente.UtenteServiceImpl;
 import Storage.Utente.UtenteBean;
 import Storage.Utente.UtenteDao;
 import org.junit.Before;
@@ -43,10 +46,10 @@ public class MaterialeDidatticoServletTest {
         session = Mockito.mock(HttpSession.class);
         ms = new MaterialeDidatticoServlet();
         requestDispatcher = Mockito.mock(RequestDispatcher.class);
-        materialeDidatticoService = Mockito.mock(MaterialeDidatticoServiceImpl.class);
-        utenteService = Mockito.mock(UtenteService.class);
-        corsoService = Mockito.mock(CorsoService.class);
-        librettoService = Mockito.mock(LibrettoService.class);
+        materialeDidatticoService = new MaterialeDidatticoServiceImpl();
+        utenteService = new UtenteServiceImpl();
+        corsoService = new CorsoServiceImpl();
+        librettoService = new LibrettoServiceImpl();
         ud = Mockito.mock(UtenteDao.class);
     }
 
@@ -74,7 +77,6 @@ public class MaterialeDidatticoServletTest {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
         when(request.getParameter("id")).thenReturn("100");
-       when(materialeDidatticoService.eliminaMateriale(2)).thenReturn(false);
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
         ms.doGet(request,response);
@@ -124,7 +126,6 @@ public class MaterialeDidatticoServletTest {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(null);
         when(request.getParameter("id")).thenReturn("100");
-        when(materialeDidatticoService.eliminaMateriale(2)).thenReturn(false);
 
         ms.doGet(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
@@ -190,33 +191,11 @@ public class MaterialeDidatticoServletTest {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(null);
         when(request.getParameter("id")).thenReturn("100");
-        when(materialeDidatticoService.eliminaMateriale(2)).thenReturn(false);
 
         ms.doGet(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
 
-/*
-
-    @Test
-    public void DoPostInserisciMaterialeTest() throws ServletException, IOException {
-        final Part file = (Part) Mockito.mock(File.class);
-        UtenteBean u = new UtenteBean();
-        u.setIdUtente(2);
-
-        when(request.getPathInfo()).thenReturn("/inserireMateriale");
-        when(request.getSession()).thenReturn(session);
-        when(session.getAttribute("utente")).thenReturn(u);
-        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
-        when(request.getParameter("Nome")).thenReturn("fileName");
-        when(request.getPart("File")).thenReturn(file);
-        when(file.getInputStream()).thenReturn(any());
-        //when(Files.copy(any(),anyString())).thenReturn(any());
-
-        ms.doGet(request,response);
-        verify(requestDispatcher,atLeastOnce()).forward(request,response);
-    }
-*/
 
     @Test
     public void DoPostInserisciMaterialeTestUtenteNull() throws ServletException, IOException {

@@ -8,10 +8,8 @@ import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatti
 import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoServiceImpl;
 import Application.Utente.ServiceUtente.UtenteService;
 import Application.Utente.ServiceUtente.UtenteServiceImpl;
+
 import Storage.Corso.CorsoBean;
-import Storage.Libretto.LibrettoBean;
-import Storage.ListaPreferiti.ListaPreferitiBean;
-import Storage.ListaPreferiti.ListaPreferitiDao;
 import Storage.Utente.UtenteBean;
 
 import javax.servlet.*;
@@ -128,6 +126,8 @@ public class CorsoServlet extends HttpServlet {
             }
 
              */
+            default:
+                throw new RuntimeException("Unexpected value: " + path);
         }
     }
 
@@ -252,6 +252,8 @@ public class CorsoServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizzaTutti.jsp").forward(request,response);
                 break;
             }*/
+            default:
+                throw new RuntimeException("Unexpected value: " + path);
         }
     }
 
