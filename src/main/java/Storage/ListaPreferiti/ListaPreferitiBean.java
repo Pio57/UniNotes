@@ -1,6 +1,7 @@
 package Storage.ListaPreferiti;
 
 import Storage.Corso.CorsoBean;
+import Storage.Utente.UtenteBean;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,11 @@ public class ListaPreferitiBean {
     public ListaPreferitiBean(ArrayList<CorsoBean> corsi) {
         this.corsi = corsi;
     }
+
+    /*//valutare se togliere
+    public void addCorso(CorsoBean c){
+        corsi.add(c);
+    }*/
 
     public int getIdUtente() {
         return idUtente;

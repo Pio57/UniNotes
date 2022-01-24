@@ -5,6 +5,7 @@ import Storage.Corso.CorsoDao;
 import Storage.ListaPreferiti.ListaPreferitiBean;
 import Storage.ListaPreferiti.ListaPreferitiDao;
 import Storage.MaterialeDidattico.MaterialeDidatticoBean;
+import Storage.Utente.UtenteBean;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,12 @@ public class ListaPreferitiImpl implements ListaPreferitiService{
     public ListaPreferitiBean visualizzaListaUtente(int idUtente) {
         ListaPreferitiDao ld = new ListaPreferitiDao();
         return ld.doRetriveAllByIdUtente(idUtente);
+    }
+
+    @Override
+    public ArrayList<UtenteBean> visualizzaListaCorso(int idCorso) {
+        ListaPreferitiDao ld = new ListaPreferitiDao();
+        return ld.doRetriveAllByIdCorso(idCorso);
     }
 
     @Override

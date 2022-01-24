@@ -47,6 +47,12 @@ public class ListaPreferitiServlet extends HttpServlet {
                     listaPreferitiService.rimuoviDaListaPreferiti(u.getIdUtente(),idCorso);
                 }else{
                     listaPreferitiService.inserisciInListaPreferiti(u.getIdUtente(),idCorso);
+                    /*
+                    CorsoBean c = corsoService.visualizzaCorso(idCorso);
+                    u.setListaPreferiti(listaPreferitiService.visualizzaListaUtente(u.getIdUtente()));
+
+
+                     */
                 }
 
                 request.setAttribute("listaPreferitiID",listaPreferitiService.idCorsi(u.getIdUtente()));

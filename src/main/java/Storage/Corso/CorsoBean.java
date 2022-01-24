@@ -1,10 +1,12 @@
 package Storage.Corso;
 
+import Application.util.Subject;
 import Storage.MaterialeDidattico.MaterialeDidatticoBean;
+import Storage.Utente.UtenteBean;
 
 import java.util.ArrayList;
 
-public class CorsoBean {
+public class CorsoBean extends Subject {
 
     private int id;
     private String nome;
@@ -78,8 +80,19 @@ public class CorsoBean {
         this.nomeProfessore = nomeProfessore;
     }
 
+    public void aggiungiMateriale(MaterialeDidatticoBean m){
+        listaMateriale.add(m);
+        this.notifyObservers();
+    }
+
     public void setListaMateriale(ArrayList<MaterialeDidatticoBean> listaMateriale) {
         this.listaMateriale = listaMateriale;
+    }
+
+    public void setObservers(ArrayList<UtenteBean> utenti){
+        for(UtenteBean u : utenti){
+            this.addObserver(u);
+        }
     }
 
 }

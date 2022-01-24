@@ -4,6 +4,8 @@ import Storage.ConPool;
 import Storage.Corso.CorsoBean;
 import Storage.Corso.CorsoDao;
 import Storage.Corso.CorsoExtractor;
+import Storage.Utente.UtenteBean;
+import Storage.Utente.UtenteExtractor;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -57,6 +59,35 @@ public class ListaPreferitiDao {
             l.setCorsi(corsi);
 
             return l;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+    public ArrayList<UtenteBean> doRetriveAllByIdCorso(int idCorso) {
+        try (Connection con = ConPool.getConnection()) {
+            PreparedStatement ps =
+                    con.prepareStatement("SELECT * FROM ListaPreferiti l ,Utente u WHERE (l.idUtente = u.id) AND l.idCorso = ?");
+
+            ps.setInt(1, idCorso);
+
+            ResultSet rs = ps.executeQuery();
+            ListaPreferitiBean l = new ListaPreferitiBean();
+            ListaPreferitiExtractor le = new ListaPreferitiExtractor();
+            CorsoDao cd = new CorsoDao();
+            CorsoExtractor ce = new CorsoExtractor();
+            UtenteExtractor ue = new UtenteExtractor();
+            ArrayList<UtenteBean> utenti = new ArrayList<>();
+
+            while (rs.next()) {
+                utenti.add(ue.extract(rs));
+            }
+
+            return utenti;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

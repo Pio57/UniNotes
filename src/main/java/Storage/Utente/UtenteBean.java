@@ -1,5 +1,9 @@
 package Storage.Utente;
 
+import Application.util.EmailSender;
+import Application.util.Observer;
+import Application.util.Subject;
+import Storage.Corso.CorsoBean;
 import Storage.Libretto.LibrettoBean;
 import Storage.ListaPreferiti.ListaPreferitiBean;
 import Storage.MaterialeDidattico.MaterialeDidatticoBean;
@@ -10,7 +14,7 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class UtenteBean {
+public class UtenteBean implements Observer{
     private int idUtente;
     private String nome;
     private String cognome;
@@ -173,6 +177,17 @@ public class UtenteBean {
     }
 
     public void setListaPreferiti(ListaPreferitiBean listaPreferiti) {
+        for(CorsoBean c : listaPreferiti.getCorsi()){
+            c.addObserver(this);
+        }
         this.listaPreferiti = listaPreferiti;
+    }
+
+
+
+    @Override
+    public void update() {
+        EmailSender emailSender = EmailSender.GetInstance();
+        emailSender.SendEmail("Aggiornamento corso", "Gentile " + this.nome + ", è stata aggiunto del nuovo materiale. Saluti da UniNotes.", this.email);
     }
 }

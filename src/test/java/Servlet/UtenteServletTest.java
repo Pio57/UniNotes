@@ -58,6 +58,17 @@ public class UtenteServletTest {
 
     }
 
+
+    //path /
+    @Test
+    public void DoGetPathVuota() throws ServletException, IOException {
+        UtenteBean u = new UtenteBean();
+        u.setIdUtente(2);
+        when(request.getPathInfo()).thenReturn("/");
+        us.doGet(request,response);
+        verify(response,atLeastOnce()).sendRedirect(anyString());
+    }
+
     @Test
     public void DoGethomeTest() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
@@ -357,16 +368,16 @@ public class UtenteServletTest {
         UtenteBean ut = null;
         when(request.getSession(false)).thenReturn(session);
         when(request.getSession(true)).thenReturn(session);
+        when(request.getSession()).thenReturn(session);
 
         when(request.getPathInfo()).thenReturn("/login");
         when(request.getParameter("email")).thenReturn("Provawow123@gmail.com");
         when(request.getParameter("password")).thenReturn("d123poiS");
         when(utenteService.login("prova123@gmail.com","Password123")).thenReturn(ut);
-        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
 
 
         us.doPost(request,response);
-        verify(requestDispatcher,atLeastOnce()).forward(request,response);
+        verify(response,atLeastOnce()).sendRedirect(anyString());
     }
 
     //quando email e password non soddisfano i matches
@@ -389,13 +400,12 @@ public class UtenteServletTest {
         when(request.getParameter("password")).thenReturn("123");
         when(utenteService.login("prova123@gmail.com","Password123")).thenReturn(null);
         when(request.getSession(false)).thenReturn(session);
+        when(request.getSession()).thenReturn(session);
         when(librettoService.visualizzaLibretto(2)).thenReturn(new LibrettoBean(0,0,0));
         when(request.getSession(true)).thenReturn(session);
-        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
-
 
         us.doPost(request,response);
-        verify(requestDispatcher,atLeastOnce()).forward(request,response);
+        verify(response,atLeastOnce()).sendRedirect(anyString());
     }
 
 

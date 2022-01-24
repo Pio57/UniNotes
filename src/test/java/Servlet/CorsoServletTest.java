@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -190,6 +191,7 @@ public class CorsoServletTest {
         cs.doGet(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
+    /*
 
     @Test
     public void DoGetAggiungiAPreferitiTest() throws ServletException, IOException {
@@ -218,7 +220,7 @@ public class CorsoServletTest {
         cs.doGet(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
-
+*/
     @Test
     public void DoPostCreaTest() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
@@ -339,6 +341,14 @@ public class CorsoServletTest {
         when(request.getParameter("Descrizione")).thenReturn("D12345");
         when(request.getParameter("NomeProfessore")).thenReturn("23456");
 
+        cs.doPost(request,response);
+        verify(response,atLeastOnce()).sendRedirect(anyString());
+    }
+
+    @Test
+    public void DoPostVisualizzaTest() throws ServletException, IOException {
+        when(request.getPathInfo()).thenReturn("/visualizza");
+        when(request.getSession()).thenReturn(session);
         cs.doPost(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }

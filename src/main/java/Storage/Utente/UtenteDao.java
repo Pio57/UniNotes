@@ -1,5 +1,6 @@
 package Storage.Utente;
 
+import Application.util.Observer;
 import Storage.ConPool;
 import Storage.Libretto.LibrettoBean;
 

@@ -67,6 +67,7 @@ public class CorsoServlet extends HttpServlet {
                     break;
                 }
                 int id = Integer.parseInt(request.getParameter("idCorso"));
+                //int id = Integer.parseInt(request.getParameter("idCorso"));
                 CorsoBean c = corsoService.visualizzaCorso(id);
                 c.setListaMateriale(materialeDidattico.visualizzaMaterialeDiUnCorso(id));
                 request.setAttribute("Corso",c);
@@ -107,6 +108,8 @@ public class CorsoServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizzaTutti.jsp").forward(request,response);
                 break;
             }
+
+            /* si potrbbe eliminare
             case "/aggiungiAPreferiti":{
 
                 HttpSession ssn = request.getSession();
@@ -117,11 +120,14 @@ public class CorsoServlet extends HttpServlet {
                 }
 
                 int idCorso = Integer.parseInt(request.getParameter("idCorso"));
+                CorsoBean c = corsoService.visualizzaCorso(idCorso);
                 utenteService.interireInListaPreferiti(u.getIdUtente(),idCorso);
                 request.setAttribute("corsi",corsoService.visualizzaCorsi());
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizzaTutti.jsp").forward(request,response);
                 break;
             }
+
+             */
         }
     }
 
@@ -131,7 +137,6 @@ public class CorsoServlet extends HttpServlet {
         request.getSession().setAttribute("errors", null);
         switch (path){
             case "/crea":{
-
                 UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
                 HttpSession ssn = request.getSession();
                 if(u == null){
@@ -237,11 +242,12 @@ public class CorsoServlet extends HttpServlet {
 
 
             }
-            /*
+
             case "/visualizza":{//questo richiama doget per quanto riguarda gli errori
                 doGet(request,response);
                 break;
             }
+            /*
             case "/visualizzaTutti":{
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizzaTutti.jsp").forward(request,response);
                 break;

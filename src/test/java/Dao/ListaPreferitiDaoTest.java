@@ -3,8 +3,11 @@ package Dao;
 import Application.ListaPreferiti.ServiceListaPreferiti.ListaPreferitiImpl;
 import Storage.ListaPreferiti.ListaPreferitiBean;
 import Storage.ListaPreferiti.ListaPreferitiDao;
+import Storage.Utente.UtenteBean;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
@@ -30,6 +33,14 @@ public class ListaPreferitiDaoTest {
         int id=3;
         ListaPreferitiBean l = listaPreferitiDao.doRetriveAllByIdUtente(id);
         assertEquals(id, l.getIdUtente());
+    }
+
+
+    @Test
+    public void doRetriveAllByIdCorsoTest(){
+        int id=1;
+        ArrayList<UtenteBean> l= listaPreferitiDao.doRetriveAllByIdCorso(id);
+        assertEquals(2, l.size());
     }
 
     /*

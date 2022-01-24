@@ -2,6 +2,8 @@ package Application.MaterialeDidattico;
 
 import Application.Corso.ServiceCorso.CorsoService;
 import Application.Corso.ServiceCorso.CorsoServiceImpl;
+import Application.ListaPreferiti.ServiceListaPreferiti.ListaPreferitiImpl;
+import Application.ListaPreferiti.ServiceListaPreferiti.ListaPreferitiService;
 import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoService;
 import Application.MaterialeDidattico.ServiceMaterialeDidattico.MaterialeDidatticoServiceImpl;
 import Application.Utente.ServiceUtente.UtenteService;
@@ -29,6 +31,7 @@ public class MaterialeDidatticoServlet extends HttpServlet {
     private final MaterialeDidatticoService materialeDidattico = new MaterialeDidatticoServiceImpl();
     private final CorsoService corsoService = new CorsoServiceImpl();
     private final UtenteService utenteService = new UtenteServiceImpl();
+    private final ListaPreferitiService listaPreferitiService = new ListaPreferitiImpl();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -171,20 +174,27 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                         File file = new File(uploadRoot + fileName);
                         Files.copy(fileStream, file.toPath());
                         materialeDidattico.inserireMateriale(nome,fileName,Integer.parseInt(idCorso),idUtente);
+
+                        CorsoBean c = corsoService.visualizzaCorso(Integer.parseInt(idCorso));
+                        c.setListaMateriale(materialeDidattico.visualizzaMaterialeDiUnCorso(Integer.parseInt(idCorso)));
+                        c.setObservers(listaPreferitiService.visualizzaListaCorso(Integer.parseInt(idCorso)));
+                        c.aggiungiMateriale(new MaterialeDidatticoBean(nome,fileName));
+
                         success.add("Salvataggio avvenuto con successo");
                         ssn.setAttribute("success",success);
                         request.setAttribute("idCorso",idCorso);
                         request.getRequestDispatcher("/Corso/visualizza").forward(request,response);
                         break;
-                    }catch (IOException e){//se il file esiste gia
+                    }catch (IOException e) {//se il file esiste gia
                         System.out.println("qui");
-                        errors.add("Esiste gia un file chiamato : "+e.getMessage().split("/")[(e.getMessage().split("/").length)-1]);
-                        success.add("Esiste gia un file chiamato : "+e.getMessage().split("/")[(e.getMessage().split("/").length)-1]);
-                        ssn.setAttribute("errors",errors);
-                        request.setAttribute("idCorso",idCorso);
-                        request.getRequestDispatcher("/Corso/visualizza").forward(request,response);
+                        errors.add("Esiste gia un file chiamato : " + e.getMessage().split("/")[(e.getMessage().split("/").length) - 1]);
+                        success.add("Esiste gia un file chiamato : " + e.getMessage().split("/")[(e.getMessage().split("/").length) - 1]);
+                        ssn.setAttribute("errors", errors);
+                        request.setAttribute("idCorso", idCorso);
+                        request.getRequestDispatcher("/Corso/visualizza").forward(request, response);
                         break;
                     }
+
             }
 
             /*
