@@ -122,6 +122,27 @@ public class UtenteServlet extends HttpServlet {
             default:
                 throw new RuntimeException("Unexpected value: " + path);
 
+            case "/faqs":{
+
+                UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
+                if(u == null){
+                    response.sendRedirect("/UniNotes_war_exploded/");
+                    break;
+                }
+                request.getRequestDispatcher("/WEB-INF/interface/partials/FAQs.jsp").forward(request,response);
+                break;
+            }
+            case "/un":{
+
+                UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
+                if(u == null){
+                    response.sendRedirect("/UniNotes_war_exploded/");
+                    break;
+                }
+                request.getRequestDispatcher("/WEB-INF/interface/partials/UN.jsp").forward(request,response);
+                break;
+            }
+
         }
     }
 
@@ -166,10 +187,10 @@ public class UtenteServlet extends HttpServlet {
                     errors.add("Il cf non è valido");
                 }
                 if(!password.matches(passwordPattern)){
-                    errors.add("La password non rispetta il formato giusto");
+                    errors.add("La password non rispetta il formato. Dedeve essere di almeno 6 caratteri tra cui una maiuscola, una minuscola e un numero");
                 }
                 if(!password.equals(confermaPassword)){
-                    errors.add("Le due password non coincidono");
+                    errors.add("La password non coincide con conferma password");
                 }
 
               if (nome.matches(nomePattern) && cognome.matches(cognomePattern) && cf.matches(cfPattern) && email.matches(emailPattern) && password.matches(passwordPattern) && confermaPassword.matches(passwordPattern) && password.equals(confermaPassword)) {

@@ -70,7 +70,7 @@
                                 </div>
 
                                 <div class="form-group first">
-                                    <input placeholder="Data di nascita" name = "DataDiNascita" type="text" class="form-control" id="DataDiNascita" value="${DataDiNascita}">
+                                    <input placeholder="Data di nascita" name = "DataDiNascita" type="date" class="form-control" id="DataDiNascita" value="${DataDiNascita}">
                                 </div>
 
                                 <div class="form-group first">

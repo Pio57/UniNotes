@@ -37,13 +37,9 @@
                                     </div>
                                 </div>
                                 <p>UniNotes e' una piataforma ideata da tre studenti del dipartimento di informatica dell'universita' degli studi di Salerno.</p>
+                                <p></p>
+                                <p></p>
                                 <p>L'idea alla basa era creare una dispensa online di appunti universitari, il cui unico obiettivo e' agevolare lo studio, rendendo disponibili gratuitamente appunti delle varie lezioni e informazioni su tutti corsi della laura triennale in informatica.</p>
-                                <p>Come tutte le idee e' stato difficile renderla concreta e far in modo che rispecchiasse tutte le aspettaitve ma con dedizione e impegno l'idea è diventata realta'.</p>
-                                <p></p>
-                                <p></p>
-                                <p></p>
-                                <p></p>
-                                <p>''Io so con assoluta certezza di non possedere un talento speciale; la curiosita', l'ossessione e l'ostinata resistenza, unita all'autocritica, mi hanno portato alle mie idee.''<strong> <em style="color: #e1853f">Albert Einstein</em></strong></p>
                                 <p></p>
                                 <p></p>
                                 <p></p>

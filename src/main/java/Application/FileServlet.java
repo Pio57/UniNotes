@@ -17,7 +17,5 @@ import java.util.zip.GZIPOutputStream;
 @WebServlet(name = "FileServlet", urlPatterns = "/covers/*")
 public class FileServlet extends HttpServlet {
 
-
-
 }
 
