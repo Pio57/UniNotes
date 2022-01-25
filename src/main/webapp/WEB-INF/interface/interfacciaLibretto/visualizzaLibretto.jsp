@@ -340,34 +340,34 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <input name="Nome" class="form-control" type="text" placeholder="Name" required> </div>
+                                        <input name="Nome" class="form-control" type="text" placeholder="Name" > </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <div class="input-group"> <input name="Voto" class="form-control" type="text" placeholder="Voto" required> </div>
+                                        <div class="input-group"> <input name="Voto" class="form-control" type="text" placeholder="Voto" > </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <div class="input-group"> <input name="Cfu" class="form-control" type="text" placeholder="Cfu" required> </div>
+                                        <div class="input-group"> <input name="Cfu" class="form-control" type="text" placeholder="Cfu" > </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <div class="input-group"> <input name="Data" class="form-control" type="date" placeholder="Data" required> </div>
+                                        <div class="input-group"> <input name="Data" class="form-control" type="date" placeholder="Data" > </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <div class="input-group"> <input name="NomeProfessore" class="form-control" type="text" placeholder="Nome professore" required> </div>
+                                        <div class="input-group"> <input name="NomeProfessore" class="form-control" type="text" placeholder="Nome professore" > </div>
                                     </div>
                                 </div>
                             </div>

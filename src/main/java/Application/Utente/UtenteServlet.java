@@ -172,29 +172,39 @@ public class UtenteServlet extends HttpServlet {
                 String password = request.getParameter("Password");
                 String confermaPassword = request.getParameter("CPassword");
                 String data = request.getParameter("DataDiNascita");
-
+                String checkbox = request.getParameter("checkbox");
+                System.out.println(checkbox);
                 ArrayList<String> errors = new ArrayList<>();
 
                 if(!email.matches(emailPattern)){
                     errors.add("Email non valida");
                 }
                 if(!nome.matches(nomePattern)){
-                    errors.add("Il nome non deve contenere numeri");
+                    errors.add("Nome non valido");
                 }
                 if(!cognome.matches(cognomePattern) ){
-                    errors.add("Il cognome non deve contenere numeri");
+                    errors.add("Cognome non valido");
                 }
                 if(!cf.matches(cfPattern) ){
                     errors.add("Il cf non è valido");
                 }
+                if(data.equals("")){
+                    errors.add("La data non è valida");
+                }
                 if(!password.matches(passwordPattern)){
+                    errors.add("La password non rispetta il formato. Dedeve essere di almeno 6 caratteri tra cui una maiuscola, una minuscola e un numero");
+                }
+                if(!confermaPassword.matches(passwordPattern)){
                     errors.add("La password non rispetta il formato. Dedeve essere di almeno 6 caratteri tra cui una maiuscola, una minuscola e un numero");
                 }
                 if(!password.equals(confermaPassword)){
                     errors.add("La password non coincide con conferma password");
                 }
+                if(checkbox == null){
+                    errors.add("Accettare il regolamento");
+                }
 
-              if (nome.matches(nomePattern) && cognome.matches(cognomePattern) && cf.matches(cfPattern) && email.matches(emailPattern) && password.matches(passwordPattern) && confermaPassword.matches(passwordPattern) && password.equals(confermaPassword)) {
+              if (nome.matches(nomePattern) && cognome.matches(cognomePattern) && cf.matches(cfPattern) && email.matches(emailPattern) && password.matches(passwordPattern) && confermaPassword.matches(passwordPattern) && password.equals(confermaPassword) && checkbox != null) {
 
                     try {
                         LibrettoBean l = librettoService.inserisciLibretto(0,0,0);

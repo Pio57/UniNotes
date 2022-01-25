@@ -75,27 +75,47 @@ public class EsameServlet extends HttpServlet {
 
 
                 String nomePattern = "[a-zA-Z\\s]+$";// pattern vecchio [A-Z a-z]
+                String numeriPattern = "^\\d+$";
 
                 String nome = request.getParameter("Nome");
                 String nomeProfessore = request.getParameter("NomeProfessore");
-                int cfu = Integer.parseInt(request.getParameter("Cfu"));
-                float voto = Float.parseFloat(request.getParameter("Voto"));
-                LocalDate data = LocalDate.parse(request.getParameter("Data"));
+                String Cfu = request.getParameter("Cfu");
+                String Voto = request.getParameter("Voto");
+                String Data = request.getParameter("Data");
+                int voto = 0;
+                int cfu = 0;
+
 
                 ArrayList<String> errors = new ArrayList<>();
                 ArrayList<String> success = new ArrayList<>();
 
                 if(!nome.matches(nomePattern)){
-                    errors.add("Il nome non deve contenere numeri");
+                    errors.add("Nome non valido");
                 }
+
+
+                if(!Voto.equals("") && Voto.matches(numeriPattern)){
+                    voto = Integer.parseInt(Voto);
+                }
+
                 if(voto<18 || voto>31 ){//pio devi modificare il voto nella jsp con il voto lode
-                    errors.add("Il voto non valido");
+                    errors.add("Voto non valido");
                 }
-                if(cfu<1 || cfu>12 ){
-                    errors.add("Il cfu non valido");
+
+                if(!Cfu.equals("") && Cfu.matches(numeriPattern)) {
+                    cfu = Integer.parseInt(Cfu);
                 }
+
+                if (cfu < 1 || cfu > 12) {
+                    errors.add("Cfu non validi");
+                }
+
+                if(Data.equals("")){
+                    errors.add("Data non valida");
+                }
+
                 if(!nomeProfessore.matches(nomePattern)){
-                    errors.add("Il nome del professore non deve contenere numeri");
+                    errors.add("Nome professore non valido");
                 }
 
                 request.setAttribute("errors", errors);
@@ -106,18 +126,12 @@ public class EsameServlet extends HttpServlet {
 
 
 
-                if (nome.matches(nomePattern) && nomeProfessore.matches(nomePattern) && voto>=18 && voto<=31 && cfu>=1 && cfu<=12) {
+                if (nome.matches(nomePattern) && nomeProfessore.matches(nomePattern) && voto>=18 && voto<=31 && cfu>=1 && cfu<=12 && Data != null) {
 
-                    System.out.println(nome);
-                    System.out.println(nomeProfessore);
-                    System.out.println(voto);
-                    System.out.println(cfu);
-                    System.out.println(data);
-                    System.out.println(l.getIdLibretto());
                     l = librettoService.visualizzaLibrettoDiUtente(u.getIdUtente());
-                    l.aggiungiEsame(new EsameBean(nome,nomeProfessore,voto,cfu,data));
+                    l.aggiungiEsame(new EsameBean(nome,nomeProfessore,voto,cfu,LocalDate.parse(Data)));
                     u.setLibretto(l);
-                    esameService.inserisciEsame(nome,nomeProfessore,voto,cfu,data,l.getIdLibretto());
+                    esameService.inserisciEsame(nome,nomeProfessore,voto,cfu,LocalDate.parse(Data),l.getIdLibretto());
                     librettoService.modificaLibretto(l);
                     ssn.setAttribute("libretto",l);
                     ssn.setAttribute("utente",u);

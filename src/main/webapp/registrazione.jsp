@@ -89,7 +89,11 @@
                                     <span class="ml-auto"><a href="/UniNotes_war_exploded/Utente/" class="forgot-pass"> Sei già registrato ad UniNotes ? Accedi!</a></span>
                                 </div>
 
-                                <input type="submit" value="Accedi" class="btn btn-block btn-primary">
+                                <div class="d-flex mb-5 align-items-center">
+                                    <input type='checkbox' name='checkbox'><span style="margin-left: .5rem">Acconsento alla memorizzazione dei miei dati</span>
+                                </div>
+
+                            <input type="submit" value="Accedi" class="btn btn-block btn-primary">
 
                         </form>
                     </div>
