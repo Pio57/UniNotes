@@ -15,7 +15,7 @@
 
     <jsp:include page="/WEB-INF/interface/partials/head.jsp">
         <jsp:param name="title" value="UniNotes-Home"/>
-        <jsp:param name="style" value="dashboard"/>
+        <jsp:param name="style" value=""/>
         <jsp:param name="script" value="dashboard"/>
     </jsp:include>
 
@@ -208,12 +208,12 @@
                 </div>
             </c:if>
 
-            <c:if test="${errors != null}">
+            <c:if test="${errore != null}">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <c:forEach items="${errors}" var="er">
+                    <c:forEach items="${errore}" var="er">
                         <p><strong>Error: </strong>${er}</p>
                     </c:forEach>
-                        ${errors=null}
+                        ${errore = null}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </c:if>
@@ -241,7 +241,7 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <input required type="file" id="File" name="File" placeholder="File">
+                                            <input type="file" id="File" name="File" placeholder="File">
                                         </div>
                                     </div>
                                 </div>

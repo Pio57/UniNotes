@@ -138,6 +138,7 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                     response.sendRedirect("/UniNotes_war_exploded/");
                     break;
                 }
+                String nomePattern = "[a-zA-Z\\s]+$";
                 String idCorso = request.getParameter("idCorso");
                 int idUtente = u.getIdUtente();
                 String nome = request.getParameter("Nome");
@@ -169,31 +170,42 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                }
 */
 
-                    String uploadRoot = "/Users/piosantosuosso/Desktop/apache-tomcat-9.0.43/uploads/";
-                    try (InputStream fileStream = filePart.getInputStream()) {
-                        File file = new File(uploadRoot + fileName);
-                        Files.copy(fileStream, file.toPath());
-                        materialeDidattico.inserireMateriale(nome,fileName,Integer.parseInt(idCorso),idUtente);
+                if(!nome.matches(nomePattern)){
+                    errors.add("Nome non valido");
+                }
 
-                        CorsoBean c = corsoService.visualizzaCorso(Integer.parseInt(idCorso));
-                        c.setListaMateriale(materialeDidattico.visualizzaMaterialeDiUnCorso(Integer.parseInt(idCorso)));
-                        c.setObservers(listaPreferitiService.visualizzaListaCorso(Integer.parseInt(idCorso)));
-                        c.aggiungiMateriale(new MaterialeDidatticoBean(nome,fileName));
 
-                        success.add("Salvataggio avvenuto con successo");
-                        ssn.setAttribute("success",success);
-                        request.setAttribute("idCorso",idCorso);
-                        request.getRequestDispatcher("/Corso/visualizza").forward(request,response);
-                        break;
-                    }catch (IOException e) {//se il file esiste gia
-                        System.out.println("qui");
-                        errors.add("Esiste gia un file chiamato : " + e.getMessage().split("/")[(e.getMessage().split("/").length) - 1]);
-                        success.add("Esiste gia un file chiamato : " + e.getMessage().split("/")[(e.getMessage().split("/").length) - 1]);
-                        ssn.setAttribute("errors", errors);
-                        request.setAttribute("idCorso", idCorso);
-                        request.getRequestDispatcher("/Corso/visualizza").forward(request, response);
-                        break;
-                    }
+                String uploadRoot = "/Users/piosantosuosso/Desktop/apache-tomcat-9.0.43/uploads/";
+                if(nome.matches(nomePattern) && fileName.length()>0){
+                        try (InputStream fileStream = filePart.getInputStream()) {
+                            File file = new File(uploadRoot + fileName);
+                            Files.copy(fileStream, file.toPath());
+                            materialeDidattico.inserireMateriale(nome,fileName,Integer.parseInt(idCorso),idUtente);
+
+                            CorsoBean c = corsoService.visualizzaCorso(Integer.parseInt(idCorso));
+                            c.setListaMateriale(materialeDidattico.visualizzaMaterialeDiUnCorso(Integer.parseInt(idCorso)));
+                            c.setObservers(listaPreferitiService.visualizzaListaCorso(Integer.parseInt(idCorso)));
+                            c.aggiungiMateriale(new MaterialeDidatticoBean(nome,fileName));
+
+                            success.add("Salvataggio avvenuto con successo");
+                            ssn.setAttribute("success",success);
+                            request.setAttribute("idCorso",idCorso);
+                            request.getRequestDispatcher("/Corso/visualizza").forward(request,response);
+                            break;
+                        }catch (IOException e) {//se il file esiste gia
+                            errors.add("Esiste gia un file chiamato : " + e.getMessage().split("/")[(e.getMessage().split("/").length) - 1]);
+                            ssn.setAttribute("errore", errors);
+                            request.setAttribute("idCorso", idCorso);
+                            request.getRequestDispatcher("/Corso/visualizza").forward(request, response);
+                            break;
+                        }
+                }else{
+                    ssn.setAttribute("errore", errors);
+                    request.setAttribute("idCorso", idCorso);
+                    request.getRequestDispatcher("/Corso/visualizza").forward(request, response);
+                    break;
+                }
+
 
             }
 

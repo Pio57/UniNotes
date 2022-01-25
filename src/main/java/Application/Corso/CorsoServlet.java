@@ -65,7 +65,6 @@ public class CorsoServlet extends HttpServlet {
                     break;
                 }
                 int id = Integer.parseInt(request.getParameter("idCorso"));
-                //int id = Integer.parseInt(request.getParameter("idCorso"));
                 CorsoBean c = corsoService.visualizzaCorso(id);
                 c.setListaMateriale(materialeDidattico.visualizzaMaterialeDiUnCorso(id));
                 request.setAttribute("Corso",c);
