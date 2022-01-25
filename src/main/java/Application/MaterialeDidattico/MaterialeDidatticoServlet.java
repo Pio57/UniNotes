@@ -213,6 +213,7 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                     response.sendRedirect("/UniNotes_war_exploded/");
                     break;
                 }
+                String nomePattern = "[a-zA-Z\\s]+$";
                 String idMateriale = request.getParameter("idMateriale");
                 int idUtente = u.getIdUtente();
                 String nome = request.getParameter("Nome");
@@ -221,8 +222,13 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
                 ArrayList<String> errors = new ArrayList<>();
                 ArrayList<String> success = new ArrayList<>();
+
+                if(!nome.matches(nomePattern)){
+                    errors.add("Nome non valido");
+                }
+
                 if(fileName.length()>0){
-                    if(materialeDidattico.modificaMateriale(m.getId(),nome,fileName)){
+                    if(nome.matches(nomePattern) && materialeDidattico.modificaMateriale(m.getId(),nome,fileName)){
                         String uploadRoot = "/Users/piosantosuosso/Desktop/apache-tomcat-9.0.43/uploads/";
 
                         try (InputStream fileStream = filePart.getInputStream()) {
@@ -233,19 +239,23 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                             response.sendRedirect("/UniNotes_war_exploded/Materiale/visualizzaTutti");
                             break;
                         }
+                    }else{
+                        ssn.setAttribute("errors", errors);
+                        response.sendRedirect("/UniNotes_war_exploded/Materiale/visualizzaTutti");
+                        break;
                     }
                 }else{
-                    if(materialeDidattico.modificaMateriale(m.getId(),nome,m.getPathFile())){
+                    if(nome.matches(nomePattern) && materialeDidattico.modificaMateriale(m.getId(),nome,m.getPathFile())){
                         success.add("Caricamento effettuato con successo");
                         ssn.setAttribute("success", success);
                         response.sendRedirect("/UniNotes_war_exploded/Materiale/visualizzaTutti");
                         break;
+                    }else{
+                        ssn.setAttribute("errors", errors);
+                        response.sendRedirect("/UniNotes_war_exploded/Materiale/visualizzaTutti");
+                        break;
                     }
                 }
-
-
-                response.sendRedirect("/UniNotes_war_exploded/");
-                break;
             }
         }
 
