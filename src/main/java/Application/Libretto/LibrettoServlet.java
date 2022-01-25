@@ -34,7 +34,11 @@ public class LibrettoServlet extends HttpServlet {
                 }
 
                 LibrettoBean l = librettoService.visualizzaLibretto(u.getLibretto().getIdLibretto());
-                u.setLibretto(l);
+                if(l != null){
+                    u.setLibretto(l);
+                }else{
+                    u.setLibretto(librettoService.visualizzaLibrettoDiUtente(u.getIdUtente()));
+                }
                 ssn.setAttribute("libretto",u.getLibretto());
                 ssn.setAttribute("utente",u);
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaLibretto/visualizzaLibretto.jsp").forward(request,response);

@@ -136,6 +136,17 @@
                 <h1 class="h2">Pagina personale</h1>
             </div>
 
+
+            <c:if test="${errors != null}">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <c:forEach items="${errors}" var="er">
+                        <p><strong>Error: </strong>${er}</p>
+                    </c:forEach>
+                        ${errors=null}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
+
             <form action="/UniNotes_war_exploded/Utente/modifica" method="post">
 
                 <div class="container rounded bg-white mt-5 mb-5">

@@ -82,7 +82,12 @@ public class LibrettoDao {
                 lb = le.extract(rs);
                 eb.add(ee.extract(rs));
             }
-            lb.setListaEsami(eb);
+            if(eb.size() > 0){
+                lb.setListaEsami(eb);
+            }else{
+                lb.setListaEsami(null);
+            }
+
             con.close();
             return lb;
         } catch (SQLException e) {

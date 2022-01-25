@@ -119,8 +119,6 @@ public class UtenteServlet extends HttpServlet {
                 response.sendRedirect("/UniNotes_war_exploded/index.jsp");
                 break;
             }
-            default:
-                throw new RuntimeException("Unexpected value: " + path);
 
             case "/faqs":{
 
@@ -142,6 +140,9 @@ public class UtenteServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/partials/UN.jsp").forward(request,response);
                 break;
             }
+            default:
+                throw new RuntimeException("Unexpected value: " + path);
+
 
         }
     }
@@ -247,14 +248,16 @@ public class UtenteServlet extends HttpServlet {
                     if(utente != null){
                         request.getSession(false).invalidate();
                         LibrettoBean librettoConIdUtente = librettoService.visualizzaLibrettoDiUtente(utente.getIdUtente());
-                        utente.setLibretto(librettoService.visualizzaLibretto(librettoConIdUtente.getIdLibretto()));
+                        if(librettoConIdUtente.getNunEsami()>1)
+                            utente.setLibretto(librettoService.visualizzaLibretto(librettoConIdUtente.getIdLibretto()));
+                        else
+                            utente.setLibretto(librettoConIdUtente);
                         HttpSession ssn = request.getSession(true);
                         ssn.setAttribute("utente", utente);
                         ssn.setMaxInactiveInterval(86400);
                         response.sendRedirect("/UniNotes_war_exploded/Utente/home");
                         break;
                     }else{
-                        System.out.println("sono qui");
                         errors.add("Non c'è una corrispondenza per queste credenziali");
                         request.setAttribute("Email",email);
                         request.setAttribute("Password",password);
@@ -297,6 +300,21 @@ public class UtenteServlet extends HttpServlet {
                 String cf = request.getParameter("CF");
                 String email = request.getParameter("Email");
                 String data = request.getParameter("DataDiNascita");
+                ArrayList<String> errors = new ArrayList<>();
+
+                if(!email.matches(emailPattern)){
+                    errors.add("Email non valida");
+                }
+                if(!nome.matches(nomePattern)){
+                    errors.add("Il nome non deve contenere numeri");
+                }
+                if(!cognome.matches(cognomePattern) ){
+                    errors.add("Il cognome non deve contenere numeri");
+                }
+                if(!cf.matches(cfPattern) ) {
+                    errors.add("Il cf non è valido");
+                }
+
 
                 if (nome.matches(nomePattern) && cognome.matches(cognomePattern) && cf.matches(cfPattern) && email.matches(emailPattern)) {
                         u.setNome(nome);
@@ -313,8 +331,11 @@ public class UtenteServlet extends HttpServlet {
                             response.sendError(400, "La modifica non è andata a buon fine");
                             break;
                         }
+                }else {
+                    request.setAttribute("errors",errors);
+                    request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/paginaPersonale.jsp").forward(request,response);
+                    break;
                 }
-                break;
             }
             case "/toggleRuolo" : { //modifica stato studente [adimn]
 

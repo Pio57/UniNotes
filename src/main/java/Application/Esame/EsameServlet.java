@@ -83,7 +83,7 @@ public class EsameServlet extends HttpServlet {
                 LocalDate data = LocalDate.parse(request.getParameter("Data"));
 
                 ArrayList<String> errors = new ArrayList<>();
-
+                ArrayList<String> success = new ArrayList<>();
 
                 if(!nome.matches(nomePattern)){
                     errors.add("Il nome non deve contenere numeri");
@@ -108,12 +108,21 @@ public class EsameServlet extends HttpServlet {
 
                 if (nome.matches(nomePattern) && nomeProfessore.matches(nomePattern) && voto>=18 && voto<=31 && cfu>=1 && cfu<=12) {
 
+                    System.out.println(nome);
+                    System.out.println(nomeProfessore);
+                    System.out.println(voto);
+                    System.out.println(cfu);
+                    System.out.println(data);
+                    System.out.println(l.getIdLibretto());
+                    l = librettoService.visualizzaLibrettoDiUtente(u.getIdUtente());
                     l.aggiungiEsame(new EsameBean(nome,nomeProfessore,voto,cfu,data));
                     u.setLibretto(l);
                     esameService.inserisciEsame(nome,nomeProfessore,voto,cfu,data,l.getIdLibretto());
                     librettoService.modificaLibretto(l);
-                    ssn.setAttribute("libretto",u);
+                    ssn.setAttribute("libretto",l);
                     ssn.setAttribute("utente",u);
+                    success.add("Salvataggio avvenuto con successo");
+                    ssn.setAttribute("success",success);
                     response.sendRedirect("/UniNotes_war_exploded/Libretto/visualizzaLibretto");
                     break;
                 }else{

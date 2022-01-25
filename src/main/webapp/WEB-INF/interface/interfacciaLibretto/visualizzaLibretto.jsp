@@ -303,6 +303,16 @@
         </div>
 
         <button class="libretto" id="viewBotton" name="viewEsame" onclick="viewEsame()">Nascondi libretto </button>
+        <div style=" margin-top: 1rem;">
+        <c:if test="${success != null}">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <c:forEach items="${success}" var="success">
+                    <p><strong>success: </strong>${success}</p>
+                </c:forEach>
+                    ${success=null}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </c:if>
 
         <c:if test="${errors != null}">
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -313,7 +323,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </c:if>
-
+        </div>
         <form action="/UniNotes_war_exploded/Esame/crea" method="post">
 
 
@@ -330,34 +340,34 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <input name="Nome" class="form-control" type="text" placeholder="Name"> </div>
+                                        <input name="Nome" class="form-control" type="text" placeholder="Name" required> </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <div class="input-group"> <input name="Voto" class="form-control" type="text" placeholder="Voto"> </div>
+                                        <div class="input-group"> <input name="Voto" class="form-control" type="text" placeholder="Voto" required> </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <div class="input-group"> <input name="Cfu" class="form-control" type="text" placeholder="Cfu"> </div>
+                                        <div class="input-group"> <input name="Cfu" class="form-control" type="text" placeholder="Cfu" required> </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <div class="input-group"> <input name="Data" class="form-control" type="date" placeholder="Data"> </div>
+                                        <div class="input-group"> <input name="Data" class="form-control" type="date" placeholder="Data" required> </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <div class="input-group"> <input name="NomeProfessore" class="form-control" type="text" placeholder="Nome professore"> </div>
+                                        <div class="input-group"> <input name="NomeProfessore" class="form-control" type="text" placeholder="Nome professore" required> </div>
                                     </div>
                                 </div>
                             </div>

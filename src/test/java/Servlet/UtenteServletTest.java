@@ -263,6 +263,67 @@ public class UtenteServletTest {
     }
 
 
+
+    @Test
+    public void DoGetfaqsTest() throws ServletException, IOException, SQLException, NoSuchAlgorithmException {//riga 168
+        UtenteBean u = new UtenteBean();
+        u.setIdUtente(2);
+
+        when(request.getPathInfo()).thenReturn("/faqs");
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("utente")).thenReturn(u);
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
+
+        us.doGet(request,response);
+        verify(requestDispatcher,atLeastOnce()).forward(request,response);
+    }
+
+    @Test
+    public void DoGetfaqsTestUtenteNull() throws ServletException, IOException, SQLException, NoSuchAlgorithmException {//riga 168
+        UtenteBean u = new UtenteBean();
+        u.setIdUtente(2);
+
+        when(request.getPathInfo()).thenReturn("/faqs");
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("utente")).thenReturn(null);
+
+        us.doGet(request,response);
+        verify(response,atLeastOnce()).sendRedirect(anyString());
+    }
+
+
+    @Test
+    public void DoGetUnTest() throws ServletException, IOException, SQLException, NoSuchAlgorithmException {//riga 168
+        UtenteBean u = new UtenteBean();
+        u.setIdUtente(2);
+
+        when(request.getPathInfo()).thenReturn("/un");
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("utente")).thenReturn(u);
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
+
+        us.doGet(request,response);
+        verify(requestDispatcher,atLeastOnce()).forward(request,response);
+    }
+
+    @Test
+    public void DoGetUnTestUtenteNull() throws ServletException, IOException, SQLException, NoSuchAlgorithmException {//riga 168
+        UtenteBean u = new UtenteBean();
+        u.setIdUtente(2);
+
+        when(request.getPathInfo()).thenReturn("/un");
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("utente")).thenReturn(null);
+
+        us.doGet(request,response);
+        verify(response,atLeastOnce()).sendRedirect(anyString());
+    }
+
+
+
+
     @Test
     public void DoPostRegistrazioneTest() throws ServletException, IOException {//riga 61 dashboard/utenteisTipo
 
