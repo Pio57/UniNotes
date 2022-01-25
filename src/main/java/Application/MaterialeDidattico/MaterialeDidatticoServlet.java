@@ -247,20 +247,6 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                 response.sendRedirect("/UniNotes_war_exploded/");
                 break;
             }
-            /*
-            case "/visualizza":{
-                request.setAttribute("materiale",materialeDidattico.visualizza(2));//togliere l'id statico --> mettendone uno dinamico
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/visualizza.jsp").forward(request,response);
-                break;
-            }
-            case "/visualizzaTutti":{
-                ArrayList<MaterialeDidatticoBean> c = materialeDidattico.visualizzaTutti();
-                request.setAttribute("materiali",c);
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/visualizzaTutti.jsp").forward(request,response);
-                break;
-            }
-
-             */
         }
 
 
