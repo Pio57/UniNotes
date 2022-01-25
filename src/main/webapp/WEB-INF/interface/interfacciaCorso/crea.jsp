@@ -21,9 +21,9 @@
 </c:if>
 
 <form method="post" action="/UniNotes_war_exploded/Corso/crea">
-    <input required id="Nome" name="Nome" placeholder="Nome" required>
-    <input required id="Descrizione" name="Descrizione" placeholder="Descrizione" required>
-    <input required id="NomeProfessore" name="NomeProfessore" placeholder="Nome professore" required>
+    <input required id="Nome" name="Nome" placeholder="Nome">
+    <input required id="Descrizione" name="Descrizione" placeholder="Descrizione">
+    <input required id="NomeProfessore" name="NomeProfessore" placeholder="Nome professore">
     <button type="submit" >Crea corso</button>
 
 </form>

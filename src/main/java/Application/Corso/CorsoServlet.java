@@ -157,13 +157,13 @@ public class CorsoServlet extends HttpServlet {
 
 
                 if(!nome.matches(nomePattern)){
-                    errors.add("Il nome non deve contenere numeri");
+                    errors.add("Il nome non è valido");
                 }
                 if(!descrizione.matches(nomePattern) ){
-                    errors.add("Il descrizione non deve contenere numeri");
+                    errors.add("La descrizione non è valida");
                 }
                 if(!nomeProfessore.matches(nomePattern)){
-                    errors.add("Il nome del professore non deve contenere numeri");
+                    errors.add("Il nome del professore non è valido");
                 }
 
                     request.setAttribute("errors", errors);
@@ -217,13 +217,13 @@ public class CorsoServlet extends HttpServlet {
                 ArrayList<String> errors = new ArrayList<>();
 
                 if(!nome.matches(nomePattern)){
-                    errors.add("Il nome non deve contenere numeri");
+                    errors.add("Il nome non è valido");
                 }
                 if(!descrizione.matches(nomePattern) ){
-                    errors.add("Il descrizione non deve contenere numeri");
+                    errors.add("La descrizione non è valida");
                 }
                 if(!nomeProfessore.matches(nomePattern)){
-                    errors.add("Il nome del professore non deve contenere numeri");
+                    errors.add("Il nome del professore non è valido");
                 }
 
                 if (nome.matches(nomePattern) && descrizione.matches(nomePattern) && nomeProfessore.matches(nomePattern)) {

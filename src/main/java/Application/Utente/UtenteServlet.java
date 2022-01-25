@@ -316,10 +316,10 @@ public class UtenteServlet extends HttpServlet {
                     errors.add("Email non valida");
                 }
                 if(!nome.matches(nomePattern)){
-                    errors.add("Il nome non deve contenere numeri");
+                    errors.add("Il nome non valido");
                 }
                 if(!cognome.matches(cognomePattern) ){
-                    errors.add("Il cognome non deve contenere numeri");
+                    errors.add("Il cognome non valido");
                 }
                 if(!cf.matches(cfPattern) ) {
                     errors.add("Il cf non è valido");
