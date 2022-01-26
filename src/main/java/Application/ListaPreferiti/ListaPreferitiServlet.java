@@ -22,11 +22,21 @@ public class ListaPreferitiServlet extends HttpServlet {
     private final CorsoService corsoService = new CorsoServiceImpl();
     private final ListaPreferitiService listaPreferitiService = new ListaPreferitiImpl();
 
-
+    /**
+     * Metodo doGet della servlet Lista Preferiti
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
+
+            /**
+             *  Caso per inserire e rimuovere da lista preferiti
+             */
             case "/toggle":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
@@ -62,6 +72,9 @@ public class ListaPreferitiServlet extends HttpServlet {
                 break;
             }
 
+            /**
+             *  Caso per liualizzare la lista preferiti
+             */
             case "/visualizza":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
@@ -75,6 +88,9 @@ public class ListaPreferitiServlet extends HttpServlet {
                 break;
             }
 
+            /**
+             *  Caso per rimuovere da lista preferiti
+             */
             case "/rimuoviDallaFavoriteList":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
@@ -99,6 +115,13 @@ public class ListaPreferitiServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Metodo doPost della servlet ListaPreferiti
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

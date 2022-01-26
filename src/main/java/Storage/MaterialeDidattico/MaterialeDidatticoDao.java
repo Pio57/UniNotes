@@ -5,8 +5,17 @@ import Storage.ConPool;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Classe implementata per le operazioni sul database.
+ */
 public class MaterialeDidatticoDao {
 
+    /**
+     * Metodo per salvare un nuovo materiale (MaterialeDidatticoBean).
+     * @param idCorso
+     * @param idUtente
+     * @return true se è stato salvato, false altrimenti.
+     */
     public boolean doSave(MaterialeDidatticoBean m, int idCorso,int idUtente){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -33,6 +42,10 @@ public class MaterialeDidatticoDao {
         }
     }
 
+    /**
+     * Ritirna tutto il materiale presente nel Database.
+     * @return un ArrayList di MaterialeDidatticoBean
+     */
     public ArrayList<MaterialeDidatticoBean> doRetriveAll(){
         ArrayList<MaterialeDidatticoBean> materiale = new ArrayList<>();
         try (Connection con = ConPool.getConnection()) {
@@ -54,6 +67,11 @@ public class MaterialeDidatticoDao {
         }
     }
 
+    /**
+     * Questo metodo ritorna un materiale che ha id(id)
+     * @param id
+     * @return un MaterialeDidatticoBean
+     */
     public MaterialeDidatticoBean doRetriveById(int id){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
@@ -74,6 +92,11 @@ public class MaterialeDidatticoDao {
         }
     }
 
+    /**
+     * Elimina un materiale con id(id).
+     * @param id id del materiale da eliminare.
+     * @return true se il materiale viene elimanto, false altrimenti.
+     */
     public boolean doDelate(int id){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -94,6 +117,11 @@ public class MaterialeDidatticoDao {
         }
     }
 
+    /**
+     * Modifica un materiale presente sul database.
+     * @param m il materiale
+     * @return true se è stato modificato, false altrimenti.
+     */
     public boolean doUpdate(MaterialeDidatticoBean m){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement("UPDATE MaterialeDidattico SET nome = ?, pathFile = ?   WHERE id = " + m.getId());
@@ -111,6 +139,11 @@ public class MaterialeDidatticoDao {
         }
     }
 
+    /**
+     * Questo metodo ritorna il materiale di un Utente
+     * @param idUtente id del utente proprietario del materiale.
+     * @return il materiale del utente con id(id).
+     */
     public ArrayList<MaterialeDidatticoBean> doRetriveAllByIdUtente(int idUtente){
         ArrayList<MaterialeDidatticoBean> materiale = new ArrayList<>();
         try (Connection con = ConPool.getConnection()) {
@@ -132,6 +165,11 @@ public class MaterialeDidatticoDao {
         }
     }
 
+    /**
+     * Questo metodo ritorna il materiale di un Corso
+     * @param idCorso id del corso con il materiale.
+     * @return il materiale del corso con id(id).
+     */
     public ArrayList<MaterialeDidatticoBean> doRetriveAllByIdCorso(int idCorso){
         ArrayList<MaterialeDidatticoBean> materiale = new ArrayList<>();
         try (Connection con = ConPool.getConnection()) {
@@ -152,11 +190,6 @@ public class MaterialeDidatticoDao {
             throw new RuntimeException(e);
         }
     }
-
-
-
-
-
 
 
 }

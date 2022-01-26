@@ -16,15 +16,29 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
+/**
+ * Servlet dove utilizziamo i metodi per il singolo libretto
+ */
 @WebServlet(name = "LibrettoServlet", value = "/Libretto/*")
 public class LibrettoServlet extends HttpServlet {
 
     private final LibrettoService librettoService= new LibrettoServiceImpl();
 
+    /**
+     * Metodo doGet della servlet Libretto
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
+
+            /**
+             *  Caso per visualizzare un libretto
+             */
             case "/visualizzaLibretto":{//ho modificato questa classe per fare una prova
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
@@ -49,11 +63,21 @@ public class LibrettoServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Metodo doPost della servlet Libretto
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
 
+            /**
+             *  Caso per visualizzare un libretto
+             */
             case "/visualizzaLibretto":{
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizza.jsp").forward(request,response);
                 break;

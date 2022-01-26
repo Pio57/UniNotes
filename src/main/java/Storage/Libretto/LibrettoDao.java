@@ -139,7 +139,7 @@ public class LibrettoDao {
     /**
      * Elimina un Libretto con id(id).
      * @param id id del libretto da eliminare.
-     * @return true se il corso viene elimanto, false altrimenti.
+     * @return true se il libretto viene elimanto, false altrimenti.
      */
     public boolean doDelate(int id){
         try (Connection con = ConPool.getConnection()) {

@@ -28,10 +28,21 @@ public class EsameServlet extends HttpServlet {
     private final EsameService esameService= new EsameServiceImpl();
     private final LibrettoService librettoService= new LibrettoServiceImpl();
 
+    /**
+     * Metodo doGet della servlet Esame
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
+
+            /**
+             *  Caso per eliminare un esame
+             */
             case "/elimina":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
@@ -58,11 +69,23 @@ public class EsameServlet extends HttpServlet {
 
     }
 
+
+    /**
+     * Metodo doPost della servlet Esame
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         request.getSession().setAttribute("errors", null);
         switch (path){
+
+            /**
+             *  Caso per creare un esame
+             */
             case "/crea":{
 
                 HttpSession ssn = request.getSession();
@@ -157,6 +180,9 @@ public class EsameServlet extends HttpServlet {
                 break;
             }*/
 
+            /**
+             *  Caso per modificare un esame
+             */
             case "/modifica":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");

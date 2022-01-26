@@ -28,8 +28,10 @@ import java.util.ArrayList;
 
 
 
-//Manca lista preferiti
 
+/**
+ * Servlet dove utilizziamo i metodi per il singolo Utente
+ */
 @WebServlet(name = "UtenteServlet", value = "/Utente/*")
 public class UtenteServlet extends HttpServlet {
 
@@ -37,16 +39,31 @@ public class UtenteServlet extends HttpServlet {
     private final LibrettoService librettoService = new LibrettoServiceImpl();
     private final CorsoService corsoService = new CorsoServiceImpl();
     private final MaterialeDidatticoService materialeService = new MaterialeDidatticoServiceImpl();
+
+    /**
+     * Metodo doGet della servlet Utente
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
 
         switch (path){
+
+            /**
+             *  Caso per tornare alla login
+             */
             case "/":{
                 response.sendRedirect("/UniNotes_war_exploded/");
                 break;
             }
 
+            /**
+             *  Caso per tornare alla home
+             */
             case "/home":{
                 UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
                 if(u == null){
@@ -57,6 +74,9 @@ public class UtenteServlet extends HttpServlet {
                 break;
             }
 
+            /**
+             *  Caso per visualizzare la dashboard
+             */
             case "/dashboard":{
                 UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
                 if(u == null){
@@ -77,17 +97,26 @@ public class UtenteServlet extends HttpServlet {
                 break;
             }
 
+            /**
+             *  Caso per la registrazione
+             */
             case "/registrazione":{
                 request.getRequestDispatcher("/registrazione.jsp").forward(request,response);
                 break;
             }
 
+            /**
+             *  Caso per la login
+             */
             case "/login": {//login [adimn/studente]
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
                 break;
             }
 
-            case "/visualizzaUtenti":{ //visualizza utenti registrati [adimn]
+            /**
+             *  Caso per la visualizzazione di tutti gli utenti [admin]
+             */
+            case "/visualizzaUtenti":{
 
                 UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
                 if(u == null){
@@ -106,12 +135,18 @@ public class UtenteServlet extends HttpServlet {
                 break;
             }
 
+            /**
+             *  Caso per la visualizzazione della pagina personale
+             */
             case "/visualizzaPaginaPersonale":{ //visualizza utenti registrati [adimn]
 
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/paginaPersonale.jsp").forward(request, response);
                 break;
             }
 
+            /**
+             *  Caso per il logout
+             */
             case "/logout": {//logout [adimn/cliente]
                 HttpSession session = request.getSession(false);
                 session.removeAttribute("utente");
@@ -120,6 +155,9 @@ public class UtenteServlet extends HttpServlet {
                 break;
             }
 
+            /**
+             *  Caso per la visualizzazione delle faqs
+             */
             case "/faqs":{
 
                 UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
@@ -130,6 +168,10 @@ public class UtenteServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/partials/FAQs.jsp").forward(request,response);
                 break;
             }
+
+            /**
+             *  Caso per la visualizzazione della storia di UniNotes
+             */
             case "/un":{
 
                 UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
@@ -147,12 +189,22 @@ public class UtenteServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Metodo doPost della servlet Utente
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
 
         switch (path){
 
+            /**
+             *  Caso per la registrazione
+             */
             case "/registrazione":{ //login [adimn/studente/guest]
 
                 UtenteBean u;
@@ -233,6 +285,9 @@ public class UtenteServlet extends HttpServlet {
 
             }
 
+            /**
+             *  Caso per la login
+             */
             case "/login" : {//rivedere
                 UtenteBean utente = new UtenteBean();
 
@@ -288,7 +343,9 @@ public class UtenteServlet extends HttpServlet {
             }
 
 
-
+            /**
+             *  Caso per la modifica
+             */
             case "/modifica":{ //login [adimn/studente/guest]
 
                 HttpSession ssn = request.getSession();
@@ -346,7 +403,11 @@ public class UtenteServlet extends HttpServlet {
                     break;
                 }
             }
-            case "/toggleRuolo" : { //modifica stato studente [adimn]
+
+            /**
+             *  Caso per la modifica del tipo di utente [solo lato admin]
+             */
+            case "/toggleRuolo" : {
 
                 UtenteDao ud = new UtenteDao();
                 UtenteBean utente;
@@ -368,6 +429,9 @@ public class UtenteServlet extends HttpServlet {
                 break;
             }
 
+            /**
+             *  Caso per la visualizzazione delle faqs
+             */
             case "/faqs":{
 
                 UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
@@ -378,6 +442,10 @@ public class UtenteServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/partials/FAQs.jsp").forward(request,response);
                 break;
             }
+            
+            /**
+             *  Caso per la visualizzazione della storia di UniNotes
+             */
             case "/un":{
 
                 UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");

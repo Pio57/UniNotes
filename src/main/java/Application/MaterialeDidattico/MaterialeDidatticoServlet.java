@@ -24,6 +24,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Servlet dove utilizziamo i metodi per il singolo Materiale
+ */
 @WebServlet(name = "MaterialeDidatticoServlet", value = "/Materiale/*")
 @MultipartConfig
 public class MaterialeDidatticoServlet extends HttpServlet {
@@ -33,6 +36,13 @@ public class MaterialeDidatticoServlet extends HttpServlet {
     private final UtenteService utenteService = new UtenteServiceImpl();
     private final ListaPreferitiService listaPreferitiService = new ListaPreferitiImpl();
 
+    /**
+     * Metodo doGet della servlet MaterialeDidattico
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
@@ -43,6 +53,9 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                 break;
             }*/
 
+            /**
+             *  Caso per eliminare del materiale
+             */
             case "/elimina":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
@@ -64,6 +77,10 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/modifica.jsp").forward(request,response);
                 break;
             }*/
+
+            /**
+             *  Caso per visualizzare del materiale
+             */
             case "/visualizza":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
@@ -72,13 +89,17 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                     break;
                 }
                 if(u.isTipo()){
-                   request.setAttribute("materiale",materialeDidattico.visualizzaTutti());
+                    request.setAttribute("materiale",materialeDidattico.visualizzaTutti());
                 }else{
                     request.setAttribute("materiale",materialeDidattico.visualizzaMaterialeDiUnUtente(u.getIdUtente()));
                 }
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/visualizza.jsp").forward(request,response);
                 break;
             }
+
+            /**
+             *  Caso per visualizzare tutti i materiali
+             */
             case "/visualizzaTutti":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
@@ -127,11 +148,22 @@ public class MaterialeDidatticoServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Metodo doPost della servlet MaterialeDidattico
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
+
+            /**
+             *  Caso per inserire del materiale
+             */
             case "/inserireMateriale":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
@@ -178,28 +210,28 @@ public class MaterialeDidatticoServlet extends HttpServlet {
 
                 String uploadRoot = "/Users/piosantosuosso/Desktop/apache-tomcat-9.0.43/uploads/";
                 if(nome.matches(nomePattern) && fileName.length()>0){
-                        try (InputStream fileStream = filePart.getInputStream()) {
-                            File file = new File(uploadRoot + fileName);
-                            Files.copy(fileStream, file.toPath());
-                            materialeDidattico.inserireMateriale(nome,fileName,Integer.parseInt(idCorso),idUtente);
+                    try (InputStream fileStream = filePart.getInputStream()) {
+                        File file = new File(uploadRoot + fileName);
+                        Files.copy(fileStream, file.toPath());
+                        materialeDidattico.inserireMateriale(nome,fileName,Integer.parseInt(idCorso),idUtente);
 
-                            CorsoBean c = corsoService.visualizzaCorso(Integer.parseInt(idCorso));
-                            c.setListaMateriale(materialeDidattico.visualizzaMaterialeDiUnCorso(Integer.parseInt(idCorso)));
-                            c.setObservers(listaPreferitiService.visualizzaListaCorso(Integer.parseInt(idCorso)));
-                            c.aggiungiMateriale(new MaterialeDidatticoBean(nome,fileName));
+                        CorsoBean c = corsoService.visualizzaCorso(Integer.parseInt(idCorso));
+                        c.setListaMateriale(materialeDidattico.visualizzaMaterialeDiUnCorso(Integer.parseInt(idCorso)));
+                        c.setObservers(listaPreferitiService.visualizzaListaCorso(Integer.parseInt(idCorso)));
+                        c.aggiungiMateriale(new MaterialeDidatticoBean(nome,fileName));
 
-                            success.add("Salvataggio avvenuto con successo");
-                            ssn.setAttribute("success",success);
-                            request.setAttribute("idCorso",idCorso);
-                            request.getRequestDispatcher("/Corso/visualizza").forward(request,response);
-                            break;
-                        }catch (IOException e) {//se il file esiste gia
-                            errors.add("Esiste gia un file chiamato : " + e.getMessage().split("/")[(e.getMessage().split("/").length) - 1]);
-                            ssn.setAttribute("errore", errors);
-                            request.setAttribute("idCorso", idCorso);
-                            request.getRequestDispatcher("/Corso/visualizza").forward(request, response);
-                            break;
-                        }
+                        success.add("Salvataggio avvenuto con successo");
+                        ssn.setAttribute("success",success);
+                        request.setAttribute("idCorso",idCorso);
+                        request.getRequestDispatcher("/Corso/visualizza").forward(request,response);
+                        break;
+                    }catch (IOException e) {//se il file esiste gia
+                        errors.add("Esiste gia un file chiamato : " + e.getMessage().split("/")[(e.getMessage().split("/").length) - 1]);
+                        ssn.setAttribute("errore", errors);
+                        request.setAttribute("idCorso", idCorso);
+                        request.getRequestDispatcher("/Corso/visualizza").forward(request, response);
+                        break;
+                    }
                 }else{
                     ssn.setAttribute("errore", errors);
                     request.setAttribute("idCorso", idCorso);
@@ -218,6 +250,10 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                 break;
             }
           
+             */
+
+            /**
+             *  Caso per modificare del materiale
              */
             case "/modificaMateriale":{
                 HttpSession ssn = request.getSession();
