@@ -60,6 +60,8 @@ public class EsameServlet extends HttpServlet {
                 break;
 
             }
+            default:
+                throw new RuntimeException("Unexpected value: " + path);
             /*
             case "/modifica":{
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaEsame/modifica.jsp").forward(request,response);

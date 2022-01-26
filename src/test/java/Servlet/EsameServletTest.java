@@ -62,8 +62,6 @@ public class EsameServletTest {
         ud = Mockito.mock(UtenteDao.class);
     }
 
-
-
     @Test
     public void DoGetEliminaTest() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
@@ -170,13 +168,33 @@ public class EsameServletTest {
         when(request.getParameter("NomeProfessore")).thenReturn("123");
         when(request.getParameter("Cfu")).thenReturn("0");
         when(request.getParameter("Voto")).thenReturn("15");
-        when(request.getParameter("Data")).thenReturn("2020-12-12");
+        when(request.getParameter("Data")).thenReturn("");
 
 
         es.doPost(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
 
+    @Test
+    public void DoPostCreaTestIfNotMatches2() throws ServletException, IOException {
+        UtenteBean u = new UtenteBean();
+        u.setIdUtente(2);
+        LibrettoBean l = new LibrettoBean(0,0,0);
+
+        when(request.getPathInfo()).thenReturn("/crea");
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("utente")).thenReturn(u);
+        when(session.getAttribute("libretto")).thenReturn(l);
+        when(request.getParameter("Nome")).thenReturn("123");
+        when(request.getParameter("NomeProfessore")).thenReturn("123");
+        when(request.getParameter("Cfu")).thenReturn("13");
+        when(request.getParameter("Voto")).thenReturn("35");
+        when(request.getParameter("Data")).thenReturn("");
+
+
+        es.doPost(request,response);
+        verify(response,atLeastOnce()).sendRedirect(anyString());
+    }
 
     @Test
     public void DoPostModificaTest() throws ServletException, IOException {
@@ -219,7 +237,7 @@ public class EsameServletTest {
         when(request.getParameter("NomeProfessore")).thenReturn("123");
         when(request.getParameter("Cfu")).thenReturn("0");
         when(request.getParameter("Voto")).thenReturn("15");
-        when(request.getParameter("Data")).thenReturn("2020-12-12");
+        when(request.getParameter("Data")).thenReturn("");
 
 
         es.doPost(request,response);

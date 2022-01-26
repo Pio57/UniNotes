@@ -284,6 +284,7 @@ public class CorsoServletTest {
 
 
 
+
     @Test
     public void DoPostModificaUtenteNUllTest() throws ServletException, IOException {
         when(request.getPathInfo()).thenReturn("/modifica");
@@ -330,5 +331,13 @@ public class CorsoServletTest {
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
 
-    
+    @Test
+    public void DoPostVisualizza() throws ServletException, IOException {
+
+        when(request.getPathInfo()).thenReturn("/visualizza");
+        when(request.getSession()).thenReturn(session);
+        cs.doPost(request,response);
+    }
+
+
 }

@@ -111,6 +111,8 @@ public class ListaPreferitiServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaListaPreferiti/visualizzaListaPreferiti.jsp").forward(request,response);
                 break;
             }
+            default:
+                throw new RuntimeException("Unexpected value: " + path);
 
         }
     }

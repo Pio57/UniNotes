@@ -100,6 +100,19 @@ public class UtenteServletTest {
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
 
+
+    @Test
+    public void DoGetPathSbagliata() throws ServletException, IOException {
+        UtenteBean u = new UtenteBean();
+        u.setIdUtente(2);
+        when(request.getPathInfo()).thenReturn("aaa");
+        try {
+            us.doGet(request, response);
+        }catch (RuntimeException e){
+            assertTrue(e.getMessage().contains("Unexpected value: aaa"));
+        }
+    }
+
     @Test
     public void DoGethomeTest() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
@@ -412,7 +425,7 @@ public class UtenteServletTest {
         when(request.getParameter("Email")).thenReturn("prova123gmail.com");
         when(request.getParameter("Password")).thenReturn("sswo");
         when(request.getParameter("CPassword")).thenReturn("123");
-        when(request.getParameter("DataDiNascita")).thenReturn("2000-12-12");
+        when(request.getParameter("DataDiNascita")).thenReturn("");
         when(request.getParameter("checkbox")).thenReturn(null);
         when(request.getRequestDispatcher("/registrazione.jsp")).thenReturn(requestDispatcher);
 
@@ -449,6 +462,34 @@ public class UtenteServletTest {
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
 
+    @Test
+    public void DoPostLoginWithNumEsamiMaggioreDi1Test() throws ServletException, IOException, SQLException, NoSuchAlgorithmException {//riga 168
+        UtenteBean u = new UtenteBean();
+        u.setIdUtente(2);
+        u.setNome("Mario");
+
+
+        ArrayList<MaterialeDidatticoBean> materiali = new ArrayList<>();
+        ArrayList<UtenteBean> utenti = new ArrayList<>();
+        ArrayList<CorsoBean> corsi = new ArrayList<>();
+
+        utenti.add(new UtenteBean());
+        corsi.add(new CorsoBean());
+        materiali.add(new MaterialeDidatticoBean("ProvaMateriale","provaPath"));
+
+        when(request.getPathInfo()).thenReturn("/login");
+        when(request.getParameter("email")).thenReturn("pio57_2015@libero.it");
+        when(request.getParameter("password")).thenReturn("Pio2110");
+        when(request.getSession()).thenReturn(session);
+        when(request.getSession(false)).thenReturn(session);
+        when(request.getSession(true)).thenReturn(session);
+
+
+        us.doPost(request,response);
+        verify(response,atLeastOnce()).sendRedirect(anyString());
+    }
+
+
 
     @Test
     public void DoPostLoginTestUtenteNull() throws ServletException, IOException, SQLException, NoSuchAlgorithmException {//riga 168
@@ -461,6 +502,7 @@ public class UtenteServletTest {
         when(request.getPathInfo()).thenReturn("/login");
         when(request.getParameter("email")).thenReturn("Provawow123@gmail.com");
         when(request.getParameter("password")).thenReturn("d123poiS");
+
 
         us.doPost(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
@@ -511,6 +553,28 @@ public class UtenteServletTest {
         when(request.getParameter("DataDiNascita")).thenReturn("2000-12-12");
         us.doPost(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
+    }
+    @Test
+    public void DoPostModificaTestIfNotMatches() throws ServletException, IOException, SQLException, NoSuchAlgorithmException {//riga 168
+        UtenteBean u = new UtenteBean();
+        u.setIdUtente(2);
+
+
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("utente")).thenReturn(u);
+        when(request.getPathInfo()).thenReturn("/modifica");
+        when(request.getParameter("Nome")).thenReturn("");
+        when(request.getParameter("Cognome")).thenReturn("");
+        when(request.getParameter("CF")).thenReturn("");
+        when(request.getParameter("Email")).thenReturn("prova123gmail.com");
+        when(request.getParameter("Password")).thenReturn("123");
+        when(request.getParameter("CPassword")).thenReturn("123");
+        when(request.getParameter("DataDiNascita")).thenReturn("");
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
+
+        us.doPost(request,response);
+        verify(requestDispatcher,atLeastOnce()).forward(request,response);
     }
 
     @Test

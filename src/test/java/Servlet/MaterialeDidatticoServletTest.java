@@ -19,7 +19,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
+import java.util.Collection;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -210,6 +215,20 @@ public class MaterialeDidatticoServletTest {
         verify(response,atLeastOnce()).sendRedirect(anyString());
     }
 
+    @Test
+    public void DoPostInserisciMaterialeTestIfNotMatches() throws ServletException, IOException {
+        UtenteBean u = new UtenteBean();
+        u.setIdUtente(2);
+
+        when(request.getPathInfo()).thenReturn("/inserireMateriale");
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("utente")).thenReturn(null);
+        when(request.getParameter("Nome")).thenReturn("123");
+
+        ms.doPost(request,response);
+        verify(response,atLeastOnce()).sendRedirect(anyString());
+    }
+
 
     @Test
     public void DoPostModificaMaterialeTestUtenteNull() throws ServletException, IOException {
@@ -218,7 +237,10 @@ public class MaterialeDidatticoServletTest {
 
         when(request.getPathInfo()).thenReturn("/modificaMateriale");
         when(request.getSession()).thenReturn(session);
+        when(request.getParameter("IdCorso")).thenReturn("4");
         when(session.getAttribute("utente")).thenReturn(null);
+        when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
+
 
         ms.doPost(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());
