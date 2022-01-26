@@ -7,8 +7,16 @@ import Storage.Libretto.LibrettoBean;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Classe implementata per le operazioni sul database.
+ */
 public class UtenteDao {
-
+    /**
+     * Metodo per salvare un nuovo Utente (UtenteBean).
+     * @param utente Nuovo utente da inserire new DataBase.
+     * @return true se è stato salvato, false altrimenti.
+     * @throws SQLException
+     */
    public UtenteBean doSave(UtenteBean utente) throws SQLException {
        try(Connection con = ConPool.getConnection()) {
            PreparedStatement ps = con.prepareStatement(
@@ -38,6 +46,11 @@ public class UtenteDao {
        }
    }
 
+    /**
+     * Ritirna tutti gli utenti presenti nel Database.
+     * @return Lista di tutti gli utenti presenti nel Datobase.
+     */
+
    public ArrayList<UtenteBean> doRetriveAll(){
        ArrayList<UtenteBean> utenti = new ArrayList<>();
        try (Connection con = ConPool.getConnection()) {
@@ -55,6 +68,11 @@ public class UtenteDao {
        }
    }
 
+    /**
+     * Questo metodo ritorna un Utente che ha id(id).
+     * @param id id dell'utente da ritornare.
+     * @return il Utente con id(id).
+     */
        public UtenteBean doRetriveById ( int id){
            try (Connection con = ConPool.getConnection()) {
                PreparedStatement ps =
@@ -77,6 +95,10 @@ public class UtenteDao {
 
        }
 
+    /**
+     * Elimina un Utente con id(id).
+     * @param id id dell'utente da eliminare.
+     */
 
     public void doDelate(int id) {
         try (Connection con = ConPool.getConnection()) {
@@ -117,6 +139,11 @@ public class UtenteDao {
         }
     }
 
+    /**
+     * Modifica un utente presente sul database.
+     * @param u l'utente con i parametri modificati.
+     * @return true se è stato modificato, false altrimenti.
+     */
     public boolean doUpdateAdmin(UtenteBean u) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement("UPDATE Utente SET tipo = "+!u.isTipo()+" WHERE id ="+ u.getIdUtente());

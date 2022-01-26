@@ -6,9 +6,14 @@ import Storage.Utente.UtenteExtractor;
 
 import java.sql.*;
 import java.util.ArrayList;
-
+    /**
+     * Classe implementata per le operazioni sul database.
+     */
 public class EsameDao {
-
+    /**
+     * Metodo che ritorna tutti gli esami presenti nel DB
+     * @return l'arrei di esami presenti nel DB
+     */
     public ArrayList<EsameBean> doRetriveAll(){
         ArrayList<EsameBean> esameBeans = new ArrayList<>();
         try (Connection con = ConPool.getConnection()) {
@@ -29,6 +34,12 @@ public class EsameDao {
         }
     }
 
+        /**
+         * Metodo per salvare un nuovo Esame(EsameBean)
+         * @param esameBean Nuovo esame da inserire new DataBase
+         * @param idLibretto Nuovo id del libretto da inserire new DataBase
+         * @return true se è stato salvato, false altrimenti.
+         */
     public boolean doSave(EsameBean esameBean,int idLibretto) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -56,7 +67,11 @@ public class EsameDao {
         }
     }
 
-
+        /**
+         * Questo metodo ritorna un Esame che ha id(id).
+         * @param id è l'id dell'esame da ritornare.
+         * @return l'Esame con id(id).
+         */
     public EsameBean doRetriveById(int id){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =con.prepareStatement("SELECT * FROM  Esame e  WHERE e.id = ?");
@@ -77,6 +92,11 @@ public class EsameDao {
         }
     }
 
+        /**
+         * Elimina un Esame con id(id).
+         * @param id id dell'esame da eliminare.
+         * @return true se l'esame viene elimanto, false altrimenti.
+         */
     public boolean doDelate(int id){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement("DELETE FROM Esame e WHERE id = ?", Statement.RETURN_GENERATED_KEYS);
@@ -94,6 +114,11 @@ public class EsameDao {
         }
     }
 
+        /**
+         * Modifica un esame presente sul database.
+         * @param eb l' esame con i parametri modificati.
+         * @return true se è stato modificato, false altrimenti
+         */
 
     public boolean doUpdate(EsameBean eb){
         try (Connection con = ConPool.getConnection()) {
