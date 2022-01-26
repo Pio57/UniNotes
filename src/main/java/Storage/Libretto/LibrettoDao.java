@@ -8,9 +8,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
+/**
+ * Classe implementata per le operazioni sul database.
+ */
 public class LibrettoDao {
 
 
+    /**
+     * Metodo per salvare un nuovo Libretto (LibrettoBean).
+     * @param l Nuovo libretto da inserire nel DataBase.
+     * @return true se è stato salvato, false altrimenti.
+     */
     public boolean doSave(LibrettoBean l){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -37,8 +46,10 @@ public class LibrettoDao {
     }
 
 
-
-
+    /**
+     * Ritirna tutti i libretti presenti nel Database.
+     * @return Lista di tutti i libretti presenti nel Datobase.
+     */
     public ArrayList<LibrettoBean> doRetriveAll(){    // da vedere
         ArrayList<LibrettoBean> lb = new ArrayList<>();
         ArrayList<EsameBean> esameBeans=new ArrayList<>();;
@@ -63,8 +74,11 @@ public class LibrettoDao {
     }
 
 
-
-
+    /**
+     * Questo metodo ritorna un Libretto che ha id(id)
+     * @param id id del libretto da ritornare.
+     * @return il Libretto con id(id).
+     */
     public LibrettoBean doRetriveById(int id){
         ArrayList<EsameBean> eb = new ArrayList<>();
         try (Connection con = ConPool.getConnection()) {
@@ -95,7 +109,11 @@ public class LibrettoDao {
         }
     }
 
-
+    /**
+     * Questo metodo ritorna il libretto di un Utente
+     * @param idUtente id del utente proprietario del libretto.
+     * @return il Libretto del utente con id(id).
+     */
     public LibrettoBean doRetriveByIdUtente(int idUtente){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT * FROM libretto l, Utente u WHERE (l.id = u.idLibretto) AND u.id = ?");
@@ -118,7 +136,11 @@ public class LibrettoDao {
         }
     }
 
-
+    /**
+     * Elimina un Libretto con id(id).
+     * @param id id del libretto da eliminare.
+     * @return true se il corso viene elimanto, false altrimenti.
+     */
     public boolean doDelate(int id){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -136,6 +158,11 @@ public class LibrettoDao {
 
     }
 
+    /**
+     *  Modifica un libretto presente sul database.
+     * @param lb il libretto con i parametri modificati.
+     * @return true se è stato modificato, false altrimenti.
+     */
     public boolean doUpdate(LibrettoBean lb){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement("UPDATE Libretto SET numEsami = ?,media = ? ,crediti = ? WHERE id = "+ lb.getIdLibretto()+"");

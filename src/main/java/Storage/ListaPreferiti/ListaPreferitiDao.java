@@ -10,8 +10,18 @@ import Storage.Utente.UtenteExtractor;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Classe implementata per le operazioni sul database.
+ */
 public class ListaPreferitiDao {
 
+    /**
+     * Metodo per salvare una nuova corrispondenza nella lista dell'utente
+     * con id del utente e id del corso.
+     * @param idUtente id del utente che è interessato al corso.
+     * @param idCorso id del corso a cui l'utente è interessato.
+     * @return true se è stato salvato, false altrimenti.
+     */
     public boolean doSave(int idUtente, int idCorso) {
 
         try (Connection con = ConPool.getConnection()) {
@@ -38,6 +48,11 @@ public class ListaPreferitiDao {
         return false;
     }
 
+    /**
+     * Ritorna tutti i corsi che un utente ha nella sua lista preferiti.
+     * @param id del utente.
+     * @return una lista preferiti (ListaPreferitiBean).
+     */
     public ListaPreferitiBean doRetriveAllByIdUtente(int id) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
@@ -67,7 +82,11 @@ public class ListaPreferitiDao {
     }
 
 
-
+    /**
+     * Ritorna tutti gli utenti che sono interessati ad un corso.
+     * @param idCorso del corso interessato.
+     * @return la lista di tutti gli utenti interessati a quel corso.
+     */
     public ArrayList<UtenteBean> doRetriveAllByIdCorso(int idCorso) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps =
@@ -95,6 +114,11 @@ public class ListaPreferitiDao {
         return null;
     }
 
+    /**
+     * Elimina una corso dalla lista preferiti del utente.
+     * @param idUtente id del utente.
+     * @param idCorso id del corso.
+     */
     public void doDelateCorso(int idUtente, int idCorso) {
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(

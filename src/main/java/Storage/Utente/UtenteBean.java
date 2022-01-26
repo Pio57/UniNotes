@@ -184,7 +184,6 @@ public class UtenteBean implements Observer{
     }
 
 
-
     @Override
     public void update() {
         EmailSender emailSender = EmailSender.GetInstance();

@@ -347,6 +347,7 @@ public class UtenteServletTest {
         when(request.getParameter("Password")).thenReturn("password123");
         when(request.getParameter("CPassword")).thenReturn("password123");
         when(request.getParameter("DataDiNascita")).thenReturn("2000-12-12");
+        when(request.getParameter("checkbox")).thenReturn("on");
         when(request.getParameter(anyString())).thenReturn("parola");
         when(request.getRequestDispatcher("/registrazione.jsp")).thenReturn(requestDispatcher);
 
@@ -380,6 +381,7 @@ public class UtenteServletTest {
         when(request.getParameter("Password")).thenReturn("Password123");
         when(request.getParameter("CPassword")).thenReturn("Password123");
         when(request.getParameter("DataDiNascita")).thenReturn("2000-12-12");
+        when(request.getParameter("checkbox")).thenReturn("on");
         when(request.getSession(false)).thenReturn(session);
         when(request.getSession(true)).thenReturn(session);
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
@@ -411,7 +413,7 @@ public class UtenteServletTest {
         when(request.getParameter("Password")).thenReturn("sswo");
         when(request.getParameter("CPassword")).thenReturn("123");
         when(request.getParameter("DataDiNascita")).thenReturn("2000-12-12");
-
+        when(request.getParameter("checkbox")).thenReturn(null);
         when(request.getRequestDispatcher("/registrazione.jsp")).thenReturn(requestDispatcher);
 
 
@@ -438,6 +440,7 @@ public class UtenteServletTest {
         when(request.getPathInfo()).thenReturn("/login");
         when(request.getParameter("email")).thenReturn("prova123@gmail.com");
         when(request.getParameter("password")).thenReturn("Password123");
+        when(request.getSession()).thenReturn(session);
         when(request.getSession(false)).thenReturn(session);
         when(request.getSession(true)).thenReturn(session);
 
@@ -450,6 +453,7 @@ public class UtenteServletTest {
     @Test
     public void DoPostLoginTestUtenteNull() throws ServletException, IOException, SQLException, NoSuchAlgorithmException {//riga 168
         UtenteBean ut = null;
+        when(request.getSession()).thenReturn(session);
         when(request.getSession(false)).thenReturn(session);
         when(request.getSession(true)).thenReturn(session);
         when(request.getSession()).thenReturn(session);
@@ -457,7 +461,6 @@ public class UtenteServletTest {
         when(request.getPathInfo()).thenReturn("/login");
         when(request.getParameter("email")).thenReturn("Provawow123@gmail.com");
         when(request.getParameter("password")).thenReturn("d123poiS");
-
 
         us.doPost(request,response);
         verify(response,atLeastOnce()).sendRedirect(anyString());

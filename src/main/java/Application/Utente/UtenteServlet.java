@@ -172,8 +172,7 @@ public class UtenteServlet extends HttpServlet {
                 String password = request.getParameter("Password");
                 String confermaPassword = request.getParameter("CPassword");
                 String data = request.getParameter("DataDiNascita");
-                String checkbox = request.getParameter("checkbox");
-                System.out.println(checkbox);
+                String checkbox = request.getParameter("checkbox");;
                 ArrayList<String> errors = new ArrayList<>();
 
                 if(!email.matches(emailPattern)){

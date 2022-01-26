@@ -42,6 +42,7 @@ public class MaterialeDidatticoServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaMateriale/crea.jsp").forward(request,response);
                 break;
             }*/
+
             case "/elimina":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");

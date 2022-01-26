@@ -8,8 +8,16 @@ import Storage.MaterialeDidattico.MaterialeDidatticoExtractor;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Classe implementata per le operazioni sul database.
+ */
 public class CorsoDao {
 
+    /**
+     * Metodo per salvare un nuovo Corso (CorsoBean).
+     * @param c Nuovo corso da inserire new DataBase.
+     * @return true se è stato salvato, false altrimenti.
+     */
     public boolean doSave(CorsoBean c){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -36,8 +44,10 @@ public class CorsoDao {
     }
 
 
-
-
+    /**
+     * Ritirna tutti i corsi presenti nel Database.
+     * @return Lista di tutti i corsi presenti nel Datobase.
+     */
     public ArrayList<CorsoBean> doRetriveAll(){//l'implementazione non è una delle migliori
 
         ArrayList<CorsoBean> corsi = new ArrayList<>();
@@ -66,8 +76,11 @@ public class CorsoDao {
     }
 
 
-
-
+    /**
+     * Questo metodo ritorna un Corso che ha id(id).
+     * @param id id del corso da ritornare.
+     * @return il Corso con id(id).
+     */
     public CorsoBean doRetriveById(int id){
         ArrayList<MaterialeDidatticoBean> materiali = new ArrayList<>();
         try (Connection con = ConPool.getConnection()) {
@@ -95,7 +108,11 @@ public class CorsoDao {
         }
     }
 
-
+    /**
+     * Elimina un Corso con id(id).
+     * @param id id del corso da eliminare.
+     * @return true se il corso viene elimanto, false altrimenti.
+     */
     public boolean doDelate(int id){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement(
@@ -116,6 +133,11 @@ public class CorsoDao {
 
     }
 
+    /**
+     * Modifica un corso presente sul database.
+     * @param c Il corso con i parametri modificati.
+     * @return true se è stato modificato, false altrimenti.
+     */
     public boolean doUpdate(CorsoBean c){
         try (Connection con = ConPool.getConnection()) {
             PreparedStatement ps = con.prepareStatement("UPDATE Corso SET nome = ?,descrizione = ? ,nomeProfessore = ? WHERE id = " + c.getId()+"");

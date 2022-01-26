@@ -20,6 +20,9 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Servlet dove utilizziamo i metodi per il singolo corso
+ */
 @WebServlet(name = "CorsoServlet", value = "/Corso/*")
 public class CorsoServlet extends HttpServlet {
 
@@ -29,14 +32,32 @@ public class CorsoServlet extends HttpServlet {
     private final ListaPreferitiService listaPreferitiService = new ListaPreferitiImpl();
 
 
+    /**
+     * Metodo doGet della servlet Corso
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         switch (path){
+
+
+            /**
+             *  Caso per creare un corso
+             */
             case "/crea":{
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/crea.jsp").forward(request,response);
                 break;
             }
+
+
+            /**
+             *  Caso per eliminare un corso
+             */
             case "/elimina":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
@@ -53,10 +74,19 @@ public class CorsoServlet extends HttpServlet {
                 break;
 
             }
+
+
+            /**
+             *  Caso per modificare un corso
+             */
             case "/modifica":{
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/modifica.jsp").forward(request,response);
                 break;
             }
+
+            /**
+             *  Caso per visualizzare un corso
+             */
             case "/visualizza":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) ssn.getAttribute("utente");
@@ -73,6 +103,11 @@ public class CorsoServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizza.jsp").forward(request,response);
                 break;
             }
+
+
+            /**
+             *  Caso per visualizzare tutti i corsi lato admin
+             */
             case "/visualizzaTutti":{//admin
 
                 HttpSession ssn = request.getSession();
@@ -90,6 +125,10 @@ public class CorsoServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaUtente/dashboard/corsi.jsp").forward(request,response);
                 break;
             }
+
+            /**
+             *  Caso per visualizzare tutti i corsi lato utente registrato
+             */
             case "/visualizzaTuttiUtente":{//utente
 
                 HttpSession ssn = request.getSession();
@@ -125,16 +164,28 @@ public class CorsoServlet extends HttpServlet {
             }
 
              */
+
             default:
                 throw new RuntimeException("Unexpected value: " + path);
         }
     }
 
+    /**
+     * Metodo doPost della servlet Corso
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
         request.getSession().setAttribute("errors", null);
         switch (path){
+
+            /**
+             *  Caso per creare un corso
+             */
             case "/crea":{
                 UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
                 HttpSession ssn = request.getSession();
@@ -195,6 +246,9 @@ public class CorsoServlet extends HttpServlet {
                 break;
             }*/
 
+            /**
+             *  Caso per modificare un corsi
+             */
             case "/modifica":{
                 HttpSession ssn = request.getSession();
                 UtenteBean u = (UtenteBean) request.getSession().getAttribute("utente");
@@ -242,6 +296,9 @@ public class CorsoServlet extends HttpServlet {
 
             }
 
+            /**
+             *  Caso per visualizzare un corso
+             */
             case "/visualizza":{//questo richiama doget per quanto riguarda gli errori
                 doGet(request,response);
                 break;

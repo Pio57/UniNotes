@@ -13,15 +13,27 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-
+/**
+ * Classe per la generazione e l'invio di un email
+ */
 public class EmailSender {
 
+    /**
+     * Rappresenta l'unica istanza di EmailSender
+     */
     private static EmailSender instance;
 
+    /**
+     * Costruttore di EmailSender
+     */
     private EmailSender(){
         this(EmailSender.EMAIL, EmailSender.PASSWORD);
     }
 
+    /**
+     * Metodo per ottenere un'istanza di EmailSender.
+     * @return l'istanza di EmailSender.
+     */
     public static EmailSender GetInstance(){
         if(instance == null)
             instance = new EmailSender();
@@ -29,6 +41,11 @@ public class EmailSender {
         return instance;
     }
 
+    /**
+     * Costruttore di EmailSender
+     * @param email email del account di UniNotes.
+     * @param password password del account di UniNotes.
+     */
     private EmailSender(String email, String password){
         this.email = email;
         this.password = password;
@@ -42,6 +59,13 @@ public class EmailSender {
         this.emailProperties.setProperty("mail.smtp.auth", "true");
     }
 
+    /**
+     * Metodo per mandare un'email.
+     * @param email_subject Oggetto dell'email.
+     * @param email_message Messaggio da inviare.
+     * @param addressList Indirizzo email dove inviare l'email.
+     * @return true se l'email è stata inviata, false altrimenti.
+     */
     public boolean SendEmail(String email_subject, String email_message, String addressList)
     {
         try {
@@ -53,6 +77,13 @@ public class EmailSender {
         }
     }
 
+    /**
+     * Metodo per mandare un'email.
+     * @param email_subject Oggetto dell'email.
+     * @param email_message Messaggio da inviare.
+     * @param address Lista di indirizzi email dove inviare l'email.
+     * @return true se l'email è stata inviata, false altrimenti.
+     */
     public boolean SendEmail(String email_subject, String email_message, InternetAddress[] address){
         Session session = Session.getInstance(this.emailProperties, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
