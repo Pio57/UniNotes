@@ -315,51 +315,6 @@
                 </div>
             </div>
 
-
-
-
-
-            <!--    TABELLA CLASSICA
-            <div class="table-responsive">
-                <table class="table table-striped table-sm">
-                    <thead>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Cognome</th>
-                        <th scope="col">Cf</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Data di nascita</th>
-                        <th scope="col">Ruolo</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${utenti}" var="u">
-                        <tr>
-                            <td>${u.getIdUtente()}</td>
-                            <td>${u.getNome()}</td>
-                            <td>${u.getCognome()}</td>
-                            <td>${u.getCf()}</td>
-                            <td>${u.getEmail()}</td>
-                            <td>${u.getDdn()}</td>
-                            <c:if test="${u.isTipo()}">
-                                <td>Amministratore</td>
-                            </c:if>
-                            <c:if test="${!u.isTipo()}">
-                                <td>Studente</td>
-                            </c:if>
-                        </tr>
-
-                    </c:forEach>
-
-                    <tr>
-
-                    </tr>
-                    </tbody>
-                </table>
-
-            </div>
-             -->
         </main>
     </div>
 </div>

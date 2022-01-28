@@ -30,7 +30,7 @@
     <div id="carouselExampleDark" class="carousel carousel-dark slide " data-bs-ride="carousel">
         <div class="carousel-inner  " >
             <div class="carousel-item active" data-bs-interval="10000">
-                <img src="../img/fotocorso.jpg" class="img-thumbnail" alt="...">
+                <img src="../img/fotocorso.png" height="80%" width="80%" class="img-thumbnail" alt="...">
                 <div class="carousel-caption d-none d-md-block" style="border-radius: 20px; background-color: rgba(155,152,152,0.4)">
                     <h2 style="color: white"><strong>SCOPRI TUTTI I CORSI CON IL RELATIVO MATERIALE!!</strong></h2>
                     <p></p>
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="carousel-item" data-bs-interval="2000">
-                <img src="../img/lib.jpg" class="d-block w-80" alt="...">
+                <img src="../img/prova.jpg" class="d-block w-80" alt="...">
                 <div class="carousel-caption d-none d-md-block" style="border-radius: 20px; background-color: rgba(155,152,152,0.4)">
                     <h2 style="color: white"><strong>MANTIENI AGGIORNATO IL TUO LIBRETTO CON TUTTI I TUOI ESAMI!!</strong></h2>
                     <p></p>

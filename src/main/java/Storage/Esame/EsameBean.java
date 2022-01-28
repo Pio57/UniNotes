@@ -21,6 +21,7 @@ public class EsameBean {
      * @return la stringa con le informazioni di un esame
      */
 
+
     @Override
     public String toString() {
         return "EsameBean{" +
