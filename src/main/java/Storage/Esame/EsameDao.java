@@ -35,7 +35,6 @@ public class EsameDao {
                     "INSERT INTO Esame (nome, voto, cfu, dataEsame, nomeProfessore, idLibretto) VALUES(?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
 
-            System.out.println(idLibretto);
 
             ps.setString(1, esameBean.getNome());
             ps.setFloat(2, esameBean.getVoto());
@@ -97,7 +96,7 @@ public class EsameDao {
 
     public boolean doUpdate(EsameBean eb){
         try (Connection con = ConPool.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("UPDATE Esame e SET nome=?, voto=?, cfu=?, dataEsame=?, nomeProfessore=? WHERE id = " + eb.getId()+"");
+            PreparedStatement ps = con.prepareStatement("UPDATE Esame e SET nome=?, voto=?, cfu=?, dataEsame=?, nomeProfessore=? WHERE id = "+ eb.getId()+"");
             ps.setString(1, eb.getNome());
             ps.setFloat(2,eb.getVoto());
             ps.setInt(3,eb.getCfu());

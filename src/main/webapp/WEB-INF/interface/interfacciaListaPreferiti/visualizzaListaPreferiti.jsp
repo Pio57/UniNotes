@@ -11,7 +11,7 @@
     <link id="pagestyle" href="../assets/css/material-dashboard.min.css?v=3.0.0" rel="stylesheet">
 
     <jsp:include page="/WEB-INF/interface/partials/head.jsp">
-        <jsp:param name="title" value="UniNotes-Home"/>
+        <jsp:param name="title" value="UniNotes-ListaPreferiti"/>
         <jsp:param name="style" value=""/>
         <jsp:param name="script" value="dashboard"/>
     </jsp:include>

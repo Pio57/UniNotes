@@ -13,7 +13,7 @@
 
 
     <jsp:include page="/WEB-INF/interface/partials/head.jsp">
-        <jsp:param name="title" value="UniNotes-Home"/>
+        <jsp:param name="title" value="UniNotes-UN"/>
         <jsp:param name="style" value="un"/>
         <jsp:param name="script" value=""/>
     </jsp:include>

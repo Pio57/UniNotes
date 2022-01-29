@@ -46,14 +46,17 @@ public class LibrettoServlet extends HttpServlet {
                     response.sendRedirect("/UniNotes_war_exploded/");
                     break;
                 }
-
+/*
                 LibrettoBean l = librettoService.visualizzaLibretto(u.getLibretto().getIdLibretto());
                 if(l != null){
                     u.setLibretto(l);
                 }else{
                     u.setLibretto(librettoService.visualizzaLibrettoDiUtente(u.getIdUtente()));
                 }
-                ssn.setAttribute("libretto",u.getLibretto());
+
+ */
+                System.out.println(u.getLibretto().getIdLibretto());
+                ssn.setAttribute("libretto",librettoService.visualizzaLibretto(u.getLibretto().getIdLibretto()));
                 ssn.setAttribute("utente",u);
                 request.getRequestDispatcher("/WEB-INF/interface/interfacciaLibretto/visualizzaLibretto.jsp").forward(request,response);
                 break;

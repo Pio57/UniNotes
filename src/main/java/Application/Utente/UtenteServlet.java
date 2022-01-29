@@ -312,11 +312,9 @@ public class UtenteServlet extends HttpServlet {
                     if(utente != null){
                         request.getSession(false).invalidate();
                         LibrettoBean librettoConIdUtente = librettoService.visualizzaLibrettoDiUtente(utente.getIdUtente());
-                        if(librettoConIdUtente.getNunEsami()>1)
-                            utente.setLibretto(librettoService.visualizzaLibretto(librettoConIdUtente.getIdLibretto()));
-                        else
-                            utente.setLibretto(librettoConIdUtente);
                         HttpSession ssn = request.getSession(true);
+                        utente.setLibretto(librettoService.visualizzaLibretto(librettoConIdUtente.getIdLibretto()));
+                        ssn.setAttribute("libretto",librettoService.visualizzaLibretto(librettoConIdUtente.getIdLibretto()));
                         ssn.setAttribute("utente", utente);
                         ssn.setMaxInactiveInterval(86400);
                         response.sendRedirect("/UniNotes_war_exploded/Utente/home");

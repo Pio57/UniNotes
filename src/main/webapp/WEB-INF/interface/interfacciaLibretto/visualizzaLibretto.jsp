@@ -6,16 +6,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.88.1">
-    <title>Dashboard Template · Bootstrap v5.1</title>
-
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
 
     <link id="pagestyle" href="../assets/css/material-dashboard.min.css?v=3.0.0" rel="stylesheet">
 
     <jsp:include page="/WEB-INF/interface/partials/head.jsp">
-        <jsp:param name="title" value="UniNotes-Home"/>
+        <jsp:param name="title" value="UniNotes-Libretto"/>
         <jsp:param name="style" value=""/>
         <jsp:param name="script" value="dashboard"/>
     </jsp:include>

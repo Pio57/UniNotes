@@ -21,7 +21,7 @@ public interface EsameService {
      * @param idLibretto
      * @return un EsameBean
      */
-    public EsameBean inserisciEsame(String nome, String nomeProfessore, float voto, int cfu, LocalDate data,int idLibretto);
+    public EsameBean inserisciEsame(String nome, String nomeProfessore, int voto, int cfu, LocalDate data,int idLibretto);
 
     /**
      * Firma del metodo che implementa la funzionalità di eliminazione di un singolo esame
@@ -41,5 +41,5 @@ public interface EsameService {
      * @param data
      * @return un EsameBean
      */
-    public EsameBean modificaEsame(int id,String nome, String nomeProfessore, float voto, int cfu, LocalDate data);
+    public EsameBean modificaEsame(int id,String nome, String nomeProfessore, int voto, int cfu, LocalDate data);
 }

@@ -108,6 +108,16 @@ public class LibrettoBean{
         }
     }
 
+    public void eliminaEsame(int idEsame){
+        EsameBean es = null;
+        for(EsameBean e : listaEsami){
+            if(e.getId() == idEsame)
+                es = e;
+        }
+        listaEsami.remove(es);
+        aggiorna();
+    }
+
     /**
      * Questo metodo è realizzato per aggiornare
      * lo stato del libretto con quello del DataBase
@@ -119,6 +129,10 @@ public class LibrettoBean{
             cfuCrediti+=e.getCfu();
             media = calcolaMedia();
         }
+        if(numEsami == 0){
+            media = 0;
+        }
+
     }
 
     /**

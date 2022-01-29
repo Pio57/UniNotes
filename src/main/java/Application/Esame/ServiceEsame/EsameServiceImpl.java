@@ -24,7 +24,7 @@ public class EsameServiceImpl implements EsameService{
      * @param idLibretto
      * @return un EsameBean
      */
-    public EsameBean inserisciEsame(String nome, String nomeProfessore, float voto, int cfu, LocalDate data,int idLibretto){
+    public EsameBean inserisciEsame(String nome, String nomeProfessore, int voto, int cfu, LocalDate data,int idLibretto){
         EsameDao ed = new EsameDao();
         EsameBean e=new EsameBean();
         e.setCfu(cfu);
@@ -60,7 +60,7 @@ public class EsameServiceImpl implements EsameService{
      * @param data
      * @return un EsameBean
      */
-    public EsameBean modificaEsame(int id,String nome, String nomeProfessore, float voto, int cfu, LocalDate data){ /// da rivedere
+    public EsameBean modificaEsame(int id,String nome, String nomeProfessore, int voto, int cfu, LocalDate data){ /// da rivedere
         EsameDao ed = new EsameDao();
         EsameBean e=new EsameBean();
         e.setId(id);

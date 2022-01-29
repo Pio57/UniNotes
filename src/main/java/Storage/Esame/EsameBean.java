@@ -9,10 +9,9 @@ import java.time.LocalDate;
  * l'id del esame e la data in qui è stato sostenuto
  * l'esame.
  */
-
 public class EsameBean {
     private String nome,nomeProfessore;
-    private float voto;
+    private int voto;
     private int cfu,id;
     private LocalDate data;
 
@@ -44,7 +43,7 @@ public class EsameBean {
      * @param data è la data in cui lo studente ha sostenuto l'esame
      * @param id è l'id dell'esme
      */
-    public EsameBean(String nome, String nomeProfessore, float voto, int cfu, LocalDate data, int id){
+    public EsameBean(String nome, String nomeProfessore, int voto, int cfu, LocalDate data, int id){
         this.nome=nome;
         this.nomeProfessore=nomeProfessore;
         this.voto=voto;
@@ -61,7 +60,7 @@ public class EsameBean {
      * @param cfu è il credito che da tale esame
      * @param data è la data in cui lo studente ha sostenuto l'esame
      */
-    public EsameBean(String nome,String nomeProfessore,float voto,int cfu,LocalDate data){
+    public EsameBean(String nome,String nomeProfessore,int voto,int cfu,LocalDate data){
         this.nome=nome;
         this.nomeProfessore=nomeProfessore;
         this.voto=voto;
@@ -111,7 +110,7 @@ public class EsameBean {
      * Metodo che restituisce il voto
      * @return il voto ottenuto dall'esame
      */
-    public float getVoto() {
+    public int getVoto() {
         return voto;
     }
 
@@ -119,7 +118,7 @@ public class EsameBean {
      * Metodo che setta il voto
      * @param voto è il voto ottenuto dall'esame
      */
-    public void setVoto(float voto) {
+    public void setVoto(int voto) {
         this.voto = voto;
     }
 

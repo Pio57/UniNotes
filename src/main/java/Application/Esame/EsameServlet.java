@@ -53,6 +53,10 @@ public class EsameServlet extends HttpServlet {
                 }
                 int id = Integer.parseInt(request.getParameter("id"));
                 if(esameService.eliminaEsame(id)){
+                    u.getLibretto().eliminaEsame(id);
+                    librettoService.modificaLibretto(u.getLibretto());
+                    u.setLibretto(librettoService.visualizzaLibretto(u.getLibretto().getIdLibretto()));
+                    ssn.setAttribute("libretto",u.getLibretto());
                     response.sendRedirect("/UniNotes_war_exploded/Libretto/visualizzaLibretto");
                     break;
                 }
@@ -62,11 +66,7 @@ public class EsameServlet extends HttpServlet {
             }
             default:
                 throw new RuntimeException("Unexpected value: " + path);
-            /*
-            case "/modifica":{
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaEsame/modifica.jsp").forward(request,response);
-                break;
-            }*/
+
         }
 
     }
@@ -152,8 +152,6 @@ public class EsameServlet extends HttpServlet {
 
 
                 if (nome.matches(nomePattern) && nomeProfessore.matches(nomePattern) && voto>=18 && voto<=31 && cfu>=1 && cfu<=12 && Data != null) {
-
-                    l = librettoService.visualizzaLibrettoDiUtente(u.getIdUtente());
                     l.aggiungiEsame(new EsameBean(nome,nomeProfessore,voto,cfu,LocalDate.parse(Data)));
                     u.setLibretto(l);
                     esameService.inserisciEsame(nome,nomeProfessore,voto,cfu,LocalDate.parse(Data),l.getIdLibretto());
@@ -247,9 +245,10 @@ public class EsameServlet extends HttpServlet {
 
 
                 if (nome.matches(nomePattern) && nomeProfessore.matches(nomePattern ) && voto>=18 && voto<=31 && cfu>=1 && cfu<=12 && Data!=null) {
-                    l.aggiungiEsame(new EsameBean(nome,nomeProfessore,voto,cfu,LocalDate.parse(Data)));
-                    u.setLibretto(l);
                     esameService.modificaEsame(id,nome,nomeProfessore,voto,cfu,LocalDate.parse(Data));
+                    u.setLibretto(librettoService.visualizzaLibretto(u.getLibretto().getIdLibretto()));
+                    librettoService.modificaLibretto(u.getLibretto());
+                    ssn.setAttribute("libretto",u.getLibretto());
                     response.sendRedirect("/UniNotes_war_exploded/Libretto/visualizzaLibretto");
                     break;
                 }else{
@@ -263,15 +262,7 @@ public class EsameServlet extends HttpServlet {
                     break;
                 }
             }
-/*
-            case "/visualizza":{
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizza.jsp").forward(request,response);
-                break;
-            }
-            case "/visualizzaTutti":{
-                request.getRequestDispatcher("/WEB-INF/interface/interfacciaCorso/visualizzaTutti.jsp").forward(request,response);
-                break;
-            }*/
+
             default:
                 throw new RuntimeException("Unexpected value: " + path);
         }

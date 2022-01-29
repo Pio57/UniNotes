@@ -50,7 +50,7 @@ public class LibrettoDao {
      * Ritirna tutti i libretti presenti nel Database.
      * @return Lista di tutti i libretti presenti nel Datobase.
      */
-    public ArrayList<LibrettoBean> doRetriveAll(){    // da vedere
+    public ArrayList<LibrettoBean> doRetriveAll(){
         ArrayList<LibrettoBean> lb = new ArrayList<>();
         ArrayList<EsameBean> esameBeans=new ArrayList<>();;
         try (Connection con = ConPool.getConnection()) {
@@ -100,6 +100,10 @@ public class LibrettoDao {
                 lb.setListaEsami(eb);
             }else{
                 lb.setListaEsami(null);
+                lb.setIdLibretto(id);
+                lb.setMedia(0);
+                lb.setNunEsami(0);
+                lb.setCfuCrediti(0);
             }
 
             con.close();

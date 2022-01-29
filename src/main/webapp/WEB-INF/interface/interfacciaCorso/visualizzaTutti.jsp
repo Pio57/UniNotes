@@ -15,13 +15,10 @@
 
 
     <jsp:include page="/WEB-INF/interface/partials/head.jsp">
-        <jsp:param name="title" value="UniNotes-Home"/>
+        <jsp:param name="title" value="UniNotes-Corsi"/>
         <jsp:param name="style" value="cards"/>
         <jsp:param name="script" value=""/>
     </jsp:include>
-
-
-    <title>Visualizza tutti i corsi</title>
 
 
 
