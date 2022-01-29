@@ -91,7 +91,7 @@ public class UtenteDaoTest {
 
     @Test
     public void findAccountTest(){
-        UtenteBean u = utenteDAO.findAccount("damiana00@gmail.com","9b6d200bae47bd1d15563309d085f4e839f97c192684af7049368dfd6c2123e68e4205e1c4e3859ca90e8c8859a9095bda0100d3d2695ea031760a86878c89f7");
+        UtenteBean u = utenteDAO.findAccount("damianabuono2000@gmail.com","9b6d200bae47bd1d15563309d085f4e839f97c192684af7049368dfd6c2123e68e4205e1c4e3859ca90e8c8859a9095bda0100d3d2695ea031760a86878c89f7");
         assertEquals(6, u.getIdUtente());
     }
 

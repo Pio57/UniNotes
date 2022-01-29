@@ -4,7 +4,7 @@
     <file type="web" url="file://$PROJECT_DIR$" />
   </component>
   <component name="JavadocGenerationManager">
-    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../G14_SystemTesting/JavaDoc" />
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../ConsegnaG14/JavaDoc" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">

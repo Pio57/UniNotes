@@ -12,7 +12,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
 
     <jsp:include page="/WEB-INF/interface/partials/head.jsp">
-        <jsp:param name="title" value="UniNotes-Home"/>
+        <jsp:param name="title" value="UniNotes-Login"/>
         <jsp:param name="style" value="home"/>
         <jsp:param name="script" value=""/>
     </jsp:include>

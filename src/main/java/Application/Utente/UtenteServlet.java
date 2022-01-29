@@ -378,8 +378,11 @@ public class UtenteServlet extends HttpServlet {
                     errors.add("Il cf non è valido");
                 }
 
+                if(data.equals("")){
+                    errors.add("Data non valida");
+                }
 
-                if (nome.matches(nomePattern) && cognome.matches(cognomePattern) && cf.matches(cfPattern) && email.matches(emailPattern)) {
+                if (nome.matches(nomePattern) && cognome.matches(cognomePattern) && cf.matches(cfPattern) && email.matches(emailPattern) && !data.equals("")) {
                         u.setNome(nome);
                         u.setCognome(cognome);
                         u.setCf(cf);

@@ -151,7 +151,7 @@ public class EsameServlet extends HttpServlet {
 
 
 
-                if (nome.matches(nomePattern) && nomeProfessore.matches(nomePattern) && voto>=18 && voto<=31 && cfu>=1 && cfu<=12 && Data != null) {
+                if (nome.matches(nomePattern) && nomeProfessore.matches(nomePattern) && voto>=18 && voto<=31 && cfu>=1 && cfu<=12 && !Data.equals("")) {
                     l.aggiungiEsame(new EsameBean(nome,nomeProfessore,voto,cfu,LocalDate.parse(Data)));
                     u.setLibretto(l);
                     esameService.inserisciEsame(nome,nomeProfessore,voto,cfu,LocalDate.parse(Data),l.getIdLibretto());
@@ -244,7 +244,7 @@ public class EsameServlet extends HttpServlet {
 
 
 
-                if (nome.matches(nomePattern) && nomeProfessore.matches(nomePattern ) && voto>=18 && voto<=31 && cfu>=1 && cfu<=12 && Data!=null) {
+                if (nome.matches(nomePattern) && nomeProfessore.matches(nomePattern ) && voto>=18 && voto<=31 && cfu>=1 && cfu<=12 && !Data.equals("")) {
                     esameService.modificaEsame(id,nome,nomeProfessore,voto,cfu,LocalDate.parse(Data));
                     u.setLibretto(librettoService.visualizzaLibretto(u.getLibretto().getIdLibretto()));
                     librettoService.modificaLibretto(u.getLibretto());

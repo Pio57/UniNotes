@@ -82,7 +82,7 @@ public class EsameDao {
 
             ps.setInt(1, id);
 
-            if (ps.executeUpdate() != 1) {//ho modificato il ritorno di questo metodo per fare il testing
+            if (ps.executeUpdate() != 1) {
                 //throw new RuntimeException("INSERT error.");
                 return false;
             }
