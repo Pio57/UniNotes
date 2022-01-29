@@ -65,14 +65,19 @@ public class EsameServletTest {
     @Test
     public void DoGetEliminaTest() throws ServletException, IOException {
         UtenteBean u = new UtenteBean();
-        u.setIdUtente(2);
-        LibrettoBean l = new LibrettoBean(0,0,0);
+        u.setIdUtente(6);
+        LibrettoBean l = new LibrettoBean(1,9,20);
+        l.setIdLibretto(2);
+        EsameBean e = new EsameBean();
+        e.setId(6);
+        l.aggiungiEsame(e);
+        u.setLibretto(l);
 
         when(request.getPathInfo()).thenReturn("/elimina");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);
         when(session.getAttribute("libretto")).thenReturn(l);
-        when(request.getParameter("id")).thenReturn("2");
+        when(request.getParameter("id")).thenReturn("6");
 
 
         es.doGet(request,response);
@@ -202,9 +207,10 @@ public class EsameServletTest {
         u.setIdUtente(2);
         LibrettoBean l = new LibrettoBean(0,0,0);
         l.setIdLibretto(2);
+        u.setLibretto(l);
         EsameBean e = new EsameBean();
 
-        when(request.getParameter("id")).thenReturn("4");
+        when(request.getParameter("id")).thenReturn("2");
         when(request.getPathInfo()).thenReturn("/modifica");
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("utente")).thenReturn(u);

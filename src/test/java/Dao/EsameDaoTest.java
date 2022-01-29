@@ -22,7 +22,7 @@ public class EsameDaoTest {
 
     @Test
     public void doRetrieveByIdTest(){
-        int id=6;
+        int id=3;
         EsameBean e = esameDAO.doRetriveById(id);
         assertEquals(id, e.getId());
     }
