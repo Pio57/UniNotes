@@ -34,14 +34,14 @@ public interface CorsoService {
      * @param nomeProfessore nome del professore del corso.
      * @return il corso con quel id.
      */
-    public CorsoBean inserisciCorso( String nome, String descrizione,String nomeProfessore); //ho modificato i parametri da passare --> modifira nell' odd
+    public CorsoBean inserisciCorso( String nome, String descrizione,String nomeProfessore);
 
     /**
      * Firma del metodo che implementa la funzionalità di eliminazione di un corso
      * @param idCorso id del corso da eliminare.
      * @return true se il corso è stato eliminato, altrimenti false.
      */
-    public boolean eliminaCorso(int idCorso);//qui ho aggiunto l'id per individuare il corso --> modificare nell'odd
+    public boolean eliminaCorso(int idCorso);
 
     /**
      * Firma del metodo che implementa la funzionalità di modifica di un corso

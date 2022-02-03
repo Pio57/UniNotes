@@ -42,7 +42,7 @@ public class CorsoServiceImpl implements CorsoService {
      * @param nomeProfessore nome del professore del corso.
      * @return il corso con quel id.
      */
-    public CorsoBean inserisciCorso( String nome, String descrizione,String nomeProfessore){ //ho modificato i parametri da passare --> modifira nell' odd
+    public CorsoBean inserisciCorso( String nome, String descrizione,String nomeProfessore){
         CorsoBean c = new CorsoBean(nome,descrizione,nomeProfessore);
         CorsoDao cd = new CorsoDao();
         if(cd.doSave(c))

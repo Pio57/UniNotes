@@ -48,7 +48,7 @@ public class CorsoDao {
      * Ritirna tutti i corsi presenti nel Database.
      * @return Lista di tutti i corsi presenti nel Datobase.
      */
-    public ArrayList<CorsoBean> doRetriveAll(){//l'implementazione non è una delle migliori
+    public ArrayList<CorsoBean> doRetriveAll(){
 
         ArrayList<CorsoBean> corsi = new ArrayList<>();
         ArrayList<MaterialeDidatticoBean> materiali;
